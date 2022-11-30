@@ -8,9 +8,9 @@ export function Navbar() {
           <a href="#" className="LogoTitle grid grid-cols-10 content-start">
             <div/>
             <div className='rounded-full'>
-              <img src={book.src} className="w-2/4 h-3/8 m-5"></img>
+              <img src={book.src} className="w-2/5 h-3/5 m-5"></img>
             </div>
-            <h1 className='font-face-sz text-6xl self-center mb-4'>StudentHelp</h1>
+            <h1 className='font-face-sz text-5xl self-center mb-4'>StudentHelp</h1>
           </a>
         </nav>
     );
