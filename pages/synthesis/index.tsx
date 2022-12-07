@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
+
 export default function Home() {
-  const [syntesis, setSynth] = useState();
+  const [synthesis, setSynth] = useState();
 
   useEffect(() => {
     //tu fais un fetch depuis l'api Next dans getSynths

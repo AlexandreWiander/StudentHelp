@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    listSynth: //list;
+    listSynth: string;//list
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
