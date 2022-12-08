@@ -57,7 +57,7 @@ export const authOptions = {
     },
   },
   pages: {
-    signIn: "/connection/login",
+    signIn: "/connection/index",
   },
   secret: process.env.JWT_SECRET,
 };
