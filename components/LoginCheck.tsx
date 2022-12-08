@@ -9,7 +9,12 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
 
   useEffect(() => {
     if (session == undefined) {
-      router.push("/connection");
+      if (
+        router.pathname != "/connection" &&
+        router.pathname != "/connection/login"
+      ) {
+        router.push("/connection");
+      }
     } else if (session.user?.image == undefined) {
       const body = { id: session?.user?.name };
 

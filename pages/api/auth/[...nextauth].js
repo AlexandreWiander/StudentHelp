@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 export const authOptions = {
   providers: [
     GoogleProvider({
+      id: "GoogleProvider",
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorizationUrl:
@@ -45,11 +46,19 @@ export const authOptions = {
             ];
           return user;
         } else {
-          console.log(error);
+          return error;
         }
       },
     }),
   ],
+  callbacks: {
+    async redirect() {
+      return "/";
+    },
+  },
+  pages: {
+    signIn: "/connection/login",
+  },
   secret: process.env.JWT_SECRET,
 };
 

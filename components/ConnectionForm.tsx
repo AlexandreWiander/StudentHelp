@@ -2,7 +2,7 @@ import styles from "../styles/Home.module.css";
 import { signIn } from "next-auth/react";
 
 function ConnectionForm() {
-  function loginGoogle(): void {
+  function login(): void {
     signIn();
   }
 
@@ -13,7 +13,7 @@ function ConnectionForm() {
           <h1 className="font-face-pg text-center text-2xl">Connexion</h1>
           <button
             className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14`}
-            onClick={() => loginGoogle()}
+            onClick={() => login()}
           >
             Se connecter
           </button>
