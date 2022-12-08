@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 export const authOptions = {
   providers: [
     GoogleProvider({
+      id: "GoogleProvider",
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorizationUrl:
@@ -43,13 +44,23 @@ export const authOptions = {
             decodedToken[
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
             ];
+          user.token = token;
+
           return user;
         } else {
-          console.log(error);
+          return error;
         }
       },
     }),
   ],
+  callbacks: {
+    async redirect() {
+      return "/";
+    },
+  },
+  pages: {
+    signIn: "/connection/index",
+  },
   secret: process.env.JWT_SECRET,
 };
 
