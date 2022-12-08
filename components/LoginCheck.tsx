@@ -10,7 +10,7 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
   useEffect(() => {
     if (session == undefined) {
       router.push("/connection");
-    } else if (session.user?.image == undefined) {
+    } else if (session.user?.image == undefined && fullName == null) {
       const body = { id: session?.user?.name };
 
       fetch("/api/auth/name", {
@@ -24,7 +24,7 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
           localStorage.setItem("fullName", fullN);
           setName(fullN);
         });
-    } else {
+    } else if (fullName == null) {
       let fullNameGoogle = session.user?.name;
       if (fullNameGoogle != undefined) {
         localStorage.setItem("fullName", fullNameGoogle);
