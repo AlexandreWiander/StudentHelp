@@ -8,14 +8,19 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
   const [fullName, setName] = useState(null);
 
   useEffect(() => {
-    if (session == undefined) {
-      if (
-        router.pathname != "/connection" &&
-        router.pathname != "/connection/login"
-      ) {
+    if (session == undefined && localStorage.getItem("fullName") == null) {
+      if (router.pathname != "/connection") {
         router.push("/connection");
       }
-    } else if (session.user?.image == undefined) {
+    } else if (session != undefined && router.pathname == "/connection") {
+      router.push("/");
+    }
+
+    if (
+      session != undefined &&
+      session.user?.image == undefined &&
+      localStorage.getItem("fullName") == null
+    ) {
       const body = { id: session?.user?.name };
 
       fetch("/api/auth/name", {
@@ -29,7 +34,10 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
           localStorage.setItem("fullName", fullN);
           setName(fullN);
         });
-    } else {
+    } else if (
+      session != undefined &&
+      localStorage.getItem("fullName") == null
+    ) {
       let fullNameGoogle = session.user?.name;
       if (fullNameGoogle != undefined) {
         localStorage.setItem("fullName", fullNameGoogle);

@@ -22,7 +22,7 @@ function ConnectionForm() {
         progress: undefined,
         theme: "colored",
       });
-    } else if (name.match(regMail)) {
+    } else if (regMail.match(name)) {
       toast.error("Adresse email invalide", {
         position: "top-center",
         autoClose: 15000,
@@ -34,7 +34,7 @@ function ConnectionForm() {
         theme: "colored",
       });
     } else if (name != "" && pass != "") {
-      signIn("GoogleProvider");
+      signIn("credentials", { username: name, password: pass });
     }
   }
 

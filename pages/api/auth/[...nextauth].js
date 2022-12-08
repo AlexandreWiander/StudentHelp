@@ -44,6 +44,8 @@ export const authOptions = {
             decodedToken[
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
             ];
+          user.token = token;
+
           return user;
         } else {
           return error;
