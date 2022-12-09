@@ -21,6 +21,9 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
       session.user?.image == undefined &&
       localStorage.getItem("fullName") == null
     ) {
+      // J'utilise la ligne suivante car la propriété customToken est un prop. personnalisée. Ceci est utilisé pour ignorer l'erreur typescript
+      // @ts-ignore
+      localStorage.setItem("JWT", session?.customToken);
       const body = { id: session?.user?.name };
 
       fetch("/api/auth/name", {
@@ -38,6 +41,18 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
       session != undefined &&
       localStorage.getItem("fullName") == null
     ) {
+      const body = { mail: session?.user?.email };
+      fetch("/api/auth/googleGetToken", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+          localStorage.setItem("JWT", result.token);
+        });
+
       let fullNameGoogle = session.user?.name;
       if (fullNameGoogle != undefined) {
         localStorage.setItem("fullName", fullNameGoogle);

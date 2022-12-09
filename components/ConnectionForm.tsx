@@ -8,13 +8,17 @@ function ConnectionForm() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
 
+  const validEmail = new RegExp(
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
+  );
+
   function Log() {
     const regMail = "^[w-.]+@([w-]+.)+[w-]{2,4}$";
 
     if (name == "" || pass == "") {
       toast.error("Email et/ou mot de passe vide", {
         position: "top-center",
-        autoClose: 15000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -22,10 +26,10 @@ function ConnectionForm() {
         progress: undefined,
         theme: "colored",
       });
-    } else if (regMail.match(name)) {
-      toast.error("Adresse email invalide", {
+    } else if (!validEmail.test(name)) {
+      toast.error("Email invalide", {
         position: "top-center",
-        autoClose: 15000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -33,8 +37,8 @@ function ConnectionForm() {
         progress: undefined,
         theme: "colored",
       });
-    } else if (name != "" && pass != "") {
-      signIn("credentials", { username: name, password: pass });
+    } else {
+      signIn("credentials", { mail: name, password: pass });
     }
   }
 
@@ -43,18 +47,6 @@ function ConnectionForm() {
       <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4 rounded-lg w-1/2">
         <h1 className="font-face-pg text-center text-4xl">Connexion</h1>
         <hr className="mt-5 mb-5" />
-        <ToastContainer
-          position="top-center"
-          autoClose={15000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
         <div className="flex flex-col space-y-5">
           <input
             placeholder="Entrez votre adresse email"

@@ -5,6 +5,8 @@ import styles from "../styles/Home.module.css";
 import type { AppProps } from "next/app";
 import LoginCheck from "../components/LoginCheck";
 import { SessionProvider } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({
   Component,
@@ -19,6 +21,18 @@ export default function App({
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Navbar />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
           <main className={styles.main}>
             <Component {...pageProps} />
           </main>

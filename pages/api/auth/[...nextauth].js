@@ -45,7 +45,6 @@ export const authOptions = {
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
             ];
           user.token = token;
-
           return user;
         } else {
           return error;
@@ -56,6 +55,17 @@ export const authOptions = {
   callbacks: {
     async redirect() {
       return "/";
+    },
+    async jwt({ token, account, user }) {
+      if (account) {
+        token.customToken = user.token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.customToken = token.customToken;
+
+      return session;
     },
   },
   pages: {
