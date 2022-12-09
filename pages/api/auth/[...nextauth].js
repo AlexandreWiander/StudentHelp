@@ -53,6 +53,36 @@ export const authOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ account, profile }) {
+      const res = await fetch(
+        "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" + profile.email,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (account.provider === "GoogleProvider" && res.statusText != "yes") {
+        const rawResponse = await fetch(
+          "https://porthos-intra.cg.helmo.be/e180478/Auth/registerGoogle",
+          {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: profile.email,
+              password: "",
+              lastName: profile.name?.split(" ")[1],
+              firstName: profile.name?.split(" ")[0],
+            }),
+          }
+        );
+        return true;
+      }
+      return true;
+    },
     async redirect() {
       return "/";
     },

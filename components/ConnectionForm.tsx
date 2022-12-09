@@ -2,7 +2,7 @@ import styles from "../styles/Home.module.css";
 import google from "../public/images/google.png";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 function ConnectionForm() {
   const [name, setName] = useState("");
@@ -13,7 +13,9 @@ function ConnectionForm() {
   );
 
   function Log() {
-    const regMail = "^[w-.]+@([w-]+.)+[w-]{2,4}$";
+    const validEmail = new RegExp(
+      "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
+    );
 
     if (name == "" || pass == "") {
       toast.error("Email et/ou mot de passe vide", {
@@ -83,6 +85,12 @@ function ConnectionForm() {
               </div>
             </div>
           </button>
+          <div className="flex flex-row content-start justify-center">
+            <p>Vous n'avez pas encore de compte ?</p>
+            <a href="/connection/register" className="ml-3 text-blue-500">
+              S'inscrire
+            </a>
+          </div>
         </div>
       </div>
     </>

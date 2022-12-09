@@ -9,7 +9,10 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
 
   useEffect(() => {
     if (session == undefined && localStorage.getItem("fullName") == null) {
-      if (router.pathname != "/connection") {
+      if (
+        router.pathname != "/connection" &&
+        router.pathname != "/connection/register"
+      ) {
         router.push("/connection");
       }
     } else if (session != undefined && router.pathname == "/connection") {
