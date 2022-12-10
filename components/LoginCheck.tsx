@@ -11,7 +11,8 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
     if (session == undefined && localStorage.getItem("fullName") == null) {
       if (
         router.pathname != "/connection" &&
-        router.pathname != "/connection/register"
+        router.pathname != "/connection/register" &&
+        router.pathname != "/contact"
       ) {
         router.push("/connection");
       }
