@@ -2,7 +2,7 @@ import styles from "../../styles/Home.module.css";
 import google from "../../public/images/google.png";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 export default function Home() {
@@ -48,6 +48,9 @@ export default function Home() {
               theme: "colored",
             }
           );
+          localStorage.removeItem("JWT");
+          localStorage.removeItem("fullName");
+          signOut({ callbackUrl: "/connection" });
         }
       });
   }
