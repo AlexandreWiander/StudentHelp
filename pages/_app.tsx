@@ -7,6 +7,7 @@ import LoginCheck from "../components/LoginCheck";
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Footer } from "../components/Footer";
 
 export default function App({
   Component,
@@ -36,9 +37,7 @@ export default function App({
           <main className={styles.main}>
             <Component {...pageProps} />
           </main>
-          <footer className={styles.footer}>
-            <h1>Footer</h1>
-          </footer>
+          <Footer />
         </div>
       </LoginCheck>
     </SessionProvider>
