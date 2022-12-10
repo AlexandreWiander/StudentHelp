@@ -12,7 +12,6 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <LoginCheck>
         <div className={styles.body}>
           <Head>
             <title>StudentHelp</title>
@@ -26,7 +25,6 @@ export default function App({
             <h1>Footer</h1>
           </footer>
         </div>
-      </LoginCheck>
     </SessionProvider>
   );
 }

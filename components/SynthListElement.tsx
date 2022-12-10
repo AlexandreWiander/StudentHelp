@@ -1,5 +1,7 @@
+
+
 export function SynthListElement() {
-  return <div>//L'affichage de 1 elément synthèse dans la liste</div>;
+  return <div>{}</div>;
 }
 
 export default SynthListElement;
