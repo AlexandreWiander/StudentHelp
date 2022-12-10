@@ -63,35 +63,35 @@ export default function Home() {
         <div className="flex flex-col space-y-5">
           <input
             placeholder="Entrez votre adresse email"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="mail"
             onChange={(e) => setMail(e.target.value)}
             type="text"
           />
           <input
             placeholder="Entrez votre mot de passe"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="password"
             onChange={(e) => setPass(e.target.value)}
             type="password"
           />
           <input
             placeholder="Entrez votre prénom"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="firstname"
             onChange={(e) => setFirstname(e.target.value)}
             type="text"
           />
           <input
             placeholder="Entrez votre nom"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="lastname"
             onChange={(e) => setLastname(e.target.value)}
             type="text"
           />
           <button
             onClick={() => registerNormal()}
-            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
             type="submit"
           >
             S'inscrire
@@ -100,7 +100,7 @@ export default function Home() {
         <hr className="mt-5 mb-5" />
         <div className="flex flex-col space-y-5">
           <button
-            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
             onClick={() => registerGoogle()}
           >
             <div className="flex flex-row content-start justify-center">

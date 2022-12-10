@@ -12,7 +12,7 @@ function LogOutButton() {
     <>
       <form onSubmit={(e) => logout(e)} className="self-center ml-auto">
         <button
-          className="bg-white text-cyan-800 rounded-full shadow-xl p-2 font-face-pg"
+          className="bg-white text-cyan-800 rounded-full shadow-xl p-2 font-face-pg hover:scale-110 transition duration-500"
           type="submit"
         >
           Se déconnecter

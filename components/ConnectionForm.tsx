@@ -52,21 +52,21 @@ function ConnectionForm() {
         <div className="flex flex-col space-y-5">
           <input
             placeholder="Entrez votre adresse email"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="mail"
             onChange={(e) => setName(e.target.value)}
             type="text"
           />
           <input
             placeholder="Entrez votre mot de passe"
-            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="password"
             onChange={(e) => setPass(e.target.value)}
             type="password"
           />
           <button
             onClick={() => Log()}
-            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
             type="submit"
           >
             Se connecter
@@ -76,7 +76,7 @@ function ConnectionForm() {
         <div className="flex flex-col space-y-5">
           <button
             onClick={() => signIn("GoogleProvider")}
-            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14`}
+            className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
           >
             <div className="flex flex-row content-start justify-center">
               <img src={google.src} className="m-0 p-0 h-8 w-8"></img>
@@ -87,7 +87,10 @@ function ConnectionForm() {
           </button>
           <div className="flex flex-row content-start justify-center">
             <p>Vous n'avez pas encore de compte ?</p>
-            <a href="/connection/register" className="ml-3 text-blue-500">
+            <a
+              href="/connection/register"
+              className="ml-3 text-blue-500 hover:text-blue-800"
+            >
               S'inscrire
             </a>
           </div>
