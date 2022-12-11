@@ -1,8 +1,6 @@
-import { useEffect } from "react";
+import ChatList from "../../components/ChatList";
 
 export default function Home() {
-  useEffect(() => {}, []);
-
   return (
     <div>
       <ChatList />
