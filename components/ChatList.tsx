@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import styles from "../styles/Home.module.css";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface Discution {
   id: string;
@@ -14,7 +14,6 @@ interface Discution {
 }
 
 function ChatList() {
-  const router = useRouter();
   const [chatList, setChatList] = useState<Array<Discution>>([]);
 
   useEffect(() => {
@@ -68,12 +67,18 @@ function ChatList() {
               {discution.content}
             </p>
             <p className="font-face-pg text-sm mb-3">à {date}</p>
-            <button
-              onClick={() => router.push("/chat/" + discution.recieverId)}
-              className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
+            <Link
+              href={{
+                pathname: "/chat/message",
+                query: { id: discution.recieverId }, // the data
+              }}
             >
-              Ouvrir la conversation
-            </button>
+              <button
+                className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
+              >
+                Ouvrir la conversation
+              </button>
+            </Link>
           </div>
         );
       })}
