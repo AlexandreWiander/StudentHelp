@@ -8,6 +8,7 @@ export default function Home() {
   const [mySynthesis, setMySynth]=useState([]);
   const [useFilter, setFilter] = useState(false);
   const [classSelected, setClass]= useState("0");
+  const [addClass, setAddClass]=useState("0");
 
   useEffect(() => {
       if(classSelected=="0"){
@@ -39,6 +40,11 @@ export default function Home() {
   function changeClass(value:any){
       setClass(value);
   }
+  function changeAddClass(value:any){
+      setAddClass(value);
+  }
+
+
 
   function downloadFile(idSynthese:number, fileName:string){
         const body = { id: idSynthese, fileName:fileName };
@@ -52,7 +58,6 @@ export default function Home() {
                 var content = result.file;
                 var download = document.createElement("a");
                 download.href = content;
-                console.log(fileName);
                 download.download = fileName;
                 download.click();
             })
@@ -64,10 +69,10 @@ export default function Home() {
         if (files != null) {
             var one = files[0];
             if (one != undefined) {
-                if(classSelected!="0"){
+                if(addClass!="0"){
                     const body = new FormData();
                     body.append("File", one);
-                    body.append("ClassId", classSelected);
+                    body.append("ClassId", addClass);
                     body.append("CreationDate", Date.now().toString());
                     body.append("UserId", "3");
                     body.append("Name", one.name);
@@ -114,7 +119,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center mt-2 font-face-pg">
             <p className="text-2xl font-extrabold tracking-tight leading-none mt-2 text-center">Ajouter une nouvelle synthèse:</p>
-            <p>Choississez le cours avec le Filtre de gauche !</p>
+            <DropDownClass onChanged={changeAddClass}/>
             <div className="flex">
                     <input
                         className="block w-4/5 mt-4 mb-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"

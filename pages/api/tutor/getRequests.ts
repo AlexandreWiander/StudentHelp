@@ -1,14 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    listClasses: Class[];//list
+    requestsList: Request[];
 }
-export interface Class{
+export interface Request{
     id:number,
-    name:string,
+    tutorClassName:string,
+    askName:string,
+    tutorName: string,
+    tutorId:number,
+    commentaire:string,
+    avatarTutor:number,
+    isActive:boolean
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Class', {
+    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/TutorRequest?id='+req.body.id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -18,17 +24,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     });
     const content = await rawResponse.json();
     if(rawResponse.status == 200){
-        var cours=[];
+        var requests=[];
         for(var i=0; i<content.length; i++){
             var one = content[i];
-            const oneCours : Class={
+            var user = one.user;
+            var tuteur = one.tutor;
+            var oneClass = one.class;
+            const oneRequest : Request={
                 id:one.id,
-                name: one.name,
+                tutorClassName:oneClass.name,
+                tutorName:tuteur.firstName + " " + tuteur.lastName,
+                askName:user.firstName+ " "+user.lastName,
+                commentaire:one.commentaire,
+                isActive:one.isActive,
+                tutorId:one.tutorId,
+                avatarTutor:tuteur.avatarNumber,
             }
-            cours.push(oneCours);
+            requests.push(oneRequest);
         }
-        res.status(200).json({ listClasses: cours});
+        res.status(200).json({ requestsList: requests});
     } else {
-        res.status(400).json({listClasses:[]});
+        res.status(400).json({requestsList:[]});
     }
 }
