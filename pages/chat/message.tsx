@@ -2,6 +2,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styles from "../../styles/Home.module.css";
 import jwt_decode from "jwt-decode";
+import {
+  HubConnection,
+  HubConnectionBuilder,
+  LogLevel,
+} from "@Microsoft/signalr";
 
 interface Discution {
   id: string;
@@ -14,17 +19,62 @@ interface Discution {
 }
 
 export default function message() {
+  const [connection, setCon] = useState<HubConnection>();
+  const [discution, setDiscution] = useState<Array<Discution>>();
+  const [message, setMessage] = useState("");
+  const [newMsg, setNewMsg] = useState(0);
+  const [imageId, setImage] = useState(1);
+  const [corrName, setName] = useState("");
+  let myId = -1;
+
+  const joinRoom = async (token: string) => {
+    try {
+      const connection = new HubConnectionBuilder()
+        .withUrl(
+          "https://porthos-intra.cg.helmo.be/e180478/chatHub?access_token=" +
+            token
+        )
+        .withAutomaticReconnect()
+        .configureLogging(LogLevel.Information)
+        .build();
+
+      connection.on("ReceiveMessage", (idSender, message) => {
+        discution?.push(message);
+        setDiscution(discution);
+        let i = newMsg;
+        setNewMsg(i + 1);
+      });
+
+      connection.serverTimeoutInMilliseconds = 240000;
+
+      await connection.start();
+      setCon(connection);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const sendMsg = async () => {
+    const parsedInt = parseInt(typeof idO === "string" ? idO : "");
+    try {
+      await connection?.invoke("SendMessage", myId, parsedInt, message);
+      let i = newMsg;
+      setNewMsg(i + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  let token: any = null;
   const router = useRouter();
   const query = router.query;
   const idO = query.id;
 
-  const [discution, setDiscution] = useState<Array<Discution>>();
-  const [message, setMessage] = useState("");
-  const [imageId, setImage] = useState(1);
-  const [corrName, setName] = useState("");
-
   useEffect(() => {
-    const token = localStorage.getItem("JWT");
+    token = localStorage.getItem("JWT");
+
+    joinRoom(token);
+
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
       let id =
@@ -56,7 +106,13 @@ export default function message() {
           }
         });
     }
-  }, [idO]);
+  }, [idO, newMsg]);
+
+  const handleKeypress = (e: { keyCode: number }) => {
+    if (e.keyCode === 13) {
+      sendMsg();
+    }
+  };
 
   if (discution != undefined) {
     return (
@@ -97,6 +153,7 @@ export default function message() {
                         </div>
                       );
                     } else {
+                      myId = message.senderId;
                       return (
                         <div key={message.id} className="p-2 flex justify-end">
                           <div className="flex-col min-w-fit w-min">
@@ -111,15 +168,20 @@ export default function message() {
                   })}
                 </div>
               </div>
-              <div className="w-full flex flex-row p-5">
+              <div
+                className="w-full flex flex-row p-5"
+                onKeyDown={handleKeypress}
+              >
                 <input
                   className={`${styles.inputConnection} flex-1 rounded-full shadow-md p-5 font-face-pg h-14`}
+                  autoFocus
                   onChange={(e) => setMessage(e.target.value)}
                   type="text"
                 />
                 <button
                   className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 w-32 ml-2 hover:scale-105 transition duration-500`}
                   type="submit"
+                  onClick={() => sendMsg()}
                 >
                   Envoyer
                 </button>
