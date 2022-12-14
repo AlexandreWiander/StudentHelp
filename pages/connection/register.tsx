@@ -2,16 +2,13 @@ import styles from "../../styles/Home.module.css";
 import google from "../../public/images/google.png";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Home() {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const { data: session } = useSession();
-  const router = useRouter();
 
   async function registerGoogle() {
     signIn("GoogleProvider");
@@ -33,6 +30,8 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         if (result.message == "Success") {
+          console.log(mail, pass);
+
           signIn("credentials", { mail: mail, password: pass });
         } else {
           toast.error(
@@ -66,7 +65,7 @@ export default function Home() {
             className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="mail"
             onChange={(e) => setMail(e.target.value)}
-            type="text"
+            type="email"
           />
           <input
             placeholder="Entrez votre mot de passe"

@@ -4,7 +4,7 @@ type Data = {
     message: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {    
     const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/register', {
         method: 'POST',
         headers: {
