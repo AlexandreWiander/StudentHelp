@@ -14,7 +14,7 @@ export interface Request{
     isActive:boolean
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/TutorRequest?id='+req.body.id, {
+    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/TutorRequest/active/'+req.body.id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -38,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 commentaire:one.comment,
                 isActive:one.isActive,
                 tutorId:one.tutorId,
-                avatarTutor:tuteur.avatarNumber,
+                avatarTutor:user.avatarNumber,
             }
             requests.push(oneRequest);
         }

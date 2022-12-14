@@ -23,7 +23,7 @@ export function DropDownClass(props:any) {
                    className="w-1/2 mt-1 mb-4 px-2 py-3 text-base border border-transparent rounded-lg bg-white">
         <option value="0" className="text-center">Sélectionner un cours</option>
         {classes.map((one)=>(
-            <option key={one["id"]} className="text-center" value={one["id"]}>{one["name"]}</option>
+            <option key={one["id"]} className="text-center" value={one["id"]+" "+ one["name"]}>{one["name"]}</option>
         ))}
     </select>);
 

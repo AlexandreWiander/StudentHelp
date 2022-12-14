@@ -13,7 +13,8 @@ module.exports = {
       'orangeTheme': '#EA882E',
       'redTheme': '#F63737',
       'yellowTheme': '#E5BB25',
-      'white':'rgba(249,249,249)'
+      'white':'rgba(249,249,249)',
+      'darkGrey':'#cbc7c8',
     },
     extend: {},
   },

@@ -11,7 +11,8 @@ export default function Home() {
   const [addClass, setAddClass]=useState("0");
 
   useEffect(() => {
-      if(classSelected=="0"){
+      var pos = classSelected.indexOf(" ");
+      if(classSelected=="0"||classSelected.substring(0,pos)=="0"){
           fetch("/api/synthesis/getSynths", {
               method: "GET",
               headers: { "Content-Type": "application/json" },
@@ -23,7 +24,8 @@ export default function Home() {
                   setMySynth(result.myListSynth);
               })
       }else{
-          const body = { id: classSelected };
+          var pos = classSelected.indexOf(" ");
+          const body = { id: classSelected.substring(0,pos)};
           fetch("/api/synthesis/getFilterSynth", {
               method: "post",
               headers: { "Content-Type": "application/json" },

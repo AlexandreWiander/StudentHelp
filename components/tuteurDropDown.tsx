@@ -2,10 +2,12 @@ import {useEffect, useState} from "react";
 
 export function TuteurDropDown(props:any) {
     const [tutors, setTutors] = useState([]);
-    const [tutorSelected, setTutor]=useState("0");
+
+    const idUser=4;
+
     useEffect(()=>{
         if(props.id!="0"){
-            const body = { id: props.id };
+            const body = { id: props.id, userId:idUser };
             fetch("/api/tutor/getTutors", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -20,8 +22,7 @@ export function TuteurDropDown(props:any) {
         else{
             setTutors([]);
         }
-        console.log(props.id);
-    },[tutors,tutorSelected]);
+    },[props.classValue]);
 
     const tutorsChange=(e:any)=>{
         props.onChanged(e.target.value);

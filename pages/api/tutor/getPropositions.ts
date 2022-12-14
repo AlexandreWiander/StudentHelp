@@ -1,20 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    requestsList: Request[];
+    propositionList: Proposition[];
 }
-export interface Request{
+export interface Proposition{
     id:number,
-    tutorClassName:string,
-    askName:string,
-    tutorName: string,
-    tutorId:number,
-    commentaire:string,
-    avatarTutor:number,
-    isActive:boolean
+    name:string,
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/TutorRequest?id='+req.body.id, {
+    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Class/props?id='+req.body.id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -24,26 +18,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     });
     const content = await rawResponse.json();
     if(rawResponse.status == 200){
-        var requests=[];
+        var propositions=[];
         for(var i=0; i<content.length; i++){
             var one = content[i];
-            var user = one.user;
-            var tuteur = one.tutor;
-            var oneClass = one.class;
-            const oneRequest : Request={
+            const oneProposition : Proposition={
                 id:one.id,
-                tutorClassName:oneClass.name,
-                tutorName:tuteur.firstName + " " + tuteur.lastName,
-                askName:user.firstName+ " "+user.lastName,
-                commentaire:one.comment,
-                isActive:one.isActive,
-                tutorId:one.tutorId,
-                avatarTutor:tuteur.avatarNumber,
+                name:one.name,
             }
-            requests.push(oneRequest);
+            propositions.push(oneProposition);
         }
-        res.status(200).json({ requestsList: requests});
+        res.status(200).json({ propositionList: propositions});
     } else {
-        res.status(200).json({requestsList:[]});
+        res.status(200).json({propositionList:[]});
     }
 }
