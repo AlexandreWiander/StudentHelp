@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 askName:user.firstName+ " "+user.lastName,
                 commentaire:one.comment,
                 isActive:one.isActive,
-                tutorId:one.tutorId,
+                tutorId:user.tutorId,
                 avatarTutor:user.avatarNumber,
             }
             requests.push(oneRequest);
