@@ -33,6 +33,21 @@ export default function Home() {
           console.log(mail, pass);
 
           signIn("credentials", { mail: mail, password: pass });
+        } else if (result.message == "Le user existe déjà") {
+          localStorage.removeItem("JWT");
+          localStorage.removeItem("fullName");
+
+          toast.error("Ce compte existe déjà, veuillez vous connecter", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          signOut();
         } else {
           toast.error(
             "Une erreur s'est produite durant l'inscription, veuillez réessayer",
