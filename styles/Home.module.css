@@ -135,6 +135,10 @@
   color: #D9D9D9 !important;
 }
 
+.loading{
+  display: none;
+}
+
 .lobby{
   height: 82.5vh;
   padding: 50px;
