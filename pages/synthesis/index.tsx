@@ -3,6 +3,8 @@ import file from "../../public/images/file.png";
 import cat from "../../public/images/Loading_cercle.gif";
 import DropDownClass from "../../components/dropDownClass";
 import styles from "../../styles/Home.module.css";
+import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 
 
 export default function Home() {
@@ -12,11 +14,15 @@ export default function Home() {
   const [classSelected, setClass]= useState("0");
   const [addClass, setAddClass]=useState("0");
 
-  const idUser = 1;
+    const token = "";
+    const idUser = -1;
 
   useEffect(() => {
+      const token = localStorage.getItem("JWT");
+      const decodedToken = jwt_decode(token??"") as any;
+      const idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
       var pos = classSelected.indexOf(" ");
-      const body = {id: idUser}
+      const body = {id: idUser, token:token}
       if(classSelected=="0"||classSelected.substring(0,pos)=="0"){
           fetch("/api/synthesis/getSynths", {
               method: "POST",
@@ -31,7 +37,7 @@ export default function Home() {
               })
       }else{
           var pos = classSelected.indexOf(" ");
-          const body = { id: classSelected.substring(0,pos)};
+          const body = { id: classSelected.substring(0,pos), token:token};
           fetch("/api/synthesis/getFilterSynth", {
               method: "post",
               headers: { "Content-Type": "application/json" },
@@ -58,7 +64,7 @@ export default function Home() {
       fetch("https://porthos-intra.cg.helmo.be/e180478/Synthesis/"+idSynthese, {
           method: 'GET',
           headers: {
-              'Authorization': 'bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJlc3RlbGxlLmphbnNAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNjcxMTg4MjQyfQ.6-4Uujav3_JzfhRWC99oHAo0OQBvNwbUJjFXAIZJIgdd5kcC1jB35os9iJKq9bluhL_-x388i8LcyLr1uZLktg',
+              'Authorization': 'bearer '+token,
           },
       })
             .then((res) => res.blob())
@@ -92,22 +98,59 @@ export default function Home() {
                     const response = await fetch("https://porthos-intra.cg.helmo.be/e180478/Synthesis", {
                         method: "POST",
                         headers: {
-                            'Authorization': 'bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9lbWFpbGFkZHJlc3MiOiJlc3RlbGxlLmphbnNAb3V0bG9vay5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJ1c2VyIiwiZXhwIjoxNjcxMTg4MjQyfQ.6-4Uujav3_JzfhRWC99oHAo0OQBvNwbUJjFXAIZJIgdd5kcC1jB35os9iJKq9bluhL_-x388i8LcyLr1uZLktg',
+                            'Authorization': 'bearer '+token,
                         },
                         body:body
                     });
                     if(response.status==200){
                         document.getElementById("loadingGif")!.style.display = "none";
-                        alert("Ajout de la synthèse effectué avec succès !");
+                        toast.success("Ajout de la synthèse effectué avec succès !",{
+                            position:"top-center",
+                            autoClose:5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover:true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
+
                     }else{
                         document.getElementById("loadingGif")!.style.display = "none";
-                        alert("Erreur lors de l'ajout de la synthèse !");
+                        toast.error("Erreur lors de l'ajout de la synthèse !",{
+                            position:"top-center",
+                            autoClose:5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover:true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+                        });
                     }
                 }else{
-                    alert("Veuillez choisir un cours en utilisant le filtre de cours");
+                    toast.error("Veuillez choisir un cours en utilisant le filtre de cours !",{
+                        position:"top-center",
+                        autoClose:5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover:true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                    });
                 }
             } else {
-                alert("Il faut sélectionner un synthèse pour en ajouter une !")
+                toast.error("Il faut sélectionner un synthèse pour en ajouter une !",{
+                    position:"top-center",
+                    autoClose:5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover:true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
             }
         } else {
             console.log("ici");
@@ -116,7 +159,7 @@ export default function Home() {
     }
 
     const deleteSynthese=(event: { currentTarget: { id: any; }; })=>{
-        const body = { id: event.currentTarget.id,};
+        const body = { id: event.currentTarget.id,token:token};
         fetch("/api/synthesis/removeSynthese", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

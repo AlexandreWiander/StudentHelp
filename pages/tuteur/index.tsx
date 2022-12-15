@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import file from "../../public/images/file.png";
 import DropDownClass from "../../components/dropDownClass";
 import TuteurDropDown from "../../components/tuteurDropDown";
 import styles from "../../styles/Home.module.css";
 import Link from "next/link";
+import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 
 
 export default function Home() {
@@ -15,11 +16,15 @@ export default function Home() {
     const [tutorSelected, setTutorSelected]=useState("0");
     const [propositions, setPropositions]=useState([]);
 
-    const idUser = 6;
+    const token = "";
+    const idUser = -1;
 
 
     useEffect(() => {
-        const body = { id:idUser };
+        const token = localStorage.getItem("JWT");
+        const decodedToken = jwt_decode(token??"") as any;
+        const idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+        const body = { id:idUser, token:token };
         fetch("/api/tutor/getRequests", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -84,13 +89,13 @@ export default function Home() {
         var pos = classSelected1.indexOf(" ");
         if((classSelected1!="0"||classSelected1.substring(0,pos)=="0")&&tutorSelected!="0"){
             var pos = classSelected1.indexOf(" ");
-            const body = { id: idUser, comment:comment, tutorId: tutorSelected, classId: classSelected1.substring(0,pos)};
+            const body = { id: idUser, comment:comment, tutorId: tutorSelected, classId: classSelected1.substring(0,pos), token:token};
             fetch("/api/tutor/addRequest", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             })
-            const body2={id:idUser};
+            const body2={id:idUser, token: token};
             fetch("/api/tutor/getRequests", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -103,20 +108,29 @@ export default function Home() {
                 })
             commentaire.value="";
         }else{
-            alert("Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.");
+            toast.error("Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",{
+                position:"top-center",
+                autoClose:5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover:true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     }
 
     function addProposition(){
         var pos = classSelected2.indexOf(" ");
         if(classSelected2!="0"||classSelected2.substring(0,pos)=="0"){
-            const body = { id: idUser, nameClass: classSelected2.substring(pos+1)};
+            const body = { id: idUser, nameClass: classSelected2.substring(pos+1), token: token};
             fetch("/api/tutor/addProposition", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             })
-            const body2={id:idUser};
+            const body2={id:idUser, token:token};
             fetch("/api/tutor/getPropositions", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -128,18 +142,27 @@ export default function Home() {
                     setPropositions(list);
                 })
         }else{
-            alert("Il faut sélectionner un cours pour ajouter une proposition de tutorat");
+            toast.error("Il faut sélectionner un cours pour ajouter une proposition de tutorat.",{
+                position:"top-center",
+                autoClose:5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover:true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            });
         }
     }
 
     const deleteProposition=(event: { currentTarget: { id: any; }; })=>{
-        const body = { id: idUser, nameClass: event.currentTarget.id};
+        const body = { id: idUser, nameClass: event.currentTarget.id, token:token};
         fetch("/api/tutor/deleteProposition", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
         })
-        const body2={id:idUser};
+        const body2={id:idUser, token:token};
         fetch("/api/tutor/getPropositions", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -153,13 +176,13 @@ export default function Home() {
     };
 
     const activeRequest=(event: { currentTarget: { id: any; }; })=>{
-        const body = { id: event.currentTarget.id,};
+        const body = { id: event.currentTarget.id,token:token};
         fetch("/api/tutor/activeRequest", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
         })
-        const body2 = { id: idUser};
+        const body2 = { id: idUser, token:token};
         fetch("/api/tutor/getInactiveRequests", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -183,13 +206,13 @@ export default function Home() {
     };
 
     const deleteRequest=(event: { currentTarget: { id: any; }; })=>{
-        const body = { id: event.currentTarget.id,};
+        const body = { id: event.currentTarget.id,token: token};
         fetch("/api/tutor/deleteRequest", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body),
         })
-        const body2 = { id: idUser};
+        const body2 = { id: idUser, token:token};
         fetch("/api/tutor/getInactiveRequests", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

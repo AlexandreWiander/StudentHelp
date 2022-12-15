@@ -1,12 +1,17 @@
 import {useEffect, useState} from "react";
+import jwt_decode from "jwt-decode";
 
 export function DropDownClass(props:any) {
     const [classes, setClasses] = useState([]);
-    const [classSelected, setClassSelect]=useState("0")
+    const [classSelected, setClassSelect]=useState("0");
+
     useEffect(()=>{
+        const token = localStorage.getItem("JWT");
+        const body = {token:token}
         fetch("/api/classes/getClasses", {
-            method: "GET",
+            method: "post",
             headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
         })
             .then((res) => res.json())
             .then((result)=>{

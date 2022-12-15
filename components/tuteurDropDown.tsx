@@ -1,13 +1,18 @@
 import {useEffect, useState} from "react";
+import jwt_decode from "jwt-decode";
 
 export function TuteurDropDown(props:any) {
     const [tutors, setTutors] = useState([]);
 
-    const idUser=6;
+    const token = "";
+    const idUser =-1;
 
     useEffect(()=>{
+        const token = localStorage.getItem("JWT");
+        const decodedToken = jwt_decode(token??"") as any;
+        const idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
         if(props.id!="0"){
-            const body = { id: props.id, userId:idUser };
+            const body = { id: props.id, userId:idUser, token:token };
             fetch("/api/tutor/getTutors", {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
