@@ -14,13 +14,14 @@ export default function Home() {
   const [classSelected, setClass]= useState("0");
   const [addClass, setAddClass]=useState("0");
 
-    const token = "";
-    const idUser = -1;
+    let token: string | null = "";
+    let idUser = -1;
 
-  useEffect(() => {
-      const token = localStorage.getItem("JWT");
+
+    useEffect(() => {
+      token = localStorage.getItem("JWT");
       const decodedToken = jwt_decode(token??"") as any;
-      const idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+      if(idUser==-1)idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
       var pos = classSelected.indexOf(" ");
       const body = {id: idUser, token:token}
       if(classSelected=="0"||classSelected.substring(0,pos)=="0"){
