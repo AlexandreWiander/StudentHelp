@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import jwt_decode from "jwt-decode";
+import { toast } from "react-toastify";
 
 export const authOptions = {
   providers: [
@@ -46,41 +47,50 @@ export const authOptions = {
             ];
           user.token = token;
           return user;
+        } else if (
+          response.message ==
+          "Compte Google, veuillez vous connecter de la manière appropriée"
+        ) {
+          return null;
         } else {
-          return error;
+          return null;
         }
       },
     }),
   ],
   callbacks: {
     async signIn({ account, profile }) {
-      const res = await fetch(
-        "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" + profile.email,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (account.provider === "GoogleProvider" && res.statusText != "yes") {
-        const rawResponse = await fetch(
-          "https://porthos-intra.cg.helmo.be/e180478/Auth/registerGoogle",
+      if (account.provider === "GoogleProvider") {
+        const res = await fetch(
+          "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" +
+            profile.email,
           {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: profile.email,
-              password: "",
-              lastName: profile.name?.split(" ")[1],
-              firstName: profile.name?.split(" ")[0],
-            }),
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
           }
         );
-        return true;
+
+        if (res.statusText != "OK") {
+          await fetch(
+            "https://porthos-intra.cg.helmo.be/e180478/Auth/registerGoogle",
+            {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: profile.email,
+                password: "",
+                lastName: profile.name?.split(" ")[1],
+                firstName: profile.name?.split(" ")[0],
+              }),
+            }
+          );
+          return true;
+        }
       }
+
       return true;
     },
     async redirect() {
