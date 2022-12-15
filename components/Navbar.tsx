@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 import book from "../public/images/books.png";
@@ -6,12 +6,28 @@ import tutor from "../public/images/tutor.png";
 import chat from "../public/images/chat.png";
 import schedule from "../public/images/schedule.png";
 import search from "../public/images/search.png";
+import jwt_decode from "jwt-decode";
 
 import LogOutButton from "./LogOutButton";
 import { useSession } from "next-auth/react";
 
 export function Navbar() {
   const { data: session } = useSession();
+
+  const [role, setRole] = useState("");
+
+  useEffect(() => {
+    let token = localStorage.getItem("JWT");
+    if (token != undefined && role == "") {
+      const decodedToken: any = jwt_decode(token);
+
+      setRole(
+        decodedToken[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ]
+      );
+    }
+  }, [role]);
 
   return (
     <nav className={styles.navbar}>
@@ -58,12 +74,25 @@ export function Navbar() {
         ) : (
           <></>
         )}
+
         {session != undefined ? (
           <div className="self-center ml-auto flex flex-row content-start">
             <h1 className="mr-5 font-face-pg m-auto text-lg">
               Bonjour, {localStorage.getItem("fullName")}
             </h1>
             <LogOutButton />
+            {role == "admin" ? (
+              <div className="ml-3 self-center flex flex-row content-start">
+                <a
+                  href="/admin"
+                  className="bg-white text-cyan-800 rounded-full shadow-xl p-2 font-face-pg hover:scale-110 transition duration-500"
+                >
+                  Gestion Admin
+                </a>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         ) : (
           <></>

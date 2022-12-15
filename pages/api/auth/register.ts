@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const message = rep.statusText;
     const content = await rep.text();
 
-    if(message == "OK" && content != "yes"){
+    if(message != "OK" || (message == "OK" && content != "yes")){
         const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/register', {
             method: 'POST',
             headers: {

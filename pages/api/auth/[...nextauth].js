@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import jwt_decode from "jwt-decode";
-import { toast } from "react-toastify";
 
 export const authOptions = {
   providers: [

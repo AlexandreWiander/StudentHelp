@@ -8,10 +8,6 @@ function ConnectionForm() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
 
-  const validEmail = new RegExp(
-    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
-  );
-
   function Log() {
     const validEmail = new RegExp(
       "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
