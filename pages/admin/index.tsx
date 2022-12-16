@@ -1,9 +1,12 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "../../styles/Home.module.css";
 
 export default function Home() {
+  const router = useRouter();
   const [users, setUsers] = useState<Array<any>>([]);
+  const [change, setChange] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("JWT");
@@ -19,7 +22,7 @@ export default function Home() {
           setUsers(result.userList);
         });
     }
-  }, []);
+  }, [change]);
 
   function banUser(idO: number): void {
     const token = localStorage.getItem("JWT");
@@ -34,7 +37,9 @@ export default function Home() {
         .then((res) => res.json())
         .then((result) => {
           if (result.message == "Success") {
-            toast.success("L'utilisateur à été banni", {
+            let val = change;
+            setChange(val + 1);
+            toast.success("L'action a été effectuée", {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -51,8 +56,14 @@ export default function Home() {
 
   return (
     <div className={styles.lobby}>
-      <div className="flex flex-row flex-wrap bg-white shadow-md px-5 pt-6 pb-5 rounded-lg h-full">
+      <div className="font-face-pg flex flex-row flex-wrap bg-white shadow-md px-5 pt-6 pb-5 rounded-lg h-full">
         <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-x-hidden overflow-y-scroll pr-2">
+          <button
+            onClick={() => router.push("/admin/contact")}
+            className={`${styles["submitConnection"]} mb-5 ml-3 mt-3 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+          >
+            Voir les requêtes des utilisateurs
+          </button>
           {users!.map((user) => {
             return (
               <li key={user.id} className="py-3 sm:pb-4">
@@ -78,12 +89,21 @@ export default function Home() {
                       {user.email}
                     </p>
                   </div>
-                  <button
-                    className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
-                    onClick={() => banUser(user.id)}
-                  >
-                    Bannir l'utilisateur
-                  </button>
+                  {!user.isActive ? (
+                    <button
+                      className={`bg-green-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+                      onClick={() => banUser(user.id)}
+                    >
+                      Débannir l'utilisateur
+                    </button>
+                  ) : (
+                    <button
+                      className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+                      onClick={() => banUser(user.id)}
+                    >
+                      Bannir l'utilisateur
+                    </button>
+                  )}
                 </div>
               </li>
             );

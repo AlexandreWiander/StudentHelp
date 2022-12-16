@@ -3,8 +3,10 @@ import google from "../public/images/google.png";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function ConnectionForm() {
+  const router = useRouter();
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
 
@@ -36,7 +38,34 @@ function ConnectionForm() {
         theme: "colored",
       });
     } else {
-      signIn("credentials", { mail: name, password: pass });
+      signIn("credentials", {
+        mail: name,
+        password: pass,
+        redirect: false,
+      })
+        .then((res) => {
+          if (res?.ok == true) {
+            router.push("/");
+          } else {
+            toast.error("La connexion à échoué", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+
+          if (err.message == "Failed to construct 'URL': Invalid URL") {
+            router.reload();
+          }
+        });
     }
   }
 

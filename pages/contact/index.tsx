@@ -9,47 +9,74 @@ export default function Contact() {
   const router = useRouter();
   const [Mail, setMail] = useState("");
   const [Text, setText] = useState("");
+  const validEmail = new RegExp(
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
+  );
 
   function Send() {
     const body = { mail: Mail, text: Text };
 
-    fetch("/api/contact/sendContact", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.message == "Success") {
-          toast.success("Le message a bien été envoyé !", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          if (session != undefined) {
-            router.push("/");
+    if (Mail && Text) {
+      fetch("/api/contact/sendContact", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.message == "Success") {
+            toast.success("Le message a bien été envoyé !", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+            if (session != undefined) {
+              router.push("/");
+            } else {
+              router.push("/connection");
+            }
           } else {
-            router.push("/connection");
+            toast.error("Le message ne s'est pas envoyé, veuillez réessayer", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
+            router.push("/contact");
           }
-        } else {
-          toast.error("Le message ne s'est pas envoyé, veuillez réessayer", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          router.push("/contact");
-        }
+        });
+    } else if (!validEmail.test(Mail)) {
+      toast.error("L'adresse mail est invalide", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
+    } else {
+      toast.error("Veuillez remplir tous les champs", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   }
 
   return (
@@ -62,6 +89,7 @@ export default function Contact() {
             placeholder="Entrez votre adresse email"
             className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="mail"
+            required
             onChange={(e) => setMail(e.target.value)}
             type="email"
           />
@@ -69,6 +97,7 @@ export default function Contact() {
             placeholder="Entrez votre mot de passe"
             className={`${styles.inputConnection} rounded-lg shadow-md p-2 font-face-pg h-48 focus:scale-105 transition duration-500 resize-none`}
             name="text"
+            required
             onChange={(e) => setText(e.target.value)}
           />
           <button

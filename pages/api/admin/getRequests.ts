@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    userList: any[];
+    requestList: any[];
 }
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    await fetch("https://porthos-intra.cg.helmo.be/e180478/Admin", {
+    await fetch("https://porthos-intra.cg.helmo.be/e180478/AdminContact", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -14,8 +14,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
     }).then((res) => res.json())
     .then((result) => {
-        let users = result;
+        let requests = result;
         
-        res.status(200).json({ userList: users});
+        res.status(200).json({ requestList: requests});
     });
 }

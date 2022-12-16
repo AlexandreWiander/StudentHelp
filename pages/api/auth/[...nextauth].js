@@ -35,7 +35,6 @@ export const authOptions = {
 
         if (response.message == "L'utilisateur est connecté") {
           const decodedToken = jwt_decode(token);
-
           user.email =
             decodedToken[
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
@@ -58,7 +57,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ account, profile, user }) {
       if (account.provider === "GoogleProvider") {
         const res = await fetch(
           "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" +
@@ -89,7 +88,6 @@ export const authOptions = {
           return true;
         }
       }
-
       return true;
     },
     async redirect() {
@@ -109,6 +107,7 @@ export const authOptions = {
   },
   pages: {
     signIn: "/connection/index",
+    error: "/connection/index",
   },
   secret: process.env.JWT_SECRET,
 };

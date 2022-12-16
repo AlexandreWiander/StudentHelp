@@ -9,6 +9,9 @@ export default function Home() {
   const [pass, setPass] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const validEmail = new RegExp(
+    "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
+  );
 
   async function registerGoogle() {
     signIn("GoogleProvider");
@@ -22,51 +25,77 @@ export default function Home() {
       lastname: lastname,
     };
 
-    await fetch("/api/auth/register", {
-      method: "POST",
-      body: JSON.stringify(body),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.message == "Success") {
-          console.log(mail, pass);
+    if (mail && pass && firstname && lastname) {
+      if (validEmail.test(mail)) {
+        await fetch("/api/auth/register", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.message == "Success") {
+              console.log(mail, pass);
 
-          signIn("credentials", { mail: mail, password: pass });
-        } else if (result.message == "Le user existe déjà") {
-          localStorage.removeItem("JWT");
-          localStorage.removeItem("fullName");
+              signIn("credentials", { mail: mail, password: pass });
+            } else if (result.message == "Le user existe déjà") {
+              localStorage.removeItem("JWT");
+              localStorage.removeItem("fullName");
 
-          toast.error("Ce compte existe déjà, veuillez vous connecter", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          signOut();
-        } else {
-          toast.error(
-            "Une erreur s'est produite durant l'inscription, veuillez réessayer",
-            {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
+              toast.error("Ce compte existe déjà, veuillez vous connecter", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              });
+              signOut();
+            } else {
+              toast.error(
+                "Une erreur s'est produite durant l'inscription, veuillez réessayer",
+                {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                }
+              );
+              localStorage.removeItem("JWT");
+              localStorage.removeItem("fullName");
+              signOut({ callbackUrl: "/connection" });
             }
-          );
-          localStorage.removeItem("JWT");
-          localStorage.removeItem("fullName");
-          signOut({ callbackUrl: "/connection" });
-        }
+          });
+      } else {
+        toast.error("L'adresse mail est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } else {
+      toast.error("Veuillez compléter tous les champs", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
+    }
   }
 
   return (

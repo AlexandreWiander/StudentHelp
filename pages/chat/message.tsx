@@ -56,6 +56,7 @@ export default function message() {
 
   const sendMsg = async () => {
     const parsedInt = parseInt(typeof idO === "string" ? idO : "");
+
     try {
       await connection?.invoke("SendMessage", myId, parsedInt, message);
       let i = newMsg;
@@ -93,7 +94,7 @@ export default function message() {
           if (result != undefined && result != null) {
             let reverse = result.discution;
             if (Array.isArray(reverse)) {
-              setDiscution(reverse.reverse());
+              setDiscution(reverse.reverse().slice(0, 100));
               reverse.forEach((message: any) => {
                 if (message.senderId.toString() == idO) {
                   setImage(message.sender.avatarNumber);
@@ -139,6 +140,7 @@ export default function message() {
                       .toLocaleTimeString()
                       .slice(0, 5);
                     if (message.senderId.toString() == idO) {
+                      myId = message.recieverId;
                       return (
                         <div
                           key={message.id}
