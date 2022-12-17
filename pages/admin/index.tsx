@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -64,6 +65,12 @@ export default function Home() {
           >
             Voir les requêtes des utilisateurs
           </button>
+          <button
+            onClick={() => router.push("/admin/newUser")}
+            className={`${styles["submitConnection"]} mb-5 ml-5 mt-3 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+          >
+            Créer un nouvel utilisateur
+          </button>
           {users!.map((user) => {
             return (
               <li key={user.id} className="py-3 sm:pb-4">
@@ -89,16 +96,25 @@ export default function Home() {
                       {user.email}
                     </p>
                   </div>
+                  <Link
+                    className={`${styles["submitConnection"]} pt-4 text-white text-center rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                    href={{
+                      pathname: "/admin/user",
+                      query: { id: user.id },
+                    }}
+                  >
+                    Voir l'utilisateur
+                  </Link>
                   {!user.isActive ? (
                     <button
-                      className={`bg-green-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+                      className={`bg-green-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
                       onClick={() => banUser(user.id)}
                     >
                       Débannir l'utilisateur
                     </button>
                   ) : (
                     <button
-                      className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}
+                      className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
                       onClick={() => banUser(user.id)}
                     >
                       Bannir l'utilisateur

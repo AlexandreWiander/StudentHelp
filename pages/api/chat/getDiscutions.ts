@@ -22,7 +22,10 @@ const rep = await fetch("https://porthos-intra.cg.helmo.be/e180478/Message/" + r
         'Authorization': 'bearer ' + req.body.token, 
         }
 }).then((res) => res.json())
-.then((result) => {
+.then((result) => {  
+  if(result == "La liste des classes de tutorat est vide."){
+    return res.status(400).json({ discutionList: []});
+  }
   const reversed = result.reverse();
   let discutionsId: any[] = [];
   let discutions: any[] = [];
