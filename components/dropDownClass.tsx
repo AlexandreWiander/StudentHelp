@@ -1,5 +1,4 @@
 import {useEffect, useState} from "react";
-import jwt_decode from "jwt-decode";
 
 export function DropDownClass(props:any) {
     const [classes, setClasses] = useState([]);

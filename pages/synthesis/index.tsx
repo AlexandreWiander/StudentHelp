@@ -6,6 +6,8 @@ import styles from "../../styles/Home.module.css";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
 
+let token: string | null = "";
+let idUser = -1;
 
 export default function Home() {
   const [synthesis, setSynth] = useState([]);
@@ -13,9 +15,6 @@ export default function Home() {
   const [useFilter, setFilter] = useState(false);
   const [classSelected, setClass]= useState("0");
   const [addClass, setAddClass]=useState("0");
-
-    let token: string | null = "";
-    let idUser = -1;
 
 
     useEffect(() => {

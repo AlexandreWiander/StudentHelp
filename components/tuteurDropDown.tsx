@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import jwt_decode from "jwt-decode";
 
+let token: string | null = "";
+let idUser =-1;
+
 export function TuteurDropDown(props:any) {
     const [tutors, setTutors] = useState([]);
-
-    let token: string | null = "";
-    let idUser =-1;
 
     useEffect(()=>{
         token = localStorage.getItem("JWT");
