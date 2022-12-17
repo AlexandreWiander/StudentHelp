@@ -9,6 +9,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import ICalParser from 'ical-js-parser';
 import updateDb from "update-browserslist-db";
+import AddMeetModal from "../components/AddMeetModal";
 
 let token: string | null = "";
 let idUser = -1;
@@ -30,7 +31,7 @@ export default function Home() {
         token = localStorage.getItem("JWT");
         const decodedToken = jwt_decode(token??"") as any;
         if(idUser==-1)idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-        const body = { token:token, id:idUser};
+        const body = { token:token, id:idUser, checkEvent:true};
         fetch("api/agenda/getLink",{
             method:"post",
             headers: { "Content-Type": "application/json" },
@@ -67,9 +68,7 @@ export default function Home() {
     }, []);
 
     const deleteRequest = (event: { currentTarget: { id: any; }; }) => {
-        const eventsArr: EventCalendar[]=[];
-        setEvent(eventsArr);
-        const body = {id: event.currentTarget.id, token: token};
+        const body = {id: event.currentTarget.id, token: token, checkEvent:false};
         fetch("/api/agenda/deleteMeet", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -140,7 +139,7 @@ export default function Home() {
                     body: JSON.stringify(body),
                 });
             }
-            const body = {token: token, id: idUser};
+            const body = {token: token, id: idUser, checkEvent:true};
             fetch("/api/agenda/getEvents", {
                 method: "post",
                 headers: {"Content-Type": "application/json"},
@@ -234,6 +233,7 @@ export default function Home() {
                     <p>Attention l'ajout d'un lien horaire entrainera la suppression du précédent et de ses évènements liés !</p>
                     <div className="flex flex-col items-center text-center overflow-y-scroll h-1/2 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
                         <h1 className="mb-2 text-2xl font-extrabold tracking-tight leading-none mt-4 text-center">Mes rendez-vous</h1>
+                        <AddMeetModal id={idUser} />
                         {meets.map((meet) => {
                             var one = meet["event"];
                             var dateF =  new Date(one["start"]);

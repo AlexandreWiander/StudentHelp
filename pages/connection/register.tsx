@@ -30,8 +30,6 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         if (result.message == "Success") {
-          console.log(mail, pass);
-
           signIn("credentials", { mail: mail, password: pass });
         } else if (result.message == "Le user existe déjà") {
           localStorage.removeItem("JWT");

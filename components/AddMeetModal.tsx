@@ -1,8 +1,7 @@
-import { useRouter } from "next/router";
 import React, {useEffect, useState} from "react";
 import { toast } from "react-toastify";
 import jwt_decode from "jwt-decode";
-import styles from "../styles/Home.module.css";
+
 
 type ModalProps = {
     id: number;
@@ -11,15 +10,13 @@ type ModalProps = {
 let token: string | null = "";
 let idUser = -1;
 
-export default function DeleteUserModal({ id }: ModalProps) {
+export default function DeleteUserModal({ id }: ModalProps,props:any) {
     const [showModal, setShowModal] = React.useState(false);
     const [userRequests, setUserRequests]=useState([]);
-    const [token, setToken] = React.useState<string | null>();
     const [userSelected, setUserSelected]=useState("/");
-    const router = useRouter();
 
     useEffect(() => {
-        setToken(localStorage.getItem("JWT"));
+        token = localStorage.getItem("JWT");
         const decodedToken = jwt_decode(token ?? "") as any;
         if(idUser==-1)idUser = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
         const body = {id: idUser, token: token};
@@ -40,12 +37,57 @@ export default function DeleteUserModal({ id }: ModalProps) {
         var dateInput = document.getElementById("date") as HTMLInputElement;
         var hourStartInput = document.getElementById("start") as HTMLInputElement;
         var hourEndInput = document.getElementById("end") as HTMLInputElement;
+        var placeInput = document.getElementById("place") as HTMLInputElement;
         if(nameInput.value!=""){
             if(dateInput.value!=""){
                 if(hourStartInput.value!=""){
                     if(hourEndInput.value!=""){
                         if(userSelected!="/"){
-
+                            if(placeInput.value!=""){
+                                const body = {token: token, id: idUser, name:nameInput.value, place:placeInput.value, invitedId:userSelected, from:dateInput.value+"T"+hourStartInput.value, to:dateInput.value+"T"+hourEndInput.value};
+                                var response = await fetch("/api/agenda/addMeet", {
+                                    method: "POST",
+                                    body: JSON.stringify(body),
+                                    headers: {"Content-Type": "application/json"},
+                                });
+                                if(response.status==200){
+                                    window.location.reload();
+                                    setShowModal(false);
+                                    toast.success("Le rendez-vous a bien été ajouté", {
+                                        position: "top-center",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "colored",
+                                    });
+                                } else {
+                                    setShowModal(false);
+                                    toast.error("Une erreur est survenue lors de l'ajout du rendez-vous", {
+                                        position: "top-center",
+                                        autoClose: 5000,
+                                        hideProgressBar: false,
+                                        closeOnClick: true,
+                                        pauseOnHover: true,
+                                        draggable: true,
+                                        progress: undefined,
+                                        theme: "colored",
+                                    });
+                                }
+                            }else{
+                                toast.error("Il est obligatoire de choisir un lieu de rendez-vous !", {
+                                    position: "top-center",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "colored",
+                                });
+                            }
                         }else{
                             toast.error("Il est obligatoire de choisir un utilisateur avec qui sera le rendez-vous !", {
                                 position: "top-center",
@@ -106,42 +148,8 @@ export default function DeleteUserModal({ id }: ModalProps) {
                 theme: "colored",
             });
         }
-
-
-
-
-
-        const body = {token: token, id: id};
-        var response = await fetch("/api/agenda/addMeet", {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {"Content-Type": "application/json"},
-        });
-        if(response.status==200){
-            toast.success("L'action a été effectuée", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-        } else {
-            toast.error("Une erreur est survenu", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            });
-        }
     }
-    const classChange=(e:any)=>{
+    const userChange=(e:any)=>{
         setUserSelected(e.target.value);
     };
 
@@ -167,63 +175,55 @@ export default function DeleteUserModal({ id }: ModalProps) {
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
-                                    <input
-                                        placeholder="Nom"
-                                        className={`${styles.inputComment} rounded-full shadow-md p-2 mx-2 font-face-pg h-14 focus:scale-105 transition duration-500 w-full`}
-                                        name="commentaire"
-                                        id="nom"
-                                        type="text"
-                                    />
-                                    <select onChange={classChange} id="class" name="class" required
-                                            className="w-1/2 mt-1 mb-4 px-2 py-3 text-base border border-transparent rounded-lg bg-white">
-                                        <option value="0" className="text-center">Sélectionner un cours</option>
+                                    <label htmlFor="floatingInput" className="text-gray-700">Encoder un nom</label>
+                                    <input id="nom" type="text"
+                                           className="form-control block w-full text-center py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                           placeholder="Nom" />
+                                    <label htmlFor="floatingInput" className="text-gray-700">Encoder un lieu</label>
+                                    <input id="place" type="text"
+                                           className="form-control block w-full text-center py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                           placeholder="Lieu" />
+                                    <select onChange={userChange} id="userSelection" name="user" required
+                                            className="w-2/3 mt-1 mb-4 px-2 py-3 text-base border border-transparent rounded-lg bg-white">
+                                        <option value="0" className="text-center">Sélectionner un utilisateur</option>
                                         {userRequests.map((one)=>(
-                                            <option key={one["id"]} className="text-center" value={one["id"]}>{one["askName"]}</option>
+                                            <option key={one["tutorId"]} className="text-center" value={one["tutorId"]}>{one["askName"]}</option>
                                         ))}
                                     </select>
                                     <div className="flex items-center justify-center">
-                                        <div className="datepicker relative form-floating mb-3 xl:w-96">
-                                            <input id="date" type="text"
-                                                   className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   placeholder="Select a date"/>
-                                            <label htmlFor="floatingInput" className="text-gray-700">Select a
-                                                date</label>
-                                        </div>
+                                       <div className="flex flex-col items-center">
+                                           <label htmlFor="floatingInput" className="text-gray-700">Sélectionner une date</label>
+                                           <input id="date" type="date"
+                                                  className="form-control block w-full text-center px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                  placeholder="Select a date" />
+                                           <label htmlFor="floatingInput" className="text-gray-700">Sélectionner une heure de début</label>
+                                           <input id="start" type="time"
+                                                  className="form-control block w-full text-center px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                  placeholder="Select a date" />
+                                           <label htmlFor="floatingInput" className="text-gray-700">Sélectionner une heure de fin</label>
+                                           <input id="end" type="time"
+                                                  className="form-control block w-full text-center py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                                  placeholder="Select a date" />
+                                       </div>
                                     </div>
-                                    <div className="flex justify-center">
-                                        <div className="timepicker relative form-floating mb-3 xl:w-96">
-                                            <input id="start" type="text"
-                                                   className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   placeholder="Select a date"/>
-                                            <label htmlFor="floatingInput" className="text-gray-700">Select a
-                                                time</label>
-                                        </div>
-                                    </div>
-                                    <div className="flex justify-center">
-                                        <div className="timepicker relative form-floating mb-3 xl:w-96">
-                                            <input id="end" type="text"
-                                                   className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                   placeholder="Select a date"/>
-                                            <label htmlFor="floatingInput" className="text-gray-700">Select a
-                                                time</label>
-                                        </div>
+                                    <div>
                                     </div>
                                 </div>
                                 {/*footer*/}
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                                     <button
-                                        className="bg-blueTheme text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
+                                        className="bg-white rounded-full shadow-md py-2 px-6 font-face-pg h-12 hover:scale-105 transition duration-500"
                                         type="button"
                                         onClick={() => setShowModal(false)}
                                     >
                                         Annuler
                                     </button>
                                     <button
-                                        className="ml-3 bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
+                                        className="ml-3 bg-blueTheme text-white rounded-full shadow-md py-2 px-6 font-face-pg h-12 hover:scale-105 transition duration-500"
                                         type="button"
                                         onClick={() => addMeet(id)}
                                     >
-                                        Supprimer
+                                        Ajouter
                                     </button>
                                 </div>
                             </div>

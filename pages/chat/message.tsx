@@ -50,7 +50,6 @@ export default function message() {
       await connection.start();
       setCon(connection);
     } catch (e) {
-      console.log(e);
     }
   };
 
@@ -61,7 +60,6 @@ export default function message() {
       let i = newMsg;
       setNewMsg(i + 1);
     } catch (error) {
-      console.log(error);
     }
   };
 

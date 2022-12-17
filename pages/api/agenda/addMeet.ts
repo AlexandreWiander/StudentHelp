@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Content-Type': 'application/json',
             'Authorization': 'bearer '+req.body.token,
         },
-        body: JSON.stringify({ name: req.body.name, place: req.body.lieu, from: req.body.from, to: req.body.to, userId:req.body.id, invitedId:req.body.invitedId }),
+        body: JSON.stringify({ name: req.body.name, place: req.body.place, from: req.body.from, to: req.body.to, userId:parseInt(req.body.id), invitedId:parseInt(req.body.invitedId) }),
     });
     if(rawResponse.status == 200){
         res.status(200).json({});

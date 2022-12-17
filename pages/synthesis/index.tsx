@@ -69,7 +69,6 @@ export default function Home() {
       })
             .then((res) => res.blob())
             .then((result)=>{
-                console.log(result);
                 var download = document.createElement("a");
                 download.href = URL.createObjectURL(result);
                 download.download = fileName;
@@ -152,9 +151,6 @@ export default function Home() {
                     theme: "colored",
                 });
             }
-        } else {
-            console.log("ici");
-
         }
     }
 

@@ -24,38 +24,45 @@ export interface Meeting{
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     var meets: Meeting[]=[];
     var events: Event[]=[];
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/EventClass?idUser='+req.body.id, {
-        method: 'get',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'bearer '+req.body.token,
-        },
-    });
-    if(rawResponse.status == 200){
+    var checkEvent = req.body.checkEvent;
+    if(checkEvent){
+        const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/EventClass?idUser='+req.body.id, {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'bearer '+req.body.token,
+            },
+        });
+        if(rawResponse.status == 200){
 
-        const content = await rawResponse.json();
-        for(var i=0; i<content.length; i++){
-            var one = content[i];
-            const oneEvent : Event={
-                id:one.id,
-                title: one.name,
-                color:"0xFFEF6B0C",
-                start:new Date(one.from) as Date,
-                end: new Date(one.to) as Date,
-                lieu:one.class,
-                personne:0
+            const content = await rawResponse.json();
+            for(var i=0; i<content.length; i++){
+                var one = content[i];
+                const oneEvent : Event={
+                    id:one.id,
+                    title: one.name,
+                    color:"0xFFEF6B0C",
+                    start:new Date(one.from) as Date,
+                    end: new Date(one.to) as Date,
+                    lieu:one.class,
+                    personne:0
+                }
+                events.push(oneEvent);
             }
-            events.push(oneEvent);
+            await getMeets(req, events, meets);
+            res.status(200).json({listEvents:events, listMeets:meets});
+        } else{
+            await getMeets(req, events, meets);
+            res.status(200).json({listMeets:meets, listEvents:events});
         }
-        await getMeets(req, rawResponse, events, meets);
+    }else{
+        await getMeets(req, events, meets);
         res.status(200).json({listEvents:events, listMeets:meets});
-    } else{
-        await getMeets(req, rawResponse, events, meets);
-        res.status(200).json({listMeets:meets, listEvents:events});
     }
+
 }
-async function getMeets(req: NextApiRequest, rawResponse: Response, events: any[], meets: any[]) {
+async function getMeets(req: NextApiRequest, events: any[], meets: any[]) {
     const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/Meets?idUser=' + req.body.id, {
         method: 'get',
         headers: {

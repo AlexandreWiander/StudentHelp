@@ -53,7 +53,6 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
       })
         .then((res) => res.json())
         .then((result) => {
-          console.log(result);
           localStorage.setItem("JWT", result.token);
         });
 
