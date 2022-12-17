@@ -1,3 +1,4 @@
+
 .container{
   padding: 0;
 }
@@ -125,9 +126,17 @@
   background: #D9D9D9 !important;
 }
 
+.inputComment{
+  background: #eeeeee !important;
+}
+
 .submitConnection{
   background: #092545 !important;
   color: #D9D9D9 !important;
+}
+
+.loading{
+  display: none;
 }
 
 .lobby{
