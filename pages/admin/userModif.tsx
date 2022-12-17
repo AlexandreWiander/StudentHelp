@@ -155,10 +155,10 @@ export default function userModif() {
             <label className="mt-4 ml-2">Numéro d'avatar:</label>
             <input
               className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
-              name="lastname"
+              name="avatarNumber"
               value={avatarNumber}
-              onChange={(e) => setLastname(e.target.value)}
-              type="text"
+              onChange={(e) => setAvatarNumber(parseInt(e.target.value))}
+              type="number"
             />
             <div className="mt-4 flex flex-row">
               <label className=" ml-2">Admin:</label>

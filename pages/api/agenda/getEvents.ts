@@ -10,8 +10,8 @@ export interface Event{
     start:Date,
     end:Date,
     lieu:string,
-    personne:number
-    color:string
+    personne:number,
+    isClass:boolean
 }
 
 export interface Meeting{
@@ -42,11 +42,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 const oneEvent : Event={
                     id:one.id,
                     title: one.name,
-                    color:"0xFFEF6B0C",
                     start:new Date(one.from) as Date,
                     end: new Date(one.to) as Date,
                     lieu:one.class,
-                    personne:0
+                    personne:0,
+                    isClass:true,
                 }
                 events.push(oneEvent);
             }
@@ -92,11 +92,11 @@ async function getMeets(req: NextApiRequest, events: any[], meets: any[]) {
             const oneEvent: Event = {
                 id: one.id,
                 title: one.name,
-                color: "0xFFEF6B0C",
                 start: one.from,
                 end: one.to,
                 lieu: one.place,
                 personne:id,
+                isClass:false
             }
             events.push(oneEvent);
             const oneMeet: Meeting = {

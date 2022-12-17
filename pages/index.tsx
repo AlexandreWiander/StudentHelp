@@ -19,7 +19,8 @@ interface EventCalendar{
     title:string,
     start: Date,
     end: Date,
-    allDay:boolean
+    allDay:boolean,
+    isClass:boolean,
 }
 
 export default function Home() {
@@ -56,7 +57,8 @@ export default function Home() {
                                     title: one.title,
                                     start:new Date(one.start) as Date,
                                     end: new Date(one.end) as Date,
-                                    allDay:false
+                                    allDay:false,
+                                    isClass:one.isClass,
                                 }
                                 events.push(oneEvent);
 
@@ -88,7 +90,8 @@ export default function Home() {
                         title: one.title,
                         start:new Date(one.start) as Date,
                         end: new Date(one.end) as Date,
-                        allDay:false
+                        allDay:false,
+                        isClass:one.isClass
                     }
                     events.push(oneEvent);
 
@@ -154,7 +157,8 @@ export default function Home() {
                             title: one.title,
                             start: new Date(one.start) as Date,
                             end: new Date(one.end) as Date,
-                            allDay: false
+                            allDay: false,
+                            isClass:one.isClass
                         }
                         events.push(oneEvent);
                     }
@@ -214,6 +218,25 @@ export default function Home() {
                     startAccessor="start"
                     endAccessor="end"
                     style={{ height: 700, width:700 }}
+                    eventPropGetter={
+                        (event, start, end, isSelected) => {
+                            let newStyle = {
+                                backgroundColor: "#5999FF",
+                                color: 'black',
+                                borderRadius: "0px",
+                                border: "none"
+                            };
+
+                            if (event.isClass){
+                                newStyle.backgroundColor = "#EF6B0C"
+                            }
+
+                            return {
+                                className: "",
+                                style: newStyle
+                            };
+                        }
+                    }
                 />
             </div>
             <div>

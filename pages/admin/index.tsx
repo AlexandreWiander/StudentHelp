@@ -97,7 +97,7 @@ export default function Home() {
                     </p>
                   </div>
                   <Link
-                    className={`${styles["submitConnection"]} pt-4 text-white text-center rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                    className={`${styles["submitConnection"]} pt-4 text-white text-center rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/8`}
                     href={{
                       pathname: "/admin/user",
                       query: { id: user.id },
