@@ -56,13 +56,7 @@ export function Navbar() {
               <img src={chat.src} className="w-16 h-16"></img>
               <p className="m-auto ml-2 text-lg font-face-pg">Messagerie</p>
             </a>
-            <a
-              href="/meeting"
-              className="flex flex-row content-start self-center ml-7 hover:scale-125 transition duration-500"
-            >
-              <img src={schedule.src} className="w-16 h-16"></img>
-              <p className="m-auto ml-2 text-lg font-face-pg">Rendez-vous</p>
-            </a>
+
             <a
               href="/synthesis"
               className="flex flex-row content-start self-center ml-7 hover:scale-125 transition duration-500"

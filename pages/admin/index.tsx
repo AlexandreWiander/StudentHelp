@@ -86,7 +86,7 @@ export default function Home() {
                     <p className="text-lg font-medium text-gray-900 truncate">
                       {user.firstName + " " + user.lastName}
                       {!user.isActive ? (
-                        <span className="bg-red-100 text-red-800 text-xs font-semibold ml-2 mb-3 rounded dark:bg-red-200 dark:text-red-900 p-1">
+                        <span className="bg-redTheme text-white text-xs ml-2 mb-3 rounded dark:bg-red-200 dark:text-red-900 p-1">
                           BANNI
                         </span>
                       ) : null}
@@ -107,14 +107,14 @@ export default function Home() {
                   </Link>
                   {!user.isActive ? (
                     <button
-                      className={`bg-green-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                      className={`bg-greenTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12 whitespace-nowrap`}
                       onClick={() => banUser(user.id)}
                     >
                       Débannir l'utilisateur
                     </button>
                   ) : (
                     <button
-                      className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                      className={`bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500  w-2/12`}
                       onClick={() => banUser(user.id)}
                     >
                       Bannir l'utilisateur

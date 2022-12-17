@@ -60,7 +60,7 @@ export default function DeleteUserModal({ id }: ModalProps) {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className={`bg-red-900 text-white ml-3 rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500`}
+        className={`bg-redTheme text-white ml-3 rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500`}
       >
         Supprimer
       </button>
@@ -69,7 +69,7 @@ export default function DeleteUserModal({ id }: ModalProps) {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="rounded-lg shadow-lg relative flex flex-col w-full bg-darkGrey border-2 outline-none focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
@@ -94,14 +94,14 @@ export default function DeleteUserModal({ id }: ModalProps) {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                   <button
-                    className="bg-blue-900 text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
+                    className="bg-blueTheme text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
                     Annuler
                   </button>
                   <button
-                    className="ml-3 bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
+                    className="ml-3 bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500"
                     type="button"
                     onClick={() => deleteUser(id)}
                   >

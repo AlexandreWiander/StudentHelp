@@ -93,7 +93,7 @@ export default function Home() {
                   <p className="text-lg font-medium text-gray-900 truncate">
                     {request.mail}
                     {request.isResolved ? (
-                      <span className="bg-green-300 text-black text-xs font-semibold ml-2 mb-3 rounded p-1">
+                      <span className="bg-greenTheme text-white text-xs ml-2 mb-3 rounded p-1">
                         RESOLU
                       </span>
                     ) : null}
@@ -118,14 +118,14 @@ export default function Home() {
                 </button>
                 {!request.isResolved ? (
                   <button
-                    className={`bg-green-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                    className={`bg-greenTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
                     onClick={() => ResolveRequest(request.id)}
                   >
                     Marquer comme résolu
                   </button>
                 ) : (
                   <button
-                    className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                    className={`bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
                     onClick={() => ResolveRequest(request.id)}
                   >
                     Marquer comme non-résolu
@@ -133,7 +133,7 @@ export default function Home() {
                 )}
 
                 <button
-                  className={`bg-red-900 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
+                  className={`bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-1/12`}
                   onClick={() => DeleteRequest(request.id)}
                 >
                   Supprimer
