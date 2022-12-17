@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div className={styles.lobby}>
       <div className="font-face-pg flex flex-row flex-wrap bg-white shadow-md px-5 pt-6 pb-5 rounded-lg h-full">
-        <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-x-hidden overflow-y-scroll pr-2">
+        <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-x-hidden overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 pr-5">
           <button
             onClick={() => router.push("/admin/contact")}
             className={`${styles["submitConnection"]} mb-5 ml-3 mt-3 text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12`}

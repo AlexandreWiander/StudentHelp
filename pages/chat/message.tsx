@@ -134,7 +134,7 @@ export default function message() {
           <div className="bg-white flex-1 relative">
             <div className="flex flex-col h-full">
               <div className="flex flex-col-reverse justify-end flex-1 p-5 overflow-hidden">
-                <div className="flex flex-col-reverse overflow-auto hover:overflow-y-scroll">
+                <div className="flex flex-col-reverse pr-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
                   {discution.map((message) => {
                     let date = new Date(message.dateAndHour)
                       .toLocaleTimeString()

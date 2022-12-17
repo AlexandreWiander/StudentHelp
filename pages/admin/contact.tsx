@@ -85,7 +85,7 @@ export default function Home() {
   return (
     <div className={styles.lobby}>
       <div className="font-face-pg flex flex-row flex-wrap bg-white shadow-md px-5 pt-6 pb-5 rounded-lg h-full">
-        <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-x-hidden overflow-y-scroll pr-2">
+        <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 pr-2">
           {requests!.map((request) => {
             return (
               <div className="flex items-center space-x-4 p-5">
@@ -99,7 +99,7 @@ export default function Home() {
                     ) : null}
                   </p>
 
-                  <p className="text-sm text-gray-700 h-24 overflow-y-scroll">
+                  <p className="text-sm text-gray-700 h-24 overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
                     {request.message}
                   </p>
                 </div>
