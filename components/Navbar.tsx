@@ -85,7 +85,7 @@ export function Navbar() {
               <div className="ml-3 self-center flex flex-row content-start">
                 <a
                   href="/admin"
-                  className="bg-white text-cyan-800 rounded-full shadow-xl p-2 font-face-pg hover:scale-110 transition duration-500"
+                  className="bg-white text-blueTheme rounded-full shadow-xl p-2 font-face-pg hover:scale-110 transition duration-500"
                 >
                   Gestion Admin
                 </a>

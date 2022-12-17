@@ -159,7 +159,7 @@ export default function message() {
                       return (
                         <div key={message.id} className="p-2 flex justify-end">
                           <div className="flex-col min-w-fit w-min">
-                            <p className="h-10 bg-slate-300 font-face-pg flex flex-col justify-center items-center px-3 rounded-full">
+                            <p className="h-10 bg-darkGrey font-face-pg flex flex-col justify-center items-center px-3 rounded-full">
                               {message.content}
                             </p>
                             <p className="text-right pr-1">à {date}</p>
