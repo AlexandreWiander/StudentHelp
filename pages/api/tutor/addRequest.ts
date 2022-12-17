@@ -17,7 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if(req.body.comment!="/"){
             comment = req.body.comment;
         }
-        console.log(comment);
         const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/Message?idSender='+req.body.id+"&idReciever="+req.body.tutorId+"&message="+comment,{
             method: 'POST',
             headers: {
@@ -31,8 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if(response.status==200){
             res.status(200).json({});
         }else{
-            console.log(response.status);
-            console.log("tristess");
             res.status(400).json({});
         }
     } else {
