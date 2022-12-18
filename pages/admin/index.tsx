@@ -103,7 +103,7 @@ export default function Home() {
                       query: { id: user.id },
                     }}
                   >
-                    Voir l'utilisateur
+                    Voir l\'utilisateur
                   </Link>
                   {!user.isActive ? (
                     <button
