@@ -15,10 +15,10 @@ interface User {
   isAdmin: boolean;
 }
 
-export default function message() {
-  const [user, setUser] = useState<User>();
-  const router = useRouter();
-  const query = router.query;
+export default function User() {
+  const [User, setUser] = useState<User>();
+  const Router = useRouter();
+  const query = Router.query;
   const idO = query.id;
   let token;
 
@@ -39,48 +39,50 @@ export default function message() {
     }
   }, [idO]);
 
-  if (user != undefined) {
+  if (User != undefined) {
     return (
       <div className={`${styles.lobby}`}>
         <div className="font-face-pg flex flex-col bg-white shadow-md px-5 pt-6 pb-5 rounded-lg h-full">
           <div className="self-center mx-auto text-4xl">
-            Gestion de l'utilisateur
+            {"Gestion de l'utilisateur"}
           </div>
           <div className="self-center mx-auto flex flex-row">
             <Link
               className={`${styles["submitConnection"]} pt-3 text-white rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500`}
               href={{
                 pathname: "/admin/userModif",
-                query: { id: user.id },
+                query: { id: User.id },
               }}
             >
-              Modifier l'utilisateur
+              {"Modifier l'utilisateur"}
             </Link>
-            <DeleteUserModal id={user.id} />
+            <DeleteUserModal id={User.id} />
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Id: </p>
-            <p className="text-xl ml-3 my-auto">{user.id}</p>
+            <p className="text-xl ml-3 my-auto">{User.id}</p>
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Prénom: </p>
-            <p className="text-xl ml-3 my-auto">{user.firstName}</p>
+            <p className="text-xl ml-3 my-auto">{User.firstName}</p>
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Nom: </p>
-            <p className="text-xl ml-3 my-auto">{user.lastName}</p>
+            <p className="text-xl ml-3 my-auto">{User.lastName}</p>
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Adresse Mail: </p>
-            <p className="text-xl ml-3 my-auto">{user.email}</p>
+            <p className="text-xl ml-3 my-auto">{User.email}</p>
           </div>
           <div className="flex flex-row flex-1 ml-10">
-            <p className="text-2xl my-auto font-bold">Numéro de l'avatar: </p>
-            <p className="text-xl ml-3 my-auto">{user.avatarNumber}</p>
+            <p className="text-2xl my-auto font-bold">
+              {"Numéro de l'avatar: "}
+            </p>
+            <p className="text-xl ml-3 my-auto">{User.avatarNumber}</p>
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Type de compte: </p>
-            {!user.isGoogleAccount ? (
+            {!User.isGoogleAccount ? (
               <p className="text-xl ml-3 my-auto">Compte normal</p>
             ) : (
               <p className="text-xl ml-3 my-auto">Compte Google</p>
@@ -88,7 +90,7 @@ export default function message() {
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Compte actif: </p>
-            {!user.isActive ? (
+            {!User.isActive ? (
               <p className="text-xl ml-3 my-auto">Compte inactif</p>
             ) : (
               <p className="text-xl ml-3 my-auto">Compte actif</p>
@@ -96,7 +98,7 @@ export default function message() {
           </div>
           <div className="flex flex-row flex-1 ml-10">
             <p className="text-2xl my-auto font-bold">Administrateur: </p>
-            {!user.isAdmin ? (
+            {!User.isAdmin ? (
               <p className="text-xl ml-3 my-auto">Non</p>
             ) : (
               <p className="text-xl ml-3 my-auto">Oui</p>

@@ -14,7 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     }).then((res) => res.json())
     .then((result) => {
         let synth = result;
-
-        res.status(200).json({ synthNumber: synth});
+        if(res.statusCode == 200){
+            res.status(200).json({ synthNumber: synth});
+        }
+        
     });
 }

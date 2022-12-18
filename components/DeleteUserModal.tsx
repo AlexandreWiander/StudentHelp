@@ -73,7 +73,7 @@ export default function DeleteUserModal({ id }: ModalProps) {
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                   <h3 className="text-3xl font-semibold">
-                    Etes-vous sûr de vouloir supprimer cet utilisateur ?
+                    {"Etes-vous sûr de vouloir supprimer cet utilisateur ?"}
                   </h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -87,8 +87,8 @@ export default function DeleteUserModal({ id }: ModalProps) {
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
                   <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                    Attention, une fois l'utilisateur supprimé, il sera
-                    impossible de récupérer ses données.
+                    {"Attention, une fois l'utilisateur supprimé, il sera"}+
+                    {" impossible de récupérer ses données."}
                   </p>
                 </div>
                 {/*footer*/}

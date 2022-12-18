@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 export function Footer() {
@@ -8,12 +9,12 @@ export function Footer() {
           <p className="font-face-pg m-auto text-lg">
             Vous avez une question ou une réclamation ?
           </p>
-          <a
+          <Link
             href="/contact"
             className="font-face-pg ml-3 text-lg text-blue-500 hover:text-blue-800 m-auto"
           >
             Contactez-nous
-          </a>
+          </Link>
         </div>
       </div>
     </footer>
