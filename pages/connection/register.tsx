@@ -4,11 +4,11 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { signIn, signOut } from "next-auth/react";
 
-export default function Home() {
-  const [mail, setMail] = useState("");
-  const [pass, setPass] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+export default function Register() {
+  const [Mail, setMail] = useState("");
+  const [Pass, setPass] = useState("");
+  const [Firstname, setFirstname] = useState("");
+  const [Lastname, setLastname] = useState("");
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
@@ -19,14 +19,14 @@ export default function Home() {
 
   async function registerNormal() {
     const body = {
-      mail: mail,
-      password: pass,
-      firstname: firstname,
-      lastname: lastname,
+      mail: Mail,
+      password: Pass,
+      firstname: Firstname,
+      lastname: Lastname,
     };
 
-    if (mail && pass && firstname && lastname) {
-      if (validEmail.test(mail)) {
+    if (Mail && Pass && Firstname && Lastname) {
+      if (validEmail.test(Mail)) {
         await fetch("/api/auth/register", {
           method: "POST",
           body: JSON.stringify(body),
@@ -35,7 +35,7 @@ export default function Home() {
           .then((res) => res.json())
           .then((result) => {
             if (result.message == "Success") {
-              signIn("credentials", { mail: mail, password: pass });
+              signIn("credentials", { mail: Mail, password: Pass });
             } else if (result.message == "Le user existe déjà") {
               localStorage.removeItem("JWT");
               localStorage.removeItem("fullName");
@@ -135,7 +135,7 @@ export default function Home() {
             className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500`}
             type="submit"
           >
-            S'inscrire
+            {"S'inscrire"}
           </button>
         </div>
         <hr className="mt-5 mb-5" />
@@ -147,7 +147,7 @@ export default function Home() {
             <div className="flex flex-row content-start justify-center">
               <img src={google.src} className="m-0 p-0 h-8 w-8"></img>
               <div className="ml-2 my-auto">
-                <p>S'inscrire avec Google</p>
+                <p>{"S'inscrire avec Google"}</p>
               </div>
             </div>
           </button>

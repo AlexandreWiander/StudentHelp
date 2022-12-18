@@ -3,8 +3,7 @@ import { signOut } from "next-auth/react";
 
 function LogOutButton() {
   const logout = useCallback(async (event: any) => {
-    localStorage.removeItem("JWT");
-    localStorage.removeItem("fullName");
+    localStorage.clear();
     signOut({ callbackUrl: "/connection" });
   }, []);
 

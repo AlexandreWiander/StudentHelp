@@ -103,21 +103,21 @@ export default function Home() {
                       query: { id: user.id },
                     }}
                   >
-                    Voir l'utilisateur
+                    {"Voir l'utilisateur"}
                   </Link>
                   {!user.isActive ? (
                     <button
                       className={`bg-greenTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500 w-2/12 whitespace-nowrap`}
                       onClick={() => banUser(user.id)}
                     >
-                      Débannir l'utilisateur
+                      {"Débannir l'utilisateur"}
                     </button>
                   ) : (
                     <button
                       className={`bg-redTheme text-white rounded-full shadow-md p-2 font-face-pg h-14 hover:scale-105 transition duration-500  w-2/12`}
                       onClick={() => banUser(user.id)}
                     >
-                      Bannir l'utilisateur
+                      {"Bannir l'utilisateur"}
                     </button>
                   )}
                 </div>

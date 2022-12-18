@@ -14,14 +14,14 @@ interface User {
   isAdmin: boolean;
 }
 
-export default function userModif() {
-  const [user, setUser] = useState<User>();
-  const [mail, setMail] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [admin, setAdmin] = useState(false);
-  const [active, setActive] = useState(false);
-  const [avatarNumber, setAvatarNumber] = useState(0);
+export default function UserModif() {
+  const [User, setUser] = useState<User>();
+  const [Mail, setMail] = useState("");
+  const [Firstname, setFirstname] = useState("");
+  const [Lastname, setLastname] = useState("");
+  const [Admin, setAdmin] = useState(false);
+  const [Active, setActive] = useState(false);
+  const [AvatarNumber, setAvatarNumber] = useState(0);
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
@@ -56,20 +56,20 @@ export default function userModif() {
   function modifyUser() {
     token = localStorage.getItem("JWT");
 
-    if (mail && firstname && lastname && avatarNumber) {
-      if (validEmail.test(mail)) {
+    if (Mail && Firstname && Lastname && AvatarNumber) {
+      if (validEmail.test(Mail)) {
         console.log("valide");
 
         if (token != null) {
           const body = {
             id: idO,
             token: token,
-            mail: mail,
-            firstname: firstname,
-            lastname: lastname,
-            admin: admin,
-            active: active,
-            avatarnumber: avatarNumber,
+            mail: Mail,
+            firstname: Firstname,
+            lastname: Lastname,
+            admin: Admin,
+            active: Active,
+            avatarnumber: AvatarNumber,
           };
           fetch("/api/admin/modifyUser", {
             method: "POST",
@@ -118,12 +118,12 @@ export default function userModif() {
     }
   }
 
-  if (user != undefined) {
+  if (User != undefined) {
     return (
       <div className="flex justify-center h-full place-items-center mt-20">
         <div className="bg-white shadow-md px-8 pt-6 pb-8 mb-4 rounded-lg w-1/3">
           <h1 className="font-face-pg text-center text-4xl">
-            Modifier l'utilisateur
+            {"Modifier l'utilisateur"}
           </h1>
           <hr className="mt-5 mb-5" />
           <div className="flex flex-col">
@@ -131,16 +131,16 @@ export default function userModif() {
             <input
               className={`${styles.inputConnection} mt-1 rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
               name="mail"
-              value={mail}
+              value={Mail}
               onChange={(e) => setMail(e.target.value)}
               type="email"
-              disabled={user.isGoogleAccount ? true : false}
+              disabled={User.isGoogleAccount ? true : false}
             />
             <label className="mt-4 ml-2">Prénom:</label>
             <input
               className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
               name="firstname"
-              value={firstname}
+              value={Firstname}
               onChange={(e) => setFirstname(e.target.value)}
               type="text"
             />
@@ -148,15 +148,15 @@ export default function userModif() {
             <input
               className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
               name="lastname"
-              value={lastname}
+              value={Lastname}
               onChange={(e) => setLastname(e.target.value)}
               type="text"
             />
-            <label className="mt-4 ml-2">Numéro d'avatar:</label>
+            <label className="mt-4 ml-2">{"Numéro d'avatar: "}</label>
             <input
               className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
               name="avatarNumber"
-              value={avatarNumber}
+              value={AvatarNumber}
               onChange={(e) => setAvatarNumber(parseInt(e.target.value))}
               type="number"
             />
@@ -167,8 +167,8 @@ export default function userModif() {
                 type="checkbox"
                 value="Oui"
                 name="admin"
-                checked={admin}
-                onChange={() => (admin ? setAdmin(false) : setAdmin(true))}
+                checked={Admin}
+                onChange={() => (Admin ? setAdmin(false) : setAdmin(true))}
               />
             </div>
             <div className="mt-4 flex flex-row">
@@ -178,8 +178,8 @@ export default function userModif() {
                 type="checkbox"
                 value="Oui"
                 name="active"
-                checked={active}
-                onChange={() => (active ? setActive(false) : setActive(true))}
+                checked={Active}
+                onChange={() => (Active ? setActive(false) : setActive(true))}
               />
             </div>
             <button

@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function ConnectionForm() {
   const router = useRouter();
@@ -111,13 +112,13 @@ function ConnectionForm() {
             </div>
           </button>
           <div className="flex flex-row content-start justify-center">
-            <p>Vous n'avez pas encore de compte ?</p>
-            <a
+            <p>{"Vous n'avez pas encore de compte ?"}</p>
+            <Link
               href="/connection/register"
               className="ml-3 text-blue-500 hover:text-blue-800"
             >
-              S'inscrire
-            </a>
+              {"S'inscrire"}
+            </Link>
           </div>
         </div>
       </div>

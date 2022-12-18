@@ -18,13 +18,13 @@ interface Discution {
   dateAndHour: Date;
 }
 
-export default function message() {
-  const [connection, setCon] = useState<HubConnection>();
-  const [discution, setDiscution] = useState<Array<Discution>>();
-  const [message, setMessage] = useState("");
-  const [newMsg, setNewMsg] = useState(0);
-  const [imageId, setImage] = useState(1);
-  const [corrName, setName] = useState("");
+export default function Message() {
+  const [Connection, setCon] = useState<HubConnection>();
+  const [Discution, setDiscution] = useState<Array<Discution>>();
+  const [MessageText, setMessage] = useState("");
+  const [NewMsg, setNewMsg] = useState(0);
+  const [ImageId, setImage] = useState(1);
+  const [CorrName, setName] = useState("");
   let myId = -1;
 
   const joinRoom = async (token: string) => {
@@ -39,9 +39,9 @@ export default function message() {
         .build();
 
       connection.on("ReceiveMessage", (idSender, message) => {
-        discution?.push(message);
-        setDiscution(discution);
-        let i = newMsg;
+        Discution?.push(message);
+        setDiscution(Discution);
+        let i = NewMsg;
         setNewMsg(i + 1);
       });
 
@@ -49,19 +49,17 @@ export default function message() {
 
       await connection.start();
       setCon(connection);
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 
   const sendMsg = async () => {
     const parsedInt = parseInt(typeof idO === "string" ? idO : "");
 
     try {
-      await connection?.invoke("SendMessage", myId, parsedInt, message);
-      let i = newMsg;
+      await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
+      let i = NewMsg;
       setNewMsg(i + 1);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   let token: any = null;
@@ -105,7 +103,7 @@ export default function message() {
           }
         });
     }
-  }, [idO, newMsg]);
+  }, [idO, NewMsg]);
 
   const handleKeypress = (e: { keyCode: number }) => {
     if (e.keyCode === 13) {
@@ -113,7 +111,7 @@ export default function message() {
     }
   };
 
-  if (discution != undefined) {
+  if (Discution != undefined) {
     return (
       <div className={styles.lobby}>
         <div className="flex flex-row w-full h-full">
@@ -122,10 +120,10 @@ export default function message() {
           >
             <img
               className="w-28 h-28 m-auto"
-              src={"/images/avatar/" + imageId + ".png"}
+              src={"/images/avatar/" + ImageId + ".png"}
             />
             <h1 className="font-face-pg text-center text-3xl mt-5">
-              {corrName}
+              {CorrName}
             </h1>
           </div>
 
@@ -133,7 +131,7 @@ export default function message() {
             <div className="flex flex-col h-full">
               <div className="flex flex-col-reverse justify-end flex-1 p-5 overflow-hidden">
                 <div className="flex flex-col-reverse pr-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
-                  {discution.map((message) => {
+                  {Discution.map((message) => {
                     let date = new Date(message.dateAndHour)
                       .toLocaleTimeString()
                       .slice(0, 5);

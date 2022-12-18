@@ -88,7 +88,7 @@ export default function Home() {
         <ul className=" divide-y divide-gray-200 min-w-full max-h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 pr-2">
           {requests!.map((request) => {
             return (
-              <div className="flex items-center space-x-4 p-5">
+              <div key={request.id} className="flex items-center space-x-4 p-5">
                 <div className="flex-1 min-w-0">
                   <p className="text-lg font-medium text-gray-900 truncate">
                     {request.mail}
