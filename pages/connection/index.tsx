@@ -39,7 +39,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 w-full mt-11 mb-10">
+    <div className="grid grid-cols-2 w-full mt-11 mb-10 font-face-pg">
       <div className="flex justify-center h-full place-items-center">
         <ConnectionForm />
       </div>

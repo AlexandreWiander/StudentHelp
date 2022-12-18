@@ -254,7 +254,7 @@ export default function Home() {
                         </button>
                     </div>
                     <p>Attention l'ajout d'un lien horaire entrainera la suppression du précédent et de ses évènements liés !</p>
-                    <div className="flex flex-col items-center text-center overflow-y-scroll h-1/2 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
+                    <div className="flex flex-col items-center text-center">
                         <h1 className="mb-2 text-2xl font-extrabold tracking-tight leading-none mt-4 text-center">Mes rendez-vous</h1>
                         <AddMeetModal id={idUser} />
                         {meets.map((meet) => {
