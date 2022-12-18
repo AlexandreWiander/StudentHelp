@@ -16,23 +16,25 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-    const decodedToken = jwt_decode(token ?? "") as any;
-    if (idUser == -1)
-      idUser =
-        decodedToken[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-        ];
-    const body = { id: idUser, token: token };
-    fetch("/api/tutor/getInactiveRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setUserRequests(list);
-      });
+    if (token != null) {
+      const decodedToken = jwt_decode(token ?? "") as any;
+      if (idUser == -1)
+        idUser =
+          decodedToken[
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+          ];
+      const body = { id: idUser, token: token };
+      fetch("/api/tutor/getInactiveRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setUserRequests(list);
+        });
+    }
   }, []);
 
   async function addMeet(id: number) {
