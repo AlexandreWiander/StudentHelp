@@ -189,6 +189,7 @@ export default function Home() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
+
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
@@ -241,6 +242,7 @@ export default function Home() {
         body: JSON.stringify(body2),
       });
       importClassLink(link);
+      window.location.reload();
     } else {
       toast.error(
         "Il faut encoder le lien de l'horaire à importer ! (un seul possible à la fois)",
