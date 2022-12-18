@@ -367,7 +367,7 @@ export default function Home() {
                 <h1 className="mb-2 text-2xl font-extrabold tracking-tight leading-none mt-4 text-center">Mes
                     tutorés</h1>
                 <div
-                    className="overflow-y-scroll h-2/5 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 items-center">
+                    className="overflow-y-scroll h-1/3 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 items-center">
                     {activeRequests.map((request) => {
                         return (
                             <div key={request["id"]}
