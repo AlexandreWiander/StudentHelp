@@ -16,8 +16,6 @@ export default function DeleteUserModal({ id }: ModalProps) {
   }, []);
 
   function deleteUser(id: number): void {
-    console.log(id, token);
-
     if (token != null) {
       const body = { token: token, id: id };
 

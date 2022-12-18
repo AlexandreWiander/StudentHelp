@@ -34,7 +34,12 @@ export const authOptions = {
         const token = response["token"];
 
         if (response.message == "L'utilisateur est connecté") {
-          const decodedToken = jwt_decode(token);
+          let decodedToken;
+          try {
+            decodedToken = jwt_decode(token);
+          } catch (error) {
+            console.log("Problème de token");
+          }
           user.email =
             decodedToken[
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"

@@ -16,8 +16,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Authorization': 'bearer '+req.body.token,
         },
     });
-    const content = await rawResponse.json();
+    
     if(rawResponse.status == 200){
+        const content = await rawResponse.json();
         var cours=[];
         for(var i=0; i<content.length; i++){
             var one = content[i];

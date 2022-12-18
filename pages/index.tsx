@@ -30,8 +30,16 @@ export default function Home() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-    if (token != null && token != undefined && token != "") {
-      const decodedToken: any = jwt_decode(token);
+    console.log(token);
+
+    let decodedToken: any;
+    if (token != null) {
+      try {
+        decodedToken = jwt_decode(token);
+      } catch (error) {
+        console.log(error);
+      }
+
       if (idUser == -1)
         idUser =
           decodedToken[
