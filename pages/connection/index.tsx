@@ -54,7 +54,7 @@ export default function Home() {
               <img src={study.src} className="m-0 p-0"></img>
             </div>
             <h2 className="text-xl m-0 p-0">
-              StudentHelp est une plateforme d’aide estudiantine.Mise en place
+              StudentHelp est une plateforme d’aide estudiantine. Mise en place
               d’un système de tutorat, de gestion d’agenda et de partage de
               synthèse entre étudiants.
             </h2>
