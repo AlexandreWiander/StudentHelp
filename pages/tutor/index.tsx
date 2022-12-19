@@ -314,7 +314,7 @@ export default function Home() {
               return (
                 <div
                   key={request["id"]}
-                  className="w-4/5 h-1/3 grid grid-cols-6 m-4 p-4 border border-blueTheme bg-darkGrey rounded-lg shadow-md hover:bg-gray-100 items-center"
+                  className="w-4/5 h-1/4 grid grid-cols-6 m-4 p-4 border border-blueTheme bg-darkGrey rounded-lg shadow-md hover:bg-gray-100 items-center"
                 >
                   <img
                     src={"/images/avatar/" + request["avatarTutor"] + ".png"}
@@ -404,7 +404,7 @@ export default function Home() {
             Ajouter
           </button>
         </div>
-        <div className="overflow-y-scroll h-1/8 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 flex flex-col items-center w-1/2">
+        <div className="overflow-y-scroll max-h-32 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 flex flex-col items-center w-1/2">
           {propositions.map((proposition) => {
             return (
               <div
