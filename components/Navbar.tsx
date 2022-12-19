@@ -10,15 +10,18 @@ import jwt_decode from "jwt-decode";
 import LogOutButton from "./LogOutButton";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Router from "next/router";
 
 export function Navbar() {
   const { data: session } = useSession();
 
   const [role, setRole] = useState("");
+  const [token, setToken] = useState<string | null>();
 
   useEffect(() => {
-    let token = localStorage.getItem("JWT");
-    if (token != undefined && role == "") {
+    setToken(localStorage.getItem("JWT"));
+
+    if (token !== undefined && token !== null) {
       const decodedToken: any = jwt_decode(token);
 
       setRole(
@@ -27,12 +30,15 @@ export function Navbar() {
         ]
       );
     }
-  }, [role]);
+  }, [session?.user]);
 
   return (
     <nav className={styles.navbar}>
       <div className="LogoTitle flex flex-row content-start ml-10 mr-10">
-        <Link href="/" className="flex flex-row content-start self-center">
+        <Link
+          href="/connection"
+          className="flex flex-row content-start self-center"
+        >
           <div className="rounded-full">
             <img src={book.src} className="w-20 h-20 m-4"></img>
           </div>
@@ -40,7 +46,7 @@ export function Navbar() {
             StudentHelp
           </h1>
         </Link>
-        {session != undefined ? (
+        {session?.user ? (
           <div className="flex flex-row content-start self-center ml-12">
             <Link
               href="/tutor"
@@ -69,13 +75,13 @@ export function Navbar() {
           <></>
         )}
 
-        {session != undefined ? (
+        {session?.user && (
           <div className="self-center ml-auto flex flex-row content-start">
             <h1 className="mr-5 font-face-pg m-auto text-lg">
               Bonjour, {localStorage.getItem("fullName")}
             </h1>
             <LogOutButton />
-            {role == "admin" ? (
+            {role === "admin" && (
               <div className="ml-3 self-center flex flex-row content-start">
                 <Link
                   href="/admin"
@@ -84,12 +90,8 @@ export function Navbar() {
                   Gestion Admin
                 </Link>
               </div>
-            ) : (
-              <></>
             )}
           </div>
-        ) : (
-          <></>
         )}
       </div>
     </nav>

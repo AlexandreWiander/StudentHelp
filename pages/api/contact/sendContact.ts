@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         'Content-Type': 'application/json'
         },
         body: JSON.stringify({ mail: req.body.mail, message: req.body.text})
-    });
+    });    
 
     if(rawResponse.status == 200){
         res.status(200).json({ message: "Success"});

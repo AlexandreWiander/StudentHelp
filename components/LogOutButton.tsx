@@ -4,7 +4,12 @@ import { signOut } from "next-auth/react";
 function LogOutButton() {
   const logout = useCallback(async (event: any) => {
     localStorage.clear();
-    signOut({ callbackUrl: "/connection" });
+
+    const delay = (ms: number | undefined) =>
+      new Promise((res) => setTimeout(res, ms));
+
+    await signOut({ callbackUrl: "/connection" });
+    await delay(5000);
   }, []);
 
   return (

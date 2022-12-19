@@ -30,7 +30,6 @@ export default function Home() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-    console.log(token);
 
     let decodedToken: any;
     if (token != null) {
@@ -197,7 +196,6 @@ export default function Home() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         });
-
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
@@ -272,7 +270,7 @@ export default function Home() {
 
   if (session != undefined) {
     return (
-      <div className="grid grid-cols-2 font-face-pg">
+      <div className="grid grid-cols-2 font-face-pg mt-8">
         <div>
           <Calendar
             localizer={localizer}
