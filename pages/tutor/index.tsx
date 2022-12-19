@@ -304,7 +304,7 @@ export default function Home() {
         >
           Ajouter
         </button>
-        <h1 className="mb-2 text-2xl font-extrabold tracking-tight leading-none mt-4 text-center">
+        <h1 className="mb-2 text-2xl font-extrabold tracking-tight leading-none text-center">
           Mes demandes
         </h1>
         <div className="overflow-y-scroll h-3/5 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300 flex flex-col items-center">
