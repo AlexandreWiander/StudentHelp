@@ -45,7 +45,7 @@ export default function Home() {
       </div>
       <div className="flex justify-center h-full">
         <div>
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center">
             <h1 className="text-4xl m-0 p-0 pb-1">
               Déjà {userNumber} inscrits avec {synthNumber} synthèses partagées
               !
@@ -53,8 +53,8 @@ export default function Home() {
             <div className="flex justify-center">
               <img src={study.src} className="m-0 p-0"></img>
             </div>
-            <h2 className="text-xl m-0 p-0">
-              StudentHelp est une plateforme d’aide estudiantine. Mise en place
+            <h2 className="text-xl m-0 p-0 text-center">
+              StudentHelp est une plateforme d’aide estudiantine avec une mise en place
               d’un système de tutorat, de gestion d’agenda et de partage de
               synthèse entre étudiants.
             </h2>
