@@ -13,9 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Authorization': 'bearer ' + req.body.token, 
             },
         body: JSON.stringify({ id: parseInt(req.body.id), email: req.body.mail, firstName: req.body.firstname, lastName: req.body.lastname, isAdmin: req.body.admin ,isActive: req.body.active,avatarNumber: parseInt(req.body.avatarnumber)})
-        });        
-
-        console.log(resp);
+        });
         
     
     if(resp.status == 200){

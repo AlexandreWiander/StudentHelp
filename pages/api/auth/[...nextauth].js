@@ -38,7 +38,6 @@ export const authOptions = {
           try {
             decodedToken = jwt_decode(token);
           } catch (error) {
-            console.log("Problème de token");
           }
           user.email =
             decodedToken[

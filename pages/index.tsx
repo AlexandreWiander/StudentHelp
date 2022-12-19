@@ -30,14 +30,12 @@ export default function Home() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-    console.log(token);
 
     let decodedToken: any;
     if (token != null) {
       try {
         decodedToken = jwt_decode(token);
       } catch (error) {
-        console.log(error);
       }
 
       if (idUser == -1)
