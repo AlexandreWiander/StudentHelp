@@ -58,7 +58,6 @@ export default function UserModif() {
 
     if (Mail && Firstname && Lastname && AvatarNumber) {
       if (validEmail.test(Mail)) {
-        console.log("valide");
 
         if (token != null) {
           const body = {

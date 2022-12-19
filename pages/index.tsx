@@ -36,7 +36,6 @@ export default function Home() {
       try {
         decodedToken = jwt_decode(token);
       } catch (error) {
-        console.log(error);
       }
 
       if (idUser == -1)
