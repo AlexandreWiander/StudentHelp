@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { signOut } from "next-auth/react";
+import Router from "next/router";
 
 function LogOutButton() {
   const logout = useCallback(async (event: any) => {
@@ -7,9 +8,9 @@ function LogOutButton() {
 
     const delay = (ms: number | undefined) =>
       new Promise((res) => setTimeout(res, ms));
-
-    await signOut({ callbackUrl: "/connection" });
-    await delay(5000);
+    delay(5000);
+    signOut();
+    Router.push("/connection");
   }, []);
 
   return (

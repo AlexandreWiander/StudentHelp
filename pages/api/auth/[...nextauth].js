@@ -37,8 +37,7 @@ export const authOptions = {
           let decodedToken;
           try {
             decodedToken = jwt_decode(token);
-          } catch (error) {
-          }
+          } catch (error) {}
           user.email =
             decodedToken[
               "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
