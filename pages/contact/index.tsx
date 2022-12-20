@@ -16,7 +16,7 @@ export default function Contact() {
   function Send() {
     const body = { mail: Mail, text: Text };
 
-    if (Mail && Text) {
+    if (Mail && Text && validEmail.test(Mail)) {
       fetch("/api/contact/sendContact", {
         method: "POST",
         body: JSON.stringify(body),
