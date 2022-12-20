@@ -24,7 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if(response.status==200){
             var value = new TextDecoder("utf-8").decode(await response.arrayBuffer());
             var mail = value.substring(1, value.length-1);
-            console.log(mail);
             const nodemailer = require("nodemailer");
             const transporter = nodemailer.createTransport({
                 service: 'hotmail',

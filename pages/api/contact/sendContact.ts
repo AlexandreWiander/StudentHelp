@@ -27,7 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             var link = new TextDecoder("utf-8").decode(await response.arrayBuffer());
             var mailsWithStrokes = link.substring(1, link.length - 1);
             var mails = mailsWithStrokes.replaceAll("\"", "");
-            console.log(mails);
             const nodemailer = require("nodemailer");
             const transporter = nodemailer.createTransport({
                 service: 'hotmail',
