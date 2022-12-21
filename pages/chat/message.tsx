@@ -6,7 +6,7 @@ import {
   HubConnection,
   HubConnectionBuilder,
   LogLevel,
-} from "@Microsoft/signalr";
+} from "@microsoft/signalr";
 
 interface Discution {
   id: string;
