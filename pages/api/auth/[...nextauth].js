@@ -25,6 +25,8 @@ export const authOptions = {
       async authorize(credentials, req) {
         const user = {};
 
+        console.log(credentials);
+
         const res = await fetch("http://localhost:3000/api/auth/connection", {
           method: "POST",
           body: JSON.stringify(credentials),
