@@ -63,10 +63,10 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile, user }) {
+    async signIn({ account, profile }) {
       if (account.provider === "GoogleProvider") {
         const res = await fetch(
-          "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" +
+          "https://rest-jans-wian.azurewebsites.net/Auth?email=" +
             profile.email,
           {
             method: "GET",
@@ -76,7 +76,7 @@ export const authOptions = {
 
         if (res.statusText != "OK") {
           await fetch(
-            "https://porthos-intra.cg.helmo.be/e180478/Auth/registerGoogle",
+            "https://rest-jans-wian.azurewebsites.net/Auth/registerGoogle",
             {
               method: "POST",
               headers: {
@@ -92,6 +92,8 @@ export const authOptions = {
             }
           );
           return true;
+        } else {
+          return false;
         }
       }
       return true;
