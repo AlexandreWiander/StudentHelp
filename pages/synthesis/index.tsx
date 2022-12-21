@@ -65,7 +65,7 @@ export default function Home() {
 
   function downloadFile(idSynthese: number, fileName: string) {
     const body = { id: idSynthese, fileName: fileName };
-    fetch("https://porthos-intra.cg.helmo.be/e180478/Synthesis/" + idSynthese, {
+    fetch("https://rest-jans-wian.azurewebsites.net/Synthesis/" + idSynthese, {
       method: "GET",
       headers: {
         Authorization: "bearer " + token,
@@ -108,7 +108,7 @@ export default function Home() {
           body.append("UserId", idUser.toString());
           body.append("Name", one.name);
           const response = await fetch(
-            "https://porthos-intra.cg.helmo.be/e180478/Synthesis",
+            "https://rest-jans-wian.azurewebsites.net/Synthesis",
             {
               method: "POST",
               headers: {

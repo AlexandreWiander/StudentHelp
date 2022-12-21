@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         body: JSON.stringify({ name: req.body.name, place: req.body.place, from: req.body.from, to: req.body.to, userId:parseInt(req.body.id), invitedId:parseInt(req.body.invitedId) }),
     });
     if(rawResponse.status == 200){
-        const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/mail?id='+req.body.id, {
+        const response = await fetch('https://rest-jans-wian.azurewebsites.net/Auth/mail?id='+req.body.id, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }});
         var mailUserString = new TextDecoder("utf-8").decode(await response.arrayBuffer());
         var mailUser = mailUserString.substring(1, mailUserString.length - 1);
-        const responseInvited = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/mail?id='+req.body.invitedId, {
+        const responseInvited = await fetch('https://rest-jans-wian.azurewebsites.net/Auth/mail?id='+req.body.invitedId, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
