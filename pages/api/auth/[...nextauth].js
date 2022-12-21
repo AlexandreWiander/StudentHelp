@@ -92,8 +92,6 @@ export const authOptions = {
             }
           );
           return true;
-        } else {
-          return false;
         }
       }
       return true;
