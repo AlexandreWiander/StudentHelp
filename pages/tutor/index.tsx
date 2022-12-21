@@ -58,7 +58,7 @@ export default function Home() {
           const list = result.requestsList;
           setActiveRequests(list);
         });
-
+      console.log(1);
       fetch("/api/tutor/getPropositions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -138,19 +138,19 @@ export default function Home() {
             theme: "colored",
           }
       );
-    }else{
+    }else {
       toast.error(
-        "Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",
-        {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        }
+          "Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }
       );
     }
   }
