@@ -28,10 +28,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass?idUser=' + req.body.id, {
             method: 'get',
             headers: {
-                'Content-Type':'application/json',
-                    'Access-Control-Allow-Origin':'*',
-                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
                 'Accept': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': 'bearer '+req.body.token,
             },
         });

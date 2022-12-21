@@ -6,8 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const linkResponse = await fetch('https://rest-jans-wian.azurewebsites.net/Auth/ScheduleLink',{
         method: 'POST',
         headers: {
+            'Content-Type':'application/json',
+                    'Access-Control-Allow-Origin':'*',
+                    'Access-Control-Allow-Methods':'POST,PATCH,OPTIONS',
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
             'Authorization': 'bearer '+req.body.token,
         },
         body: JSON.stringify({ id: req.body.id, link:req.body.link }),
