@@ -129,7 +129,6 @@ export default function Home() {
         await response.arrayBuffer()
       );
       const resultJSON = ICalParser.toJSON(contentString);
-      console.log(resultJSON);
       var eventsJson = resultJSON["events"];
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
@@ -191,6 +190,7 @@ export default function Home() {
           to: dateTo,
           link: mylink,
         };
+        console.log(body);
         fetch("/api/agenda/addEventClass", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
