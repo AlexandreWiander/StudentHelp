@@ -97,6 +97,11 @@ export default function Message() {
                   setName(
                     message.sender.firstName + " " + message.sender.lastName
                   );
+                } else {
+                  setImage(message.reciever.avatarNumber);
+                  setName(
+                    message.reciever.firstName + " " + message.reciever.lastName
+                  );
                 }
               });
             }
