@@ -31,7 +31,7 @@ export default function Message() {
     try {
       const connection = new HubConnectionBuilder()
         .withUrl(
-          "https://porthos-intra.cg.helmo.be/e180478/chatHub?access_token=" +
+          "https://rest-jans-wian.azurewebsites.net//chatHub?access_token=" +
             token
         )
         .withAutomaticReconnect()
