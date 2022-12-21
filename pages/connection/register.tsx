@@ -7,6 +7,7 @@ import { signIn, signOut } from "next-auth/react";
 export default function Register() {
   const [Mail, setMail] = useState("");
   const [Pass, setPass] = useState("");
+  const [PassTwo, setPassTwo] = useState("");
   const [Firstname, setFirstname] = useState("");
   const [Lastname, setLastname] = useState("");
   const validEmail = new RegExp(
@@ -25,51 +26,64 @@ export default function Register() {
       lastname: Lastname,
     };
 
-    if (Mail && Pass && Firstname && Lastname) {
-      if (validEmail.test(Mail)) {
-        await fetch("/api/auth/register", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: { "Content-Type": "application/json" },
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            if (result.message == "Success") {
-              signIn("credentials", { mail: Mail, password: Pass });
-            } else if (result.message == "Le user existe déjà") {
-              localStorage.removeItem("JWT");
-              localStorage.removeItem("fullName");
+    if (Mail && Pass && Firstname && Lastname && PassTwo) {
+      if (validEmail.test(Mail) ) {
+        if(Pass==PassTwo){
+          await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: { "Content-Type": "application/json" },
+          })
+              .then((res) => res.json())
+              .then((result) => {
+                if (result.message == "Success") {
+                  signIn("credentials", { mail: Mail, password: Pass });
+                } else if (result.message == "Le user existe déjà") {
+                  localStorage.removeItem("JWT");
+                  localStorage.removeItem("fullName");
 
-              toast.error("Ce compte existe déjà, veuillez vous connecter", {
-                position: "top-center",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-              });
-              signOut();
-            } else {
-              toast.error(
-                "Une erreur s'est produite durant l'inscription, veuillez réessayer",
-                {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "colored",
+                  toast.error("Ce compte existe déjà, veuillez vous connecter", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                  signOut();
+                } else {
+                  toast.error(
+                      "Une erreur s'est produite durant l'inscription, veuillez réessayer",
+                      {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                      }
+                  );
+                  localStorage.removeItem("JWT");
+                  localStorage.removeItem("fullName");
+                  signOut({ callbackUrl: "/connection" });
                 }
-              );
-              localStorage.removeItem("JWT");
-              localStorage.removeItem("fullName");
-              signOut({ callbackUrl: "/connection" });
-            }
+              });
+        }else{
+          toast.error("Les mots de passe ne correspondent pas !", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
           });
+        }
       } else {
         toast.error("L'adresse mail est invalide", {
           position: "top-center",
@@ -115,6 +129,13 @@ export default function Register() {
             name="password"
             onChange={(e) => setPass(e.target.value)}
             type="password"
+          />
+          <input
+              placeholder="Validez votre mot de passe"
+              className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
+              name="passwordValidation"
+              onChange={(e) => setPassTwo(e.target.value)}
+              type="password"
           />
           <input
             placeholder="Entrez votre prénom"
