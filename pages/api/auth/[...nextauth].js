@@ -25,15 +25,16 @@ export const authOptions = {
       async authorize(credentials, req) {
         const user = {};
 
-        const res = await fetch("/api/auth/connection", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
+        const res = await fetch(
+          "https://student-help-web.vercel.app/api/auth/connection",
+          {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const response = await res.json();
         const token = response["token"];
-
-        console.log(response);
 
         if (response.message == "L'utilisateur est connecté") {
           let decodedToken;
