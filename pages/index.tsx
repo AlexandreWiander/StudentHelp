@@ -129,6 +129,7 @@ export default function Home() {
         await response.arrayBuffer()
       );
       const resultJSON = ICalParser.toJSON(contentString);
+      console.log(resultJSON);
       var eventsJson = resultJSON["events"];
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
