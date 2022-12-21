@@ -179,7 +179,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className={`bg-blueTheme text-white ml-3 rounded-full shadow-md p-2 font-face-pg h-12 hover:scale-105 transition duration-500`}
+        className={`bg-blueTheme text-white ml-3 rounded-full shadow-md p-2 font-face-pg h-12 transition duration-500`}
       >
         Ajouter rendez-vous
       </button>
