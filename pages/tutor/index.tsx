@@ -96,8 +96,8 @@ export default function Home() {
     }
     var pos = classSelected1.indexOf(" ");
     if (
-      (classSelected1 != "0" || classSelected1.substring(0, pos) == "0") &&
-      tutorSelected != "0"
+      (classSelected1 != "0" || classSelected1.substring(0, pos) != "0") &&
+      tutorSelected != "0" && comment.length<=30
     ) {
       var pos = classSelected1.indexOf(" ");
       const body = {
@@ -124,7 +124,21 @@ export default function Home() {
           setRequests(list);
         });
       commentaire.value = "";
-    } else {
+    } else if(comment.length>30) {
+      toast.error(
+          "Le commentaire ne peut pas faire plus de 30 caractères !",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }
+      );
+    }else{
       toast.error(
         "Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",
         {
