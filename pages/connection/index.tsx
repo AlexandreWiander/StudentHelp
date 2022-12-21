@@ -14,8 +14,6 @@ export default function Home() {
     if (session != undefined) {
       router.push("/");
     }
-
-    if (userNumber == 0) {
       fetch("/api/index/userNumber", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -24,9 +22,7 @@ export default function Home() {
         .then((result) => {
           setNumber(result.userNumber);
         });
-    }
 
-    if (synthNumber == 0) {
       fetch("/api/index/synthNumber", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,8 +31,7 @@ export default function Home() {
         .then((result) => {
           setSynthNumber(result.synthNumber);
         });
-    }
-  }, []);
+  }, [synthNumber, userNumber]);
 
   return (
     <div className="grid grid-cols-2 w-full mt-11 mb-10 font-face-pg">

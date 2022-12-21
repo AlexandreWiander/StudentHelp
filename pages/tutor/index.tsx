@@ -494,22 +494,30 @@ export default function Home() {
                   <p>{request["askName"]}</p>
                   <p>{request["commentaire"]}</p>
                 </div>
-                <div className="flex justify-end flex-col items-center">
-                  <p className="col-start-5">Tutorat en cours...</p>
-                  <Link
-                    href={{
-                      pathname: "/chat/message",
-                      query: { id: request["tutorId"] }, // the data
-                    }}
-                  >
-                    <button className="flex flex-col items-center">
-                      <img
-                        src={"images/message.png"}
-                        className="w-8 col-start-5"
-                      />
-                      <p className="text-center">Contacter</p>
-                    </button>
-                  </Link>
+                <div className="flex ">
+                  <div className="flex justify-end flex-col items-center">
+                    <p className="col-start-4">Tutorat en cours...</p>
+                    <Link
+                        href={{
+                          pathname: "/chat/message",
+                          query: { id: request["tutorId"] }, // the data
+                        }}
+                    >
+                      <button className="flex flex-col items-center">
+                        <img
+                            src={"images/message.png"}
+                            className="w-8 col-start-5"
+                        />
+                        <p className="text-center">Contacter</p>
+                      </button>
+                    </Link>
+                  </div>
+                  <button id={request["id"]} onClick={deleteRequest} className="col-start-5">
+                    <img
+                        src={"images/block.png"}
+                        className="w-10 col-start-5"
+                    />
+                  </button>
                 </div>
               </div>
             );
