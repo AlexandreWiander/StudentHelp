@@ -94,6 +94,8 @@ export default function Message() {
               reverse.forEach((message: any) => {
                 if (message.senderId.toString() == idO) {
                   setImage(message.sender.avatarNumber);
+                  console.log(message);
+
                   setName(
                     message.sender.firstName + " " + message.sender.lastName
                   );
