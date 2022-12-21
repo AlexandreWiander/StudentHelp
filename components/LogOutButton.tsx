@@ -4,11 +4,8 @@ import Router from "next/router";
 
 function LogOutButton() {
   const logout = useCallback(async (event: any) => {
+    event.preventDefault();
     localStorage.clear();
-
-    const delay = (ms: number | undefined) =>
-      new Promise((res) => setTimeout(res, ms));
-    delay(5000);
     signOut();
     Router.push("/connection");
   }, []);
