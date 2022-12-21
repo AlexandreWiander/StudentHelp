@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type Data = {
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/EventClass/'+req.body.id,{
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/'+req.body.id,{
         method: 'POST',
         headers: {
             'Accept': 'application/json',

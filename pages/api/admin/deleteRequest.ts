@@ -6,7 +6,7 @@ type Data = {
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    let url = "https://porthos-intra.cg.helmo.be/e180478/AdminContact/" + req.body.id;
+    let url = "https://rest-jans-wian.azurewebsites.net/AdminContact/" + req.body.id;
     let resp = await fetch(url, {
         method: 'POST',
         headers: {

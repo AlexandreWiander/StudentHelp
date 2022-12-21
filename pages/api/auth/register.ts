@@ -5,13 +5,13 @@ type Data = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rep = await fetch("https://porthos-intra.cg.helmo.be/e180478/Auth?email=" + req.body.mail);
+    const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Auth?email=" + req.body.mail);
 
     const message = rep.statusText;
     const content = await rep.text();
 
     if(message != "OK" || (message == "OK" && content != "yes")){
-        const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/register', {
+        const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/Auth/register', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',

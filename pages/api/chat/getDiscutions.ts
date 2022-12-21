@@ -15,7 +15,7 @@ interface Discution {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-const rep = await fetch("https://porthos-intra.cg.helmo.be/e180478/Message/" + req.body.idCurrentUser, {
+const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + req.body.idCurrentUser, {
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

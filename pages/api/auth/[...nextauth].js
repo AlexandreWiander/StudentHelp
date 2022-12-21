@@ -24,12 +24,14 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         const user = {};
-
-        const res = await fetch("http://localhost:3000/api/auth/connection", {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
+        const res = await fetch(
+          "https://student-help-web.vercel.app/api/auth/connection",
+          {
+            method: "POST",
+            body: JSON.stringify(credentials),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const response = await res.json();
         const token = response["token"];
 
@@ -60,10 +62,10 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile, user }) {
+    async signIn({ account, profile }) {
       if (account.provider === "GoogleProvider") {
         const res = await fetch(
-          "https://porthos-intra.cg.helmo.be/e180478/Auth?email=" +
+          "https://rest-jans-wian.azurewebsites.net/Auth?email=" +
             profile.email,
           {
             method: "GET",
@@ -73,7 +75,7 @@ export const authOptions = {
 
         if (res.statusText != "OK") {
           await fetch(
-            "https://porthos-intra.cg.helmo.be/e180478/Auth/registerGoogle",
+            "https://rest-jans-wian.azurewebsites.net/Auth/registerGoogle",
             {
               method: "POST",
               headers: {

@@ -4,7 +4,7 @@ type Data = {
 
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Synthesis/'+req.body.id, {
+    const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/Synthesis/'+req.body.id, {
         method: 'post',
         headers: {
             'Accept': 'application/json',

@@ -25,7 +25,6 @@ export default function Register() {
       firstname: Firstname,
       lastname: Lastname,
     };
-
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
       if (validEmail.test(Mail) ) {
         if(Pass==PassTwo){

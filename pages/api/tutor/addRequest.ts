@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 type Data = {
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/TutorRequest?id='+req.body.id, {
+    const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/TutorRequest?id='+req.body.id, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if(req.body.comment!="/"){
             comment = req.body.comment;
         }
-        const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/Message?idSender='+req.body.id+"&idReciever="+req.body.tutorId+"&message="+comment,{
+        const response = await fetch('https://rest-jans-wian.azurewebsites.net/Message?idSender='+req.body.id+"&idReciever="+req.body.tutorId+"&message="+comment,{
             method: 'POST',
             headers: {
                 'accept': 'text/plain',

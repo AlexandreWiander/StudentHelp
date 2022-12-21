@@ -9,7 +9,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   await fetch(
-    "https://porthos-intra.cg.helmo.be/e180478/Auth/userInfo?id=" +
+    "https://rest-jans-wian.azurewebsites.net/Auth/userInfo?id=" +
       req.body.idUser,
     {
       headers: {

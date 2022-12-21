@@ -4,8 +4,8 @@ type Data = {
     message: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {    
-    let resp = await fetch('https://porthos-intra.cg.helmo.be/e180478/Auth/modification', {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+    let resp = await fetch('https://rest-jans-wian.azurewebsites.net/Auth/modification', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

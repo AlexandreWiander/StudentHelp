@@ -5,7 +5,7 @@ type Data = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    await fetch("https://porthos-intra.cg.helmo.be/e180478/Message?idUser1=" + req.body.idCurrentUser + "&idUser2=" + req.body.idOtherUser, {
+    await fetch("https://rest-jans-wian.azurewebsites.net/Message?idUser1=" + req.body.idCurrentUser + "&idUser2=" + req.body.idOtherUser, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

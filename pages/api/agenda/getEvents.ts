@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import {DateTime} from "next-auth/providers/kakao";
 type Data = {
     listEvents:Event[];
     listMeets:Meeting[];
@@ -26,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     var events: Event[]=[];
     var checkEvent = req.body.checkEvent;
     if(checkEvent){
-        const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/EventClass?idUser='+req.body.id, {
+        const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass?idUser=' + req.body.id, {
             method: 'get',
             headers: {
                 'Accept': 'application/json',
@@ -63,7 +62,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 }
 async function getMeets(req: NextApiRequest, events: any[], meets: any[]) {
-    const response = await fetch('https://porthos-intra.cg.helmo.be/e180478/Meets?idUser=' + req.body.id, {
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/Meets?idUser=' + req.body.id, {
         method: 'get',
         headers: {
             'Accept': 'application/json',

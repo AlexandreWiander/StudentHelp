@@ -8,7 +8,7 @@ export interface Class{
     name:string,
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Class', {
+    const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/Class', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

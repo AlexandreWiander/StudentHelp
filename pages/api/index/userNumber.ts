@@ -6,7 +6,7 @@ type Data = {
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    await fetch("https://porthos-intra.cg.helmo.be/e180478/Auth/userNumber", {
+    await fetch("https://rest-jans-wian.azurewebsites.net/Auth/userNumber", {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

@@ -6,8 +6,7 @@ import {
   HubConnection,
   HubConnectionBuilder,
   LogLevel,
-} from "@Microsoft/signalr";
-
+} from "@microsoft/signalr";
 interface Discution {
   id: string;
   content: string;
@@ -31,7 +30,7 @@ export default function Message() {
     try {
       const connection = new HubConnectionBuilder()
         .withUrl(
-          "https://porthos-intra.cg.helmo.be/e180478/chatHub?access_token=" +
+          "https://rest-jans-wian.azurewebsites.net//chatHub?access_token=" +
             token
         )
         .withAutomaticReconnect()
@@ -96,6 +95,11 @@ export default function Message() {
                   setImage(message.sender.avatarNumber);
                   setName(
                     message.sender.firstName + " " + message.sender.lastName
+                  );
+                } else {
+                  setImage(message.reciever.avatarNumber);
+                  setName(
+                    message.reciever.firstName + " " + message.reciever.lastName
                   );
                 }
               });

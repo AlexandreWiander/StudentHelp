@@ -8,7 +8,7 @@ export interface Proposition{
     name:string,
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const rawResponse = await fetch('https://porthos-intra.cg.helmo.be/e180478/Class/props?id='+req.body.id, {
+    const rawResponse = await fetch('https://rest-jans-wian.azurewebsites.net/Class/props?id='+req.body.id, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
