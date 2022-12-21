@@ -45,6 +45,8 @@ function ConnectionForm() {
         redirect: false,
       })
         .then((res) => {
+          console.log(res);
+
           if (res?.ok == true) {
             router.push("/");
           } else {
