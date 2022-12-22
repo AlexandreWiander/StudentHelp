@@ -29,7 +29,7 @@ export default function Register() {
     console.log(!validPrenom.test(Firstname), !validPrenom.test(Lastname));
 
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
-      if (!validEmail.test(Mail)) {
+      if (validEmail.test(Mail) == false) {
         toast.error("L'adresse mail est invalide", {
           position: "top-center",
           autoClose: 5000,
@@ -40,7 +40,10 @@ export default function Register() {
           progress: undefined,
           theme: "colored",
         });
-      } else if (!validPrenom.test(Firstname) || !validPrenom.test(Lastname)) {
+      } else if (
+        validPrenom.test(Firstname) == false ||
+        validPrenom.test(Lastname) == false
+      ) {
         toast.error("Le nom ou le prénom est invalide", {
           position: "top-center",
           autoClose: 5000,
