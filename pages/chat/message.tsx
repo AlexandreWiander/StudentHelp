@@ -75,7 +75,12 @@ export default function Message() {
 
     console.log(Connection);
 
-    joinRoom(token);
+    if (Connection == undefined) {
+      joinRoom(token);
+    } else {
+      Connection.stop();
+      joinRoom(token);
+    }
 
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
