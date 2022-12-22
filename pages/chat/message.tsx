@@ -58,7 +58,9 @@ export default function Message() {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
       let i = NewMsg;
       setNewMsg(i + 1);
-    } catch (error) {}
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   let token: any = null;
@@ -69,7 +71,12 @@ export default function Message() {
   useEffect(() => {
     token = localStorage.getItem("JWT");
 
-    joinRoom(token);
+    if (Connection == undefined) {
+      joinRoom(token);
+    } else {
+      Connection.stop();
+      joinRoom(token);
+    }
 
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
