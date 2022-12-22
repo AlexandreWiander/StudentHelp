@@ -21,7 +21,7 @@ export default function Message() {
   const [Connection, setCon] = useState<HubConnection>();
   const [Discution, setDiscution] = useState<Array<Discution>>();
   const [MessageText, setMessage] = useState("");
-  const [NewMsg, setNewMsg] = useState(0);
+  const [NewMsg, setNewMsg] = useState("");
   const [ImageId, setImage] = useState(1);
   const [CorrName, setName] = useState("");
   let myId = -1;
@@ -41,10 +41,8 @@ export default function Message() {
         console.log(message);
         if (idSender == idO || idSender == myId) {
           let i = NewMsg;
-          console.log(NewMsg);
 
-          setNewMsg(i + 1);
-          console.log(NewMsg);
+          setNewMsg("change");
         }
       });
 
@@ -60,8 +58,7 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      let i = NewMsg;
-      setNewMsg(i + 1);
+      setNewMsg("change");
     } catch (error) {
       console.log("error");
     }
