@@ -207,7 +207,6 @@ export default function Home() {
   }
 
   async function importClass() {
-    setEvent([]);
     var input = document.getElementById("link") as HTMLInputElement;
     var link = "/";
     if (input.value != undefined && input.value != "" && input.value != null) {
