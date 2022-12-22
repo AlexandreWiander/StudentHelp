@@ -143,7 +143,9 @@ export default function Home() {
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
         var one = event.begin.toString();
-        console.log( JSON.parse(one));
+        var pos = one.indexOf("\n");
+        var oneEvent = one.substring(pos+2);
+        console.log( JSON.parse(oneEvent));
         var descriptionClass = event.description ?? "/";
         if (
           event.description!.indexOf("\\n") != -1 &&
