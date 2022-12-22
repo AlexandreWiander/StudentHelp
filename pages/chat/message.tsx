@@ -79,39 +79,33 @@ export default function Message() {
         ];
 
       const body = { idCurrentUser: id, token: token, idOtherUser: idO };
-      try {
-        fetch("/api/chat/getDiscution", {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: { "Content-Type": "application/json" },
-        })
-          .then((res) => res.json())
-          .then((result) => {
-            if (result != undefined && result != null) {
-              let reverse = result.discution;
-              if (Array.isArray(reverse)) {
-                setDiscution(reverse.reverse().slice(0, 100));
-                reverse.forEach((message: any) => {
-                  if (message.senderId.toString() == idO) {
-                    setImage(message.sender.avatarNumber);
-                    setName(
-                      message.sender.firstName + " " + message.sender.lastName
-                    );
-                  } else {
-                    setImage(message.reciever.avatarNumber);
-                    setName(
-                      message.reciever.firstName +
-                        " " +
-                        message.reciever.lastName
-                    );
-                  }
-                });
-              }
+      fetch("/api/chat/getDiscution", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result != undefined && result != null) {
+            let reverse = result.discution;
+            if (Array.isArray(reverse)) {
+              setDiscution(reverse.reverse().slice(0, 100));
+              reverse.forEach((message: any) => {
+                if (message.senderId.toString() == idO) {
+                  setImage(message.sender.avatarNumber);
+                  setName(
+                    message.sender.firstName + " " + message.sender.lastName
+                  );
+                } else {
+                  setImage(message.reciever.avatarNumber);
+                  setName(
+                    message.reciever.firstName + " " + message.reciever.lastName
+                  );
+                }
+              });
             }
-          });
-      } catch (error) {
-        console.log("Pas de discutions");
-      }
+          }
+        });
     }
   }, [idO, NewMsg]);
 
