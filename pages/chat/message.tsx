@@ -38,12 +38,12 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", (idSender, message) => {
+        console.log(message);
+        console.log(Discution);
         if (idSender == idO || idSender == myId) {
           if (Discution != null) {
             let msg = [...Discution];
             msg?.push(message);
-            console.log(msg);
-
             if (msg) {
               setDiscution(Discution);
             }
