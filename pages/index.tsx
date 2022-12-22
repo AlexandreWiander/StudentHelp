@@ -118,7 +118,7 @@ export default function Home() {
     var response = await fetch(mylink, {
       method: "get",
       headers:{
-        "Access-Control-Allow-Origin": "https://horairix.helmo.be/Services/SynchronisationAgenda",
+        "mode": "cors",
       }
     });
     if (response.status == 200 && token != null) {
