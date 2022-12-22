@@ -141,7 +141,6 @@ export default function Home() {
         var oneEvent = one.substring(pos+2);
         let lines = oneEvent.split('\\n');
         var description = lines[1].replaceAll("\\", "");
-        console.log(description);
         let obj = {} as any;
         for (let line of lines) {
           let parts = line.split(':');
@@ -149,7 +148,7 @@ export default function Home() {
             obj[parts[0]] = parts[1];
           }
         }
-        console.log(obj);
+        console.log(obj["LOCATION"]);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
