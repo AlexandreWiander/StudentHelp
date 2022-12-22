@@ -116,7 +116,7 @@ export default function Home() {
 
   async function importClassLink(mylink: string) {
     var pos = mylink.indexOf("token=");
-    var tokkenSchedule = mylink.substring(pos);
+    var tokkenSchedule = mylink.substring(pos+6);
     const myBody = { link: mylink, token: token };
     /*const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",
