@@ -15,7 +15,8 @@ interface Discution {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + req.body.idCurrentUser, {
+  try {
+    const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + req.body.idCurrentUser, {
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -58,4 +59,9 @@ const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + re
   }
   
 });
+  } catch (error) {
+    console.log("Error REST");
+    
+  }
+
 }
