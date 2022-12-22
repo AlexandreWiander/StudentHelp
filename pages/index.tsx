@@ -126,7 +126,6 @@ export default function Home() {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'bearer '+token,
       },
       body: JSON.stringify({ link: mylink.toString()})
     });
