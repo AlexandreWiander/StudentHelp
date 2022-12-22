@@ -10,6 +10,7 @@ export default function Home() {
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
+  const validPrenom = new RegExp("^\\D*$");
 
   useEffect(() => {}, []);
 
@@ -22,7 +23,32 @@ export default function Home() {
     };
 
     if (mail && pass && firstName && lastName) {
-      if (validEmail.test(mail)) {
+      if (validEmail.test(mail) == false) {
+        toast.error("L'adresse mail est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else if (
+        validPrenom.test(firstName) == false ||
+        validPrenom.test(lastName) == false
+      ) {
+        toast.error("Le nom ou le prénom est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
         await fetch("/api/auth/register", {
           method: "POST",
           body: JSON.stringify(body),
@@ -72,17 +98,6 @@ export default function Home() {
               );
             }
           });
-      } else {
-        toast.error("L'adresse mail est invalide", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
       }
     } else {
       toast.error("Veuillez compléter tous les champs", {

@@ -96,7 +96,8 @@ export default function Home() {
     var pos = classSelected1.indexOf(" ");
     if (
       (classSelected1 != "0" || classSelected1.substring(0, pos) != "0") &&
-      tutorSelected != "0" && comment.length<=30
+      tutorSelected != "0" &&
+      comment.length <= 30
     ) {
       var pos = classSelected1.indexOf(" ");
       const body = {
@@ -123,33 +124,30 @@ export default function Home() {
           setRequests(list);
         });
       commentaire.value = "";
-    } else if(comment.length>30) {
+    } else if (comment.length > 50) {
+      toast.error("Le commentaire ne peut pas faire plus de 50 caractères !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
       toast.error(
-          "Le commentaire ne peut pas faire plus de 30 caractères !",
-          {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          }
-      );
-    }else {
-      toast.error(
-          "Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",
-          {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          }
+        "Il est obligatoire de sélectionner un cours et un tuteur pour créer une nouvelle demande de tutorat.",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
       );
     }
   }
@@ -511,24 +509,28 @@ export default function Home() {
                   <div className="flex justify-end flex-col items-center">
                     <p className="col-start-4">Tutorat en cours...</p>
                     <Link
-                        href={{
-                          pathname: "/chat/message",
-                          query: { id: request["tutorId"] }, // the data
-                        }}
+                      href={{
+                        pathname: "/chat/message",
+                        query: { id: request["tutorId"] }, // the data
+                      }}
                     >
                       <button className="flex flex-col items-center">
                         <img
-                            src={"images/message.png"}
-                            className="w-8 col-start-5"
+                          src={"images/message.png"}
+                          className="w-8 col-start-5"
                         />
                         <p className="text-center">Contacter</p>
                       </button>
                     </Link>
                   </div>
-                  <button id={request["id"]} onClick={deleteRequest} className="col-start-5">
+                  <button
+                    id={request["id"]}
+                    onClick={deleteRequest}
+                    className="col-start-5"
+                  >
                     <img
-                        src={"images/block.png"}
-                        className="w-10 col-start-5"
+                      src={"images/block.png"}
+                      className="w-10 col-start-5"
                     />
                   </button>
                 </div>
