@@ -13,7 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }
     });
     if(linkResponse.status==200){
+        console.log(linkResponse.body);
         var contenu = new TextDecoder("utf-8").decode(await linkResponse.arrayBuffer());
+        console.log(contenu);
         res.status(200).json({contenu:contenu});
     }else{
         res.status(200).json({contenu:"/"});
