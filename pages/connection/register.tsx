@@ -26,6 +26,8 @@ export default function Register() {
       firstname: Firstname,
       lastname: Lastname,
     };
+    console.log(!validPrenom.test(Firstname), !validPrenom.test(Lastname));
+
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
       if (!validEmail.test(Mail)) {
         toast.error("L'adresse mail est invalide", {
