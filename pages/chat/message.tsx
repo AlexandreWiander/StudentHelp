@@ -39,15 +39,14 @@ export default function Message() {
 
       connection.on("ReceiveMessage", (idSender, message) => {
         console.log(message);
-        console.log(Discution);
         if (idSender == idO || idSender == myId) {
-          if (Discution != null) {
-            let msg = [...Discution];
-            msg?.push(message);
-            if (msg) {
-              setDiscution(Discution);
-            }
-          }
+          console.log(Discution);
+
+          Discution?.push(message);
+
+          setDiscution(Discution);
+
+          console.log(Discution);
 
           let i = NewMsg;
           setNewMsg(i + 1);
