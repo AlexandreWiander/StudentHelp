@@ -152,11 +152,23 @@ export default function Home() {
         console.log(obj);
         lieu.replaceAll("\\", "");
         var dstart = obj["DTSTART"] as String;
-        dstart.replaceAll("\\","");
+        dstart.replaceAll("\\","").replaceAll("\r", "");
         var dtend = obj["DTEND"] as String;
-        dtend.replaceAll("\\","");
-        console.log(dstart);
-        console.log(dtend);
+        dtend.replaceAll("\\","").replaceAll("\r","");
+        const body = {
+          id: idUser,
+          token: token,
+          name: description,
+          lieu: lieu,
+          from: dstart,
+          to: dtend,
+          link: mylink,
+        };
+        fetch("/api/agenda/addEventClass", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
