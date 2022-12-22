@@ -130,7 +130,7 @@ export default function Home() {
       }
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
-    console.log(response);
+    console.log(response.url);
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
