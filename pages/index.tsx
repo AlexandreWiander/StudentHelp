@@ -178,8 +178,6 @@ export default function Home() {
       })
         .then((res) => res.json())
         .then((result) => {
-          const eventsEmpty: EventCalendar[] = [];
-          setEvent(eventsEmpty);
           const list = result.listEvents as Event[];
           for (var i = 0; i < list.length; i++) {
             var one = list[i];
