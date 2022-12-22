@@ -139,7 +139,6 @@ export default function Home() {
         var one = event.begin.toString();
         var pos = one.indexOf("\\n");
         var oneEvent = one.substring(pos+2);
-        console.log(oneEvent);
         const lines = oneEvent.split('\n');
         const eventDetail = {} as any;
         for (const line of lines) {
