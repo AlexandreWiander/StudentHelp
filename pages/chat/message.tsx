@@ -58,9 +58,12 @@ export default function Message() {
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
 
+      Discution?.push();
+      setDiscution(Discution);
+
       const delay = (ms: number | undefined) =>
         new Promise((res) => setTimeout(res, ms));
-      await delay(5000);
+      await delay(6000);
 
       let i = NewMsg;
       setNewMsg(i + 1);
