@@ -122,6 +122,7 @@ export default function Home() {
       body: JSON.stringify(body),
     });
     const content = await response.json();
+    console.log(content);
     if (response.status == 200 && token != null && content.link!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
