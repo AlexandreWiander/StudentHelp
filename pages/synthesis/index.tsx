@@ -188,7 +188,7 @@ export default function Home() {
           Liste des synthèses
         </h1>
         <DropDownClass onChanged={changeClass} />
-        <div className="grid grid-cols-4 overflow-y-scroll h-1/2 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
+        <div className="grid grid-cols-4 overflow-y-scroll h-2/3 scrollbar-thin scrollbar-thumb-blueTheme scrollbar-track-blue-300">
           {synthesis.map((synthese) => (
             <div
               key={synthese["id"]}
