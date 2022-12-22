@@ -154,12 +154,18 @@ export default function Home() {
         dstart.replaceAll("\\","").replaceAll("\r", "");
         var dtend = obj["DTEND"] as String;
         dtend.replaceAll("\\","").replaceAll("\r","");
-        const body = {
+        console.log(dstart);
+        /*const body = {
           id: idUser,
           token: token,
           name: description,
           lieu: lieu,
-          from: dstart,
+          from: dstart.substring(0, 4) + "-" + dstart.substring(4, 6) + "-" + dstart.substring(6, 8) + "T" + hourF +
+              ":" +
+              event.dtstart.value.substring(11, 13) +
+              ":" +
+              event.dtstart.value.substring(13, 15) +
+              ".000Z";,
           to: dtend,
           link: mylink,
         };
@@ -167,7 +173,7 @@ export default function Home() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
-        });
+        });*/
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
