@@ -42,7 +42,7 @@ export default function Message() {
         if (idSender == idO || idSender == myId) {
           let i = NewMsg;
 
-          setNewMsg("change");
+          setNewMsg(makeid());
         }
       });
 
@@ -53,12 +53,23 @@ export default function Message() {
     } catch (e) {}
   };
 
+  function makeid() {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   const sendMsg = async () => {
     const parsedInt = parseInt(typeof idO === "string" ? idO : "");
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      setNewMsg("change");
+      setNewMsg(makeid());
     } catch (error) {
       console.log("error");
     }
