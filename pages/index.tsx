@@ -25,7 +25,8 @@ interface EventCalendar {
 
 export default function Home() {
   const { data: session } = useSession();
-  const [Events, setEvent] = useState(eventsArr);
+  const [Events,
+    setEvent] = useState(eventsArr);
   const [Meets, setMeets] = useState([]);
 
   useEffect(() => {
