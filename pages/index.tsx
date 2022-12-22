@@ -30,7 +30,8 @@ export default function Home() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-
+    const eventsEmpty: EventCalendar[] = [];
+    setEvent(eventsEmpty);
     let decodedToken: any;
     if (token != null) {
       try {
