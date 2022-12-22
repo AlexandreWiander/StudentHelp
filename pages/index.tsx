@@ -121,7 +121,7 @@ export default function Home() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(myBody),
     });*/
-    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+"%"+ mylink+"%",{
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+"l"+ mylink+"l",{
       method: 'get',
       headers: {
         'Accept': 'application/json',
