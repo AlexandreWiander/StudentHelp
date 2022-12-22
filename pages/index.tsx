@@ -119,8 +119,8 @@ export default function Home() {
       method: "get",
       headers:{
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT",
-        "Access-Control-Request-Headers":"Content-Type, Authorization"
+        "Access-Control-Allow-Methods":"POST, PUT, PATCH, GET, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers":"Origin, X-Api-Key, X-Requested-With, Content-Type, Accept, Authorization"
       }
     });
     if (response.status == 200 && token != null) {
