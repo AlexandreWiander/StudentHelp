@@ -225,26 +225,30 @@ export default function Home() {
       body: JSON.stringify(body),
     });
     const body2 = { id: idUser, token: token };
-    fetch("/api/tutor/getInactiveRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body2),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setInactiveRequests(list);
-      });
-    fetch("/api/tutor/getActiveRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body2),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setActiveRequests(list);
-      });
+    try {
+      fetch("/api/tutor/getInactiveRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body2),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setInactiveRequests(list);
+        });
+      fetch("/api/tutor/getActiveRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body2),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setActiveRequests(list);
+        });
+    } catch (error) {
+      console.log("Pas de requêtes");
+    }
   };
 
   const deleteRequest = (event: { currentTarget: { id: any } }) => {
@@ -255,36 +259,40 @@ export default function Home() {
       body: JSON.stringify(body),
     });
     const body2 = { id: idUser, token: token };
-    fetch("/api/tutor/getInactiveRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body2),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setInactiveRequests(list);
-      });
-    fetch("/api/tutor/getActiveRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body2),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setActiveRequests(list);
-      });
-    fetch("/api/tutor/getRequests", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        const list = result.requestsList;
-        setRequests(list);
-      });
+    try {
+      fetch("/api/tutor/getInactiveRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body2),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setInactiveRequests(list);
+        });
+      fetch("/api/tutor/getActiveRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body2),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setActiveRequests(list);
+        });
+      fetch("/api/tutor/getRequests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          const list = result.requestsList;
+          setRequests(list);
+        });
+    } catch (error) {
+      console.log("Error");
+    }
   };
 
   var pos = classSelected1.indexOf(" ");

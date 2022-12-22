@@ -48,6 +48,10 @@ export default function Message() {
 
       await connection.start();
       setCon(connection);
+
+      return () => {
+        connection.stop();
+      };
     } catch (e) {}
   };
 

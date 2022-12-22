@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { ListFormat } from "typescript";
 
 interface Discution {
   id: string;
@@ -18,15 +19,16 @@ function ChatList() {
 
   useEffect(() => {
     const token = localStorage.getItem("JWT");
-    try {
-      if (token != null) {
-        let decodedToken: any = jwt_decode(token);
-        let id =
-          decodedToken[
-            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-          ];
 
-        const body = { idCurrentUser: id, token: token };
+    if (token != null) {
+      let decodedToken: any = jwt_decode(token);
+      let id =
+        decodedToken[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ];
+
+      const body = { idCurrentUser: id, token: token };
+      try {
         fetch("/api/chat/getDiscutions", {
           method: "POST",
           body: JSON.stringify(body),
@@ -34,10 +36,15 @@ function ChatList() {
         })
           .then((res) => res.json())
           .then((result) => {
-            setChatList(result.discutionList);
+            if (result.discutionList.length === 0) {
+              console.log("Pas de discutions");
+            } else {
+              setChatList(result.discutionList);
+            }
           });
+      } catch (error) {
+        console.log("Pas de discutions");
       }
-    } catch (error) {
     }
   }, []);
 

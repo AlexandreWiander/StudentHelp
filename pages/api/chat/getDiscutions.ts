@@ -15,7 +15,8 @@ interface Discution {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + req.body.idCurrentUser, {
+  try {
+    const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + req.body.idCurrentUser, {
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -24,7 +25,7 @@ const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + re
 }).then((res) => res.json())
 .then((result) => {  
   if(result == "La liste des classes de tutorat est vide."){
-    return res.status(400).json({ discutionList: []});
+    return res.status(201).json({ discutionList: []});
   } else {
     const reversed = result.reverse();
     let discutionsId: any[] = [];
@@ -58,4 +59,9 @@ const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + re
   }
   
 });
+  } catch (error) {
+    console.log("Error REST");
+    
+  }
+
 }

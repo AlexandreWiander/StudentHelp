@@ -24,16 +24,20 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
           ];
       const body = { id: idUser, token: token };
-      fetch("/api/tutor/getInactiveRequests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          const list = result.requestsList;
-          setUserRequests(list);
-        });
+      try {
+        fetch("/api/tutor/getInactiveRequests", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            const list = result.requestsList;
+            setUserRequests(list);
+          });
+      } catch (error) {
+        console.log("Pas de requêtes");
+      }
     }
   }, []);
 
