@@ -39,8 +39,6 @@ export default function Message() {
 
       connection.on("ReceiveMessage", (idSender, message) => {
         if (idSender == idO) {
-          Discution?.push(message);
-          setDiscution(Discution);
           let i = NewMsg;
           setNewMsg(i + 1);
         }
