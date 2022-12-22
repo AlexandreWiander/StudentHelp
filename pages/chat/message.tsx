@@ -40,8 +40,8 @@ export default function Message() {
       connection.on("ReceiveMessage", (idSender, message) => {
         Discution?.push(message);
         setDiscution(Discution);
+
         let i = NewMsg;
-        setNewMsg(i + 1);
         setNewMsg(i + 1);
       });
 
@@ -58,6 +58,10 @@ export default function Message() {
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
 
+      const delay = (ms: number | undefined) =>
+        new Promise((res) => setTimeout(res, ms));
+      await delay(5000);
+
       let i = NewMsg;
       setNewMsg(i + 1);
     } catch (error) {}
@@ -70,7 +74,6 @@ export default function Message() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-
 
     if (Connection == undefined) {
       joinRoom(token);
