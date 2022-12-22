@@ -79,35 +79,39 @@ export default function Message() {
         ];
 
       const body = { idCurrentUser: id, token: token, idOtherUser: idO };
-      fetch("/api/chat/getDiscution", {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          if (result != undefined && result != null) {
-            let reverse = result.discution;
-            if (Array.isArray(reverse)) {
-              setDiscution(reverse.reverse().slice(0, 100));
-              reverse.forEach((message: any) => {
-                if (message.senderId.toString() == idO) {
-                  setImage(message.sender.avatarNumber);
-                  setName(
-                    message.sender.firstName + " " + message.sender.lastName
-                  );
-                } else {
-                  setImage(message.reciever.avatarNumber);
-                  setName(
-                    message.reciever.firstName + " " + message.reciever.lastName
-                  );
-                }
-              });
+      try {
+        fetch("/api/chat/getDiscution", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result != undefined && result != null) {
+              let reverse = result.discution;
+              if (Array.isArray(reverse)) {
+                setDiscution(reverse.reverse().slice(0, 100));
+                reverse.forEach((message: any) => {
+                  if (message.senderId.toString() == idO) {
+                    setImage(message.sender.avatarNumber);
+                    setName(
+                      message.sender.firstName + " " + message.sender.lastName
+                    );
+                  } else {
+                    setImage(message.reciever.avatarNumber);
+                    setName(
+                      message.reciever.firstName +
+                        " " +
+                        message.reciever.lastName
+                    );
+                  }
+                });
+              }
             }
-          } else {
-            setDiscution([]);
-          }
-        });
+          });
+      } catch (error) {
+        console.log("Pas de discutions");
+      }
     }
   }, [idO, NewMsg]);
 
@@ -117,7 +121,7 @@ export default function Message() {
     }
   };
 
-  if (Discution != undefined && Discution.length != 0) {
+  if (Discution != undefined) {
     return (
       <div className={styles.lobby}>
         <div className="flex flex-row w-full h-full">
