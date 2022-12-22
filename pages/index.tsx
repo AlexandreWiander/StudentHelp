@@ -244,7 +244,8 @@ export default function Home() {
       fetch("/api/agenda/updateLink", {
         method: "POST",
         headers: { "Content-Type": "application/json",
-          'Access-Control-Allow-Origin': "https://horairix.helmo.be"},
+          'Access-Control-Allow-Origin': "*",
+        'Access-Control-Allow-Credentilas':"true"},
         body: JSON.stringify(body2),
       });
       importClassLink(link);
