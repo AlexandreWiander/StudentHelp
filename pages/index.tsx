@@ -140,24 +140,7 @@ export default function Home() {
         var pos = one.indexOf("\\n");
         var oneEvent = one.substring(pos+2);
         const lines = oneEvent.split('\n');
-        const eventDetail = {} as any;
-        for (const line of lines) {
-          if (line.startsWith('DTSTAMP:')) {
-            eventDetail['dtstamp'] = line.split(':')[1];
-          } else if (line.startsWith('DTSTART:')) {
-            eventDetail['dtstart'] = line.split(':')[1];
-          } else if (line.startsWith('LOCATION:')) {
-            eventDetail['location'] = line.split(':')[1];
-          } else if (line.startsWith('SEQUENCE:')) {
-            eventDetail['sequence'] = line.split(':')[1];
-          } else if (line.startsWith('SUMMARY:')) {
-            eventDetail['summary'] = line.split(':')[1];
-          } else if (line.startsWith('UID:')) {
-            eventDetail['uid'] = line.split(':')[1];
-          }
-        }
-        const json = JSON.stringify(eventDetail);
-        console.log(json[0]);
+        console.log(lines);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
