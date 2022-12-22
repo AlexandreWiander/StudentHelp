@@ -118,7 +118,7 @@ export default function Home() {
     var response = await fetch(mylink, {
       method: "get",
       headers:{
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "https://student-help-web.vercel.app"
       }
     });
     if (response.status == 200 && token != null) {
