@@ -18,13 +18,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email: req.body.mail, password: req.body.password, lastName: req.body.lastname, firstName: req.body.firstname })
-        });
-        
-        console.log(rawResponse);
-        
+        });        
     
         if(rawResponse.status == 200){
-            const nodemailer = require("nodemailer");
+            /*const nodemailer = require("nodemailer");
             const transporter = nodemailer.createTransport({
                 service: 'hotmail',
                 auth: {
@@ -38,7 +35,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 subject: "Contact StudentHelp",
                 text: "StudentHelp Platform: Votre compte a été créé ! ",
                 html: `<a href="https://student-help.vercel.app/connection"><img src="https://www.zupimages.net/up/22/51/ow2l.png"></a><h1>StudentHelp platform</h1><b>Votre compte a bien été créé !</b>`,
-            })
+            })*/
             res.status(200).json({ message: "Success"});
         } else {
             res.status(400).json({ message: rawResponse.statusText});
