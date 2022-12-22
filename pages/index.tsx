@@ -117,22 +117,28 @@ export default function Home() {
   async function importClassLink(mylink: string) {
     const myBody = { link: mylink, token: token };
     console.log(myBody);
-    const response = await fetch("/api/agenda/getContenuByLink", {
+    /*const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(myBody),
+    });*/
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+mylink,{
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer '+token,
+      }
     });
-    console.log(response);
-    const content = await response.json();
-    console.log(content);
-    if (response.status == 200 && token != null && content.contenu!="/") {
+    var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
+    if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body1),
       });
-      const resultJSON = ICalParser.toJSON(content.contenu);
+      const resultJSON = ICalParser.toJSON(contenu);
       var eventsJson = resultJSON["events"];
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
