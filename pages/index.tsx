@@ -142,7 +142,7 @@ export default function Home() {
         var pos = one.indexOf("\\n");
         console.log(pos);
         var oneEvent = one.substring(pos+2);
-        console.log(oneEvent);
+        console.log(JSON.parse(oneEvent));
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
