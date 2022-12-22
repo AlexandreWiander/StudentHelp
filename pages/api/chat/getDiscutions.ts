@@ -25,35 +25,37 @@ const rep = await fetch("https://rest-jans-wian.azurewebsites.net/Message/" + re
 .then((result) => {  
   if(result == "La liste des classes de tutorat est vide."){
     return res.status(400).json({ discutionList: []});
+  } else {
+    const reversed = result.reverse();
+    let discutionsId: any[] = [];
+    let discutions: any[] = [];
+    reversed.forEach((message: any) => {    
+      if(req.body.idCurrentUser == message.senderId){
+        if(!discutionsId.some(item => message.recieverId === item)){
+          discutionsId.push(message.recieverId);
+          discutions.push(message);
+        }
+      } else {
+        if(!discutionsId.some(item => message.senderId === item)){
+          let changedMessage: Discution = {id: 0, content: '', sender: null, reciever: null, dateAndHour: Date.now(), recieverId: 0, senderId: 0};
+  
+          changedMessage.id = message.id;
+          changedMessage.content = message.content;
+          changedMessage.sender = message.reciever;
+          changedMessage.reciever = message.sender;
+          changedMessage.dateAndHour = message.dateAndHour;
+          changedMessage.recieverId = message.senderId;
+          changedMessage.senderId = message.recieverId;
+  
+          discutionsId.push(message.senderId);
+          discutions.push(changedMessage);
+                
+        }
+      }
+      
+    });
+    res.status(200).json({ discutionList: discutions});
   }
-  const reversed = result.reverse();
-  let discutionsId: any[] = [];
-  let discutions: any[] = [];
-  reversed.forEach((message: any) => {    
-    if(req.body.idCurrentUser == message.senderId){
-      if(!discutionsId.some(item => message.recieverId === item)){
-        discutionsId.push(message.recieverId);
-        discutions.push(message);
-      }
-    } else {
-      if(!discutionsId.some(item => message.senderId === item)){
-        let changedMessage: Discution = {id: 0, content: '', sender: null, reciever: null, dateAndHour: Date.now(), recieverId: 0, senderId: 0};
-
-        changedMessage.id = message.id;
-        changedMessage.content = message.content;
-        changedMessage.sender = message.reciever;
-        changedMessage.reciever = message.sender;
-        changedMessage.dateAndHour = message.dateAndHour;
-        changedMessage.recieverId = message.senderId;
-        changedMessage.senderId = message.recieverId;
-
-        discutionsId.push(message.senderId);
-        discutions.push(changedMessage);
-              
-      }
-    }
-    
-  });
-  res.status(200).json({ discutionList: discutions});
+  
 });
 }
