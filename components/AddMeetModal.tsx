@@ -44,7 +44,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var hourEndInput = document.getElementById("end") as HTMLInputElement;
     var placeInput = document.getElementById("place") as HTMLInputElement;
     const validNom = new RegExp("^\\D{1,100}$");
-    const validPlace = new RegExp("^{1,100}$");
+    const validPlace = new RegExp("^.{1,100}$");
     if (
       nameInput.value != "" ||
       dateInput.value != "" ||
