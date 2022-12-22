@@ -118,7 +118,9 @@ export default function Home() {
     var response = await fetch(mylink, {
       method: "get",
       headers:{
-        "Access-Control-Allow-Origin": "true"
+        "Access-Control-Allow-Origin": "horairix.helmo.be",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Request-Headers":"application/octet-stream"
       }
     });
     if (response.status == 200 && token != null) {
