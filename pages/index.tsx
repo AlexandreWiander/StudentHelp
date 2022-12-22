@@ -115,21 +115,21 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
-    var response = await fetch(mylink, {
-      method: "get",
-      mode:"cors",
+    const body = { link: mylink, token: token };
+    const response = await fetch("/api/agenda/getContenuByLink", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
-    if (response.status == 200 && token != null) {
+    const content = await response.json();
+    if (response.status == 200 && token != null && content.link!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body1),
       });
-      var contentString = new TextDecoder("utf-8").decode(
-        await response.arrayBuffer()
-      );
-      const resultJSON = ICalParser.toJSON(contentString);
+      const resultJSON = ICalParser.toJSON(content.link);
       var eventsJson = resultJSON["events"];
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
