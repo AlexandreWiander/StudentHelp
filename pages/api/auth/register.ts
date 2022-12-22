@@ -25,12 +25,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             const transporter = nodemailer.createTransport({
                 service: 'hotmail',
                 auth: {
-                    user: 'studenthelphelmo@hotmail.com',
+                    user: 'admin@studenthelp.ovh',
                     pass: "Lnctxszoyazbeztt"
                 }
             })
             transporter.sendMail({
-                from: 'studenthelphelmo@hotmail.com',
+                from: 'admin@studenthelp.ovh',
                 to: req.body.mail,
                 subject: "Contact StudentHelp",
                 text: "StudentHelp Platform: Votre compte a été créé ! ",
