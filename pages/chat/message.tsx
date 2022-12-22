@@ -42,16 +42,13 @@ export default function Message() {
         setDiscution(Discution);
         let i = NewMsg;
         setNewMsg(i + 1);
+        router.reload();
       });
 
       connection.serverTimeoutInMilliseconds = 240000;
 
       await connection.start();
       setCon(connection);
-
-      return () => {
-        connection.stop();
-      };
     } catch (e) {}
   };
 
@@ -60,9 +57,7 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      const delay = (ms: number | undefined) =>
-        new Promise((res) => setTimeout(res, ms));
-      await delay(1000);
+
       let i = NewMsg;
       setNewMsg(i + 1);
     } catch (error) {}
