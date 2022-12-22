@@ -26,22 +26,36 @@ export default function Register() {
       lastname: Lastname,
     };
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
-      if (validEmail.test(Mail) ) {
-        if(Pass==PassTwo){
+      if (validEmail.test(Mail)) {
+        if (Pass == PassTwo) {
           await fetch("/api/auth/register", {
             method: "POST",
             body: JSON.stringify(body),
             headers: { "Content-Type": "application/json" },
           })
-              .then((res) => res.json())
-              .then((result) => {
-                if (result.message == "Success") {
-                  signIn("credentials", { mail: Mail, password: Pass });
-                } else if (result.message == "Le user existe déjà") {
-                  localStorage.removeItem("JWT");
-                  localStorage.removeItem("fullName");
+            .then((res) => res.json())
+            .then((result) => {
+              if (result.message == "Success") {
+                signIn("credentials", { mail: Mail, password: Pass });
+              } else if (result.message == "Le user existe déjà") {
+                localStorage.removeItem("JWT");
+                localStorage.removeItem("fullName");
 
-                  toast.error("Ce compte existe déjà, veuillez vous connecter", {
+                toast.error("Ce compte existe déjà, veuillez vous connecter", {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
+                signOut();
+              } else {
+                toast.error(
+                  "Une erreur s'est produite durant l'inscription, veuillez réessayer",
+                  {
                     position: "top-center",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -50,28 +64,14 @@ export default function Register() {
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
-                  });
-                  signOut();
-                } else {
-                  toast.error(
-                      "Une erreur s'est produite durant l'inscription, veuillez réessayer",
-                      {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                      }
-                  );
-                  localStorage.removeItem("JWT");
-                  localStorage.removeItem("fullName");
-                  signOut({ callbackUrl: "/connection" });
-                }
-              });
-        }else{
+                  }
+                );
+                localStorage.removeItem("JWT");
+                localStorage.removeItem("fullName");
+                signOut({ callbackUrl: "/connection" });
+              }
+            });
+        } else {
           toast.error("Les mots de passe ne correspondent pas !", {
             position: "top-center",
             autoClose: 5000,
@@ -130,16 +130,17 @@ export default function Register() {
             type="password"
           />
           <input
-              placeholder="Validez votre mot de passe"
-              className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
-              name="passwordValidation"
-              onChange={(e) => setPassTwo(e.target.value)}
-              type="password"
+            placeholder="Validez votre mot de passe"
+            className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
+            name="passwordValidation"
+            onChange={(e) => setPassTwo(e.target.value)}
+            type="password"
           />
           <input
             placeholder="Entrez votre prénom"
             className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="firstname"
+            pattern="[a-zA-Z]*"
             onChange={(e) => setFirstname(e.target.value)}
             type="text"
           />
@@ -147,6 +148,7 @@ export default function Register() {
             placeholder="Entrez votre nom"
             className={`${styles.inputConnection} rounded-full shadow-md p-2 font-face-pg h-14 focus:scale-105 transition duration-500`}
             name="lastname"
+            pattern="[a-zA-Z]*"
             onChange={(e) => setLastname(e.target.value)}
             type="text"
           />
