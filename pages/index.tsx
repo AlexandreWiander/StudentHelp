@@ -163,7 +163,6 @@ export default function Home() {
           to: dtend.substring(0, 4) + "-" + dtend.substring(4, 6) + "-" + dtend.substring(6, 11) + ":" + dtend.substring(11, 13) + ":" + dtend.substring(13, 15) + ".000Z",
           link: mylink,
         };
-        console.log(body);
         fetch("/api/agenda/addEventClass", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

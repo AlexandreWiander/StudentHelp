@@ -61,8 +61,6 @@ function ConnectionForm() {
           }
         })
         .catch((err) => {
-          console.log(err.message);
-
           if (err.message == "Failed to construct 'URL': Invalid URL") {
             router.reload();
           }

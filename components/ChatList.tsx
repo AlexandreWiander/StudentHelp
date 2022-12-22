@@ -38,7 +38,6 @@ function ChatList() {
           });
       }
     } catch (error) {
-      console.log("Pas de discutions");
     }
   }, []);
 
