@@ -38,10 +38,12 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", (idSender, message) => {
-        Discution?.push(message);
-        setDiscution(Discution);
-        let i = NewMsg;
-        setNewMsg(i + 1);
+        if (idSender == idO) {
+          Discution?.push(message);
+          setDiscution(Discution);
+          let i = NewMsg;
+          setNewMsg(i + 1);
+        }
       });
 
       connection.serverTimeoutInMilliseconds = 240000;
