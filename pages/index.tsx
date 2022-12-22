@@ -230,7 +230,7 @@ export default function Home() {
         theme: "colored",
       });
     }else{
-      console.log(response.status);
+      console.log(response.statusText);
     }
   }
 
