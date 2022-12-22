@@ -18,10 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email: req.body.mail, password: req.body.password, lastName: req.body.lastname, firstName: req.body.firstname })
-        });
-
-        console.log(rawResponse);
-        
+        });        
     
         if(rawResponse.status == 200){
             const nodemailer = require("nodemailer");
@@ -32,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     pass: "Lnctxszoyazbeztt"
                 }
             })
-            await transporter.sendMail({
+            transporter.sendMail({
                 from: 'studenthelphelmo@hotmail.com',
                 to: req.body.mail,
                 subject: "Contact StudentHelp",
