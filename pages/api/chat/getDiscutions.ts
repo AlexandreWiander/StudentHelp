@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 }).then((res) => res.json())
 .then((result) => {  
   if(result == "La liste des classes de tutorat est vide."){
-    return res.status(400).json({ discutionList: []});
+    return res.status(201).json({ discutionList: []});
   } else {
     const reversed = result.reverse();
     let discutionsId: any[] = [];
