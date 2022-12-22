@@ -118,10 +118,7 @@ export default function Home() {
     var response = await fetch(mylink, {
       method: "get",
       headers:{
-        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT",
-        "Access-Control-Request-Headers":"Content-Type, Authorization"
       }
     });
     if (response.status == 200 && token != null) {
