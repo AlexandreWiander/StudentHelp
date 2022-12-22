@@ -117,7 +117,7 @@ export default function Home() {
   async function importClassLink(mylink: string) {
     var response = await fetch(mylink, {
       method: "get",
-      mode:"no-cors",
+      mode:"cors",
     });
     if (response.status == 200 && token != null) {
       const body1 = { id: idUser, token: token };
