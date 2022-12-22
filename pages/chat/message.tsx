@@ -38,14 +38,13 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", async (idSender, message) => {
-        console.log(Discution);
+        console.log(message);
         if (idSender == idO || idSender == myId) {
-          const delay = (ms: number | undefined) =>
-            new Promise((res) => setTimeout(res, ms));
-          await delay(2000);
-
           let i = NewMsg;
+          console.log(NewMsg);
+
           setNewMsg(i + 1);
+          console.log(NewMsg);
         }
       });
 
