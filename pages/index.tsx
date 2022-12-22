@@ -115,13 +115,15 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
+    var pos = mylink.indexOf("token=");
+    var tokkenSchedule = mylink.substring(pos);
     const myBody = { link: mylink, token: token };
     /*const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(myBody),
     });*/
-    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+"l"+ mylink+"l",{
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+tokkenSchedule,{
       method: 'get',
       headers: {
         'Accept': 'application/json',
