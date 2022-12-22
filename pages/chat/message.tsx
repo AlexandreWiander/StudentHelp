@@ -42,6 +42,7 @@ export default function Message() {
         setDiscution(Discution);
         let i = NewMsg;
         setNewMsg(i + 1);
+        router.reload();
       });
 
       connection.serverTimeoutInMilliseconds = 240000;
