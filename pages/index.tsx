@@ -146,7 +146,6 @@ export default function Home() {
         var pos = one.indexOf("\n");
         var oneEvent = one.substring(pos+2);
         console.log(oneEvent);
-        console.log( JSON.parse(oneEvent));
         var descriptionClass = event.description ?? "/";
         if (
           event.description!.indexOf("\\n") != -1 &&
