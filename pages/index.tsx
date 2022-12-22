@@ -123,15 +123,15 @@ export default function Home() {
       body: JSON.stringify(body),
     });
     const content = await response.json();
-    console.log(content);
-    if (response.status == 200 && token != null && content.link!="/") {
+    console.log(content.contenu);
+    if (response.status == 200 && token != null && content.contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body1),
       });
-      const resultJSON = ICalParser.toJSON(content.link);
+      const resultJSON = ICalParser.toJSON(content.contenu);
       var eventsJson = resultJSON["events"];
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
