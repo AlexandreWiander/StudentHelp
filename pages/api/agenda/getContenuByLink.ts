@@ -4,7 +4,8 @@ type Data = {
     icalendar:string,
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
-    const linkResponse = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+req.body.link,{
+    const linkString = req.body.link.toString();
+    const linkResponse = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+linkString,{
         method: 'get',
         headers: {
             'Accept': 'application/json',
