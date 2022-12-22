@@ -73,7 +73,9 @@ export default function Message() {
   useEffect(() => {
     token = localStorage.getItem("JWT");
 
-    joinRoom(token);
+    if (!Connection) {
+      joinRoom(token);
+    }
 
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
