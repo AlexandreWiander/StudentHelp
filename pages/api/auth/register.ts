@@ -19,6 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             },
             body: JSON.stringify({ email: req.body.mail, password: req.body.password, lastName: req.body.lastname, firstName: req.body.firstname })
         });
+
+        console.log(rawResponse);
+        
     
         if(rawResponse.status == 200){
             const nodemailer = require("nodemailer");
@@ -33,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 from: 'studenthelphelmo@hotmail.com',
                 to: req.body.mail,
                 subject: "Contact StudentHelp",
-                text: "StudentHelp Platform: Un rendez-vous a été créé ! ",
+                text: "StudentHelp Platform: Votre compte a été créé ! ",
                 html: `<a href="https://student-help.vercel.app/connection"><img src="https://www.zupimages.net/up/22/51/ow2l.png"></a><h1>StudentHelp platform</h1><b>Votre compte a bien été créé !</b>`,
             })
             res.status(200).json({ message: "Success"});
