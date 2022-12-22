@@ -48,6 +48,10 @@ export default function Message() {
 
       await connection.start();
       setCon(connection);
+
+      return () => {
+        connection.stop();
+      };
     } catch (e) {}
   };
 
@@ -71,7 +75,12 @@ export default function Message() {
 
     console.log(Connection);
 
-    joinRoom(token);
+    if (Connection == undefined) {
+      joinRoom(token);
+    } else {
+      Connection.stop();
+      joinRoom(token);
+    }
 
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
