@@ -104,8 +104,6 @@ export default function Message() {
                 }
               });
             }
-          } else {
-            setDiscution([]);
           }
         });
     }
@@ -117,7 +115,7 @@ export default function Message() {
     }
   };
 
-  if (Discution != undefined && Discution.length != 0) {
+  if (Discution != undefined) {
     return (
       <div className={styles.lobby}>
         <div className="flex flex-row w-full h-full">
