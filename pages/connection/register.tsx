@@ -27,7 +27,29 @@ export default function Register() {
       lastname: Lastname,
     };
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
-      if (validEmail.test(Mail)) {
+      if (!validEmail.test(Mail)) {
+        toast.error("L'adresse mail est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else if (!validPrenom.test(Firstname) && !validPrenom.test(Lastname)) {
+        toast.error("Le nom ou le prénom est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
         if (Pass == PassTwo) {
           await fetch("/api/auth/register", {
             method: "POST",
@@ -84,28 +106,6 @@ export default function Register() {
             theme: "colored",
           });
         }
-      } else if (!validPrenom.test(Firstname) && !validPrenom.test(Lastname)) {
-        toast.error("Le nom ou le prénom est invalide", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else {
-        toast.error("L'adresse mail est invalide", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
       }
     } else {
       toast.error("Veuillez compléter tous les champs", {
