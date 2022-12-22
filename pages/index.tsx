@@ -139,12 +139,15 @@ export default function Home() {
         body: JSON.stringify(body1),
       });
       const resultJSON = ICalParser.toJSON(contenu);
+      console.log(resultJSON);
       var eventsJson = resultJSON["events"];
+      console.log(eventsJson);
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
         var one = event.begin.toString();
-        var pos = one.indexOf("\n");
         console.log(one);
+        var pos = one.indexOf("\n");
+        console.log(pos);
         var oneEvent = one.substring(pos+2);
         console.log(oneEvent);
         var descriptionClass = event.description ?? "/";
