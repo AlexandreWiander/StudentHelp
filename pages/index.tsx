@@ -115,12 +115,6 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
-    const myBody = { link: mylink, token: token };
-    /*const response = await fetch("/api/agenda/getContenuByLink", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(myBody),
-    });*/
     const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link',{
       method: 'post',
       headers: {
@@ -145,8 +139,7 @@ export default function Home() {
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
         var one = event.begin.toString();
-        console.log(one);
-        var pos = one.indexOf("\n");
+        var pos = one.indexOf("\\n");
         console.log(pos);
         var oneEvent = one.substring(pos+2);
         console.log(oneEvent);
