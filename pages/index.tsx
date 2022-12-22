@@ -13,7 +13,7 @@ import { useSession } from "next-auth/react";
 
 let token: string | null = "";
 let idUser = -1;
-const eventsArr: EventCalendar[] = [];
+let eventsArr: EventCalendar[] = [];
 
 interface EventCalendar {
   title: string;
@@ -25,12 +25,10 @@ interface EventCalendar {
 
 export default function Home() {
   const { data: session } = useSession();
-  const [Events,
-    setEvent] = useState(eventsArr);
+  const [Events, setEvent] = useState(eventsArr);
   const [Meets, setMeets] = useState([]);
 
   useEffect(() => {
-    console.log(1);
     token = localStorage.getItem("JWT");
     let decodedToken: any;
     if (token != null) {
@@ -127,6 +125,8 @@ export default function Home() {
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer());
     if (response.status == 200 && token != null && contenu!="/") {
+      eventsArr = [];
+      setEvent(eventsArr);
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
         method: "POST",
