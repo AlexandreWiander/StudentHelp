@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import { ListFormat } from "typescript";
 
 interface Discution {
   id: string;
@@ -35,7 +36,11 @@ function ChatList() {
         })
           .then((res) => res.json())
           .then((result) => {
-            setChatList(result.discutionList);
+            if (result.discutionList.length === 0) {
+              console.log("Pas de discutions");
+            } else {
+              setChatList(result.discutionList);
+            }
           });
       } catch (error) {
         console.log("Pas de discutions");
