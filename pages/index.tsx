@@ -127,7 +127,7 @@ export default function Home() {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ link: mylink.toString()})
+      body: JSON.stringify({ link: mylink})
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
     console.log(response.body);
