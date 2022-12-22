@@ -118,7 +118,7 @@ export default function Home() {
     var response = await fetch(mylink, {
       method: "get",
       headers:{
-        "mode": "cors",
+        "mode": "no-cors",
       }
     });
     if (response.status == 200 && token != null) {
