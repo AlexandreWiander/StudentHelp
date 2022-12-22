@@ -61,8 +61,6 @@ export default function Message() {
     } catch (error) {
       console.log("error");
     }
-    let i = NewMsg;
-    setNewMsg(i + 1);
   };
 
   let token: any = null;
