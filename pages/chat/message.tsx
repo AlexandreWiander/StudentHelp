@@ -73,9 +73,6 @@ export default function Message() {
 
     if (Connection == undefined) {
       joinRoom(token);
-    } else {
-      Connection.stop();
-      joinRoom(token);
     }
 
     if (token != null) {
