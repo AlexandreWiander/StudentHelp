@@ -25,6 +25,8 @@ export default function UserModif() {
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
+  const validPrenom = new RegExp("^\\D*$");
+
   const router = useRouter();
   const query = router.query;
   const idO = query.id;
@@ -57,8 +59,32 @@ export default function UserModif() {
     token = localStorage.getItem("JWT");
 
     if (Mail && Firstname && Lastname && AvatarNumber) {
-      if (validEmail.test(Mail)) {
-
+      if (validEmail.test(Mail) == false) {
+        toast.error("L'adresse mail est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else if (
+        validPrenom.test(Firstname) == false ||
+        validPrenom.test(Lastname) == false
+      ) {
+        toast.error("Le nom ou le prénom est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
         if (token != null) {
           const body = {
             id: idO,
@@ -91,17 +117,6 @@ export default function UserModif() {
               }
             });
         }
-      } else {
-        toast.error("L'adresse mail est invalide", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
       }
     } else {
       toast.error("Veuillez remplir tous les champs", {

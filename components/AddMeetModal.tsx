@@ -43,111 +43,73 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var hourStartInput = document.getElementById("start") as HTMLInputElement;
     var hourEndInput = document.getElementById("end") as HTMLInputElement;
     var placeInput = document.getElementById("place") as HTMLInputElement;
-    if (nameInput.value != "") {
-      if (dateInput.value != "") {
-        if (hourStartInput.value != "") {
-          if (hourEndInput.value != "") {
-            if (userSelected != "/") {
-              if (placeInput.value != "") {
-                const body = {
-                  token: token,
-                  id: idUser,
-                  name: nameInput.value,
-                  place: placeInput.value,
-                  invitedId: userSelected,
-                  from: dateInput.value + "T" + hourStartInput.value,
-                  to: dateInput.value + "T" + hourEndInput.value,
-                };
-                var response = await fetch("/api/agenda/addMeet", {
-                  method: "POST",
-                  body: JSON.stringify(body),
-                  headers: { "Content-Type": "application/json" },
-                });
-                if (response.status == 200) {
-                  window.location.reload();
-                  setShowModal(false);
-                  toast.success("Le rendez-vous a bien été ajouté", {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                  });
-                } else {
-                  setShowModal(false);
-                  toast.error(
-                    "Une erreur est survenue lors de l'ajout du rendez-vous",
-                    {
-                      position: "top-center",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "colored",
-                    }
-                  );
-                }
-              } else {
-                toast.error(
-                  "Il est obligatoire de choisir un lieu de rendez-vous !",
-                  {
-                    position: "top-center",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                  }
-                );
-              }
-            } else {
-              toast.error(
-                "Il est obligatoire de choisir un utilisateur avec qui sera le rendez-vous !",
-                {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "colored",
-                }
-              );
-            }
-          } else {
-            toast.error("L'heure de fin est obligatoire !", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });
-          }
-        } else {
-          toast.error("L'heure de début est obligatoire !", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
+    const validNom = new RegExp("^\\D{1,100}$");
+    const validPlace = new RegExp("^{1,100}$");
+    if (
+      nameInput.value != "" ||
+      dateInput.value != "" ||
+      hourStartInput.value != "" ||
+      hourEndInput.value != "" ||
+      userSelected != "/" ||
+      placeInput.value != ""
+    ) {
+      setShowModal(false);
+      toast.error("Tous les champs sont obligatoires", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (validNom.test(nameInput.value)) {
+      setShowModal(false);
+      toast.error(
+        "Le nom ne peut pas contenir de chiffres et ne doit pas faire plus de 100 charactères",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
         }
-      } else {
-        toast.error("La date est obligatoire !", {
+      );
+    } else if (validPlace.test(placeInput.value)) {
+      setShowModal(false);
+      toast.error("Le lieu ne doit pas faire plus de 100 charactères", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      const body = {
+        token: token,
+        id: idUser,
+        name: nameInput.value,
+        place: placeInput.value,
+        invitedId: userSelected,
+        from: dateInput.value + "T" + hourStartInput.value,
+        to: dateInput.value + "T" + hourEndInput.value,
+      };
+      var response = await fetch("/api/agenda/addMeet", {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.status == 200) {
+        window.location.reload();
+        setShowModal(false);
+        toast.success("Le rendez-vous a bien été ajouté", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -158,19 +120,9 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
           theme: "colored",
         });
       }
-    } else {
-      toast.error("Le nom est obligatoire !", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
     }
   }
+
   const userChange = (e: any) => {
     setUserSelected(e.target.value);
   };
