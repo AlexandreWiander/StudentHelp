@@ -42,7 +42,7 @@ export default function Message() {
         if (idSender == idO || idSender == myId) {
           const delay = (ms: number | undefined) =>
             new Promise((res) => setTimeout(res, ms));
-          await delay(4000);
+          await delay(1500);
 
           var newString = makeid();
 
