@@ -139,8 +139,15 @@ export default function Home() {
         var one = event.begin.toString();
         var pos = one.indexOf("\\n");
         var oneEvent = one.substring(pos+2);
-        const lines = oneEvent.split('\n');
-        console.log(lines);
+        let lines = oneEvent.split('\n');
+        let obj = {} as any;
+        for (let line of lines) {
+          let parts = line.split(':');
+          if (parts.length >= 2) {
+            obj[parts[0]] = parts[1];
+          }
+        }
+        console.log(obj);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
