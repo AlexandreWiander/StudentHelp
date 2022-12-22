@@ -190,7 +190,6 @@ export default function Home() {
           to: dateTo,
           link: mylink,
         };
-        console.log(body);
         fetch("/api/agenda/addEventClass", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

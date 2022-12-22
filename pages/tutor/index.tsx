@@ -58,7 +58,6 @@ export default function Home() {
           const list = result.requestsList;
           setActiveRequests(list);
         });
-      console.log(1);
       fetch("/api/tutor/getPropositions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
