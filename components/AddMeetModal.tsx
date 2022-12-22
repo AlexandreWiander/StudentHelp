@@ -44,14 +44,14 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var hourEndInput = document.getElementById("end") as HTMLInputElement;
     var placeInput = document.getElementById("place") as HTMLInputElement;
     const validNom = new RegExp("^\\D{1,100}$");
-    const validPlace = new RegExp("^{1,100}$");
+    const validPlace = new RegExp("^.{1,100}$");
     if (
-      nameInput.value != "" ||
-      dateInput.value != "" ||
-      hourStartInput.value != "" ||
-      hourEndInput.value != "" ||
-      userSelected != "/" ||
-      placeInput.value != ""
+      nameInput.value == "" ||
+      dateInput.value == "" ||
+      hourStartInput.value == "" ||
+      hourEndInput.value == "" ||
+      userSelected == "/" ||
+      placeInput.value == ""
     ) {
       setShowModal(false);
       toast.error("Tous les champs sont obligatoires", {
@@ -64,7 +64,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
         progress: undefined,
         theme: "colored",
       });
-    } else if (validNom.test(nameInput.value)) {
+    } else if (validNom.test(nameInput.value) == false) {
       setShowModal(false);
       toast.error(
         "Le nom ne peut pas contenir de chiffres et ne doit pas faire plus de 100 charactères",
@@ -79,7 +79,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
           theme: "colored",
         }
       );
-    } else if (validPlace.test(placeInput.value)) {
+    } else if (validPlace.test(placeInput.value) == false) {
       setShowModal(false);
       toast.error("Le lieu ne doit pas faire plus de 100 charactères", {
         position: "top-center",
