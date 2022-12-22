@@ -131,7 +131,7 @@ export default function Home() {
       body: JSON.stringify({ link: mylink.toString()})
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
-    console.log(response.body);
+    console.log(contenu);
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
