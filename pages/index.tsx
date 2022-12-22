@@ -144,6 +144,7 @@ export default function Home() {
         var event = eventsJson[i];
         var one = event.begin.toString();
         var pos = one.indexOf("\n");
+        console.log(one);
         var oneEvent = one.substring(pos+2);
         console.log(oneEvent);
         var descriptionClass = event.description ?? "/";
