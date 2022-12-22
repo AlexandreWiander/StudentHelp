@@ -13,6 +13,7 @@ export default function Register() {
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
+  const validPrenom = new RegExp("[a-zA-Z]*");
 
   async function registerGoogle() {
     signIn("GoogleProvider");
@@ -83,6 +84,17 @@ export default function Register() {
             theme: "colored",
           });
         }
+      } else if (!validPrenom.test(Firstname) && !validPrenom.test(Lastname)) {
+        toast.error("Le nom ou le prénom est invalide", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       } else {
         toast.error("L'adresse mail est invalide", {
           position: "top-center",
