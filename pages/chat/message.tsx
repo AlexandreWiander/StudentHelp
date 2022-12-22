@@ -71,7 +71,6 @@ export default function Message() {
   useEffect(() => {
     token = localStorage.getItem("JWT");
 
-    console.log(Connection);
 
     if (Connection == undefined) {
       joinRoom(token);

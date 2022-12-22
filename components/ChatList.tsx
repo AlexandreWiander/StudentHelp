@@ -37,13 +37,13 @@ function ChatList() {
           .then((res) => res.json())
           .then((result) => {
             if (result.discutionList.length === 0) {
-              console.log("Pas de discutions");
+              console.log("Pas de discussions");
             } else {
               setChatList(result.discutionList);
             }
           });
       } catch (error) {
-        console.log("Pas de discutions");
+        console.log("Pas de discussions");
       }
     }
   }, []);
