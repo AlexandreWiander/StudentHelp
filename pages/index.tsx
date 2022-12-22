@@ -231,6 +231,8 @@ export default function Home() {
         progress: undefined,
         theme: "colored",
       });
+    }else{
+      console.log(response.status);
     }
   }
 
