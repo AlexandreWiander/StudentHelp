@@ -29,6 +29,7 @@ export default function Home() {
   const [Meets, setMeets] = useState([]);
 
   useEffect(() => {
+    window.location.reload();
     token = localStorage.getItem("JWT");
     let decodedToken: any;
     if (token != null) {
