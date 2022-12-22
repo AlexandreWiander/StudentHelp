@@ -128,10 +128,10 @@ export default function Home() {
         'Content-Type': 'application/json',
         'Authorization': 'bearer '+token,
       },
-      body: JSON.stringify({ link: mylink})
+      body: JSON.stringify({ link: mylink.toString()})
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
-    console.log(response);
+    console.log(response.body);
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
