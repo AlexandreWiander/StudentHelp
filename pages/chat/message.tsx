@@ -38,7 +38,7 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", (idSender, message) => {
-        if (idSender == idO) {
+        if (idSender == idO || idSender == myId) {
           let i = NewMsg;
           setNewMsg(i + 1);
         }
