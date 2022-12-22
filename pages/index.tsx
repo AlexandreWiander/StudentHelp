@@ -157,7 +157,7 @@ export default function Home() {
           }
         }
         const json = JSON.stringify(eventDetail);
-        console.log(json);
+        console.log(json[0]);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
