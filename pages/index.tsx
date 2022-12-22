@@ -117,6 +117,11 @@ export default function Home() {
   async function importClassLink(mylink: string) {
     var response = await fetch(mylink, {
       method: "get",
+      headers:{
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT",
+        "Access-Control-Request-Headers":"Content-Type, Authorization"
+      }
     });
     if (response.status == 200 && token != null) {
       const body1 = { id: idUser, token: token };
@@ -243,10 +248,7 @@ export default function Home() {
       const body2 = { id: idUser, token: token, link: link };
       fetch("/api/agenda/updateLink", {
         method: "POST",
-        headers: { "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "https://horairix.helmo.be/Services/SynchronisationAgenda",
-          "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT",
-        "Access-Control-Request-Headers":"Content-Type, Authorization"},
+        headers: { "Content-Type": "application/json",},
         body: JSON.stringify(body2),
       });
       importClassLink(link);
