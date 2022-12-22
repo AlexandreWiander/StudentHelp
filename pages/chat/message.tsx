@@ -48,10 +48,6 @@ export default function Message() {
 
       await connection.start();
       setCon(connection);
-
-      return () => {
-        connection.stop();
-      };
     } catch (e) {}
   };
 
@@ -60,9 +56,7 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      const delay = (ms: number | undefined) =>
-        new Promise((res) => setTimeout(res, ms));
-      await delay(3000);
+
       let i = NewMsg;
       setNewMsg(i + 1);
     } catch (error) {}
