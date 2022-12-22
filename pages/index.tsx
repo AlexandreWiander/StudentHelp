@@ -116,7 +116,6 @@ export default function Home() {
 
   async function importClassLink(mylink: string) {
     const myBody = { link: mylink, token: token };
-    console.log(myBody);
     /*const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -131,6 +130,7 @@ export default function Home() {
       }
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
+    console.log(contenu);
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
