@@ -130,8 +130,7 @@ export default function Home() {
       },
       body: JSON.stringify({ link: mylink})
     });
-    var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString().replaceAll("\r","").replaceAll("\n","").replaceAll("\\","");
-    console.log(contenu);
+    var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
@@ -141,6 +140,7 @@ export default function Home() {
       });
       const resultJSON = ICalParser.toJSON(contenu);
       var eventsJson = resultJSON["events"];
+      console.log(eventsJson);
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
         console.log(event);
