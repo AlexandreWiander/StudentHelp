@@ -40,9 +40,15 @@ export default function Message() {
       connection.on("ReceiveMessage", async (idSender, message) => {
         console.log(message);
         if (idSender == idO || idSender == myId) {
-          let i = NewMsg;
+          const delay = (ms: number | undefined) =>
+            new Promise((res) => setTimeout(res, ms));
+          await delay(4000);
 
-          setNewMsg(makeid());
+          var newString = makeid();
+
+          console.log(newString);
+
+          setNewMsg(newString);
         }
       });
 
