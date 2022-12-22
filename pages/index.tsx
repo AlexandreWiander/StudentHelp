@@ -149,6 +149,7 @@ export default function Home() {
           }
         }
         var lieu = obj["LOCATION"] as String;
+        console.log(obj);
         lieu.replaceAll("\\", "");
         var dstart = obj["DSTART"] as String;
         dstart.replaceAll("\\","");
