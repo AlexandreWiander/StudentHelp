@@ -151,69 +151,6 @@ export default function Home() {
         console.log(pos);
         var oneEvent = one.substring(pos+2);
         console.log(oneEvent);
-        var descriptionClass = event.description ?? "/";
-        if (
-          event.description!.indexOf("\\n") != -1 &&
-          event.description!.indexOf("\\n") != -1
-        )
-          descriptionClass = event.description!.substring(
-            event.description!.indexOf("\\n") + 2,
-            event.description!.indexOf(
-              "\\n",
-              event.description!.indexOf("\\n") + 1
-            )
-          );
-        var posLieu = event.description!.indexOf("Lieu(x):\\n");
-        var lieu = "/";
-        var hourF =
-          event.dtstart.value.substring(9, 10) +
-          (parseInt(event.dtstart.value.substring(10, 11)) + 1);
-        if (hourF == "010") hourF = "10";
-        var hourT =
-          event.dtend.value.substring(9, 10) +
-          (parseInt(event.dtend.value.substring(10, 11)) + 1);
-        if (hourT == "010") hourT = "10";
-        var dateFrom =
-          event.dtstart.value.substring(0, 4) +
-          "-" +
-          parseInt(event.dtstart.value.substring(4, 6)) +
-          "-" +
-          event.dtstart.value.substring(6, 8) +
-          "T" +
-          hourF +
-          ":" +
-          event.dtstart.value.substring(11, 13) +
-          ":" +
-          event.dtstart.value.substring(13, 15) +
-          ".000Z";
-        var dateTo =
-          event.dtend.value.substring(0, 4) +
-          "-" +
-          parseInt(event.dtend.value.substring(4, 6)) +
-          "-" +
-          event.dtend.value.substring(6, 8) +
-          "T" +
-          hourT +
-          ":" +
-          event.dtend.value.substring(11, 13) +
-          ":" +
-          event.dtend.value.substring(13, 15) +
-          ".000Z";
-        if (posLieu != -1) lieu = event.description!.substring(posLieu + 10);
-        const body = {
-          id: idUser,
-          token: token,
-          name: descriptionClass,
-          lieu: lieu,
-          from: dateFrom,
-          to: dateTo,
-          link: mylink,
-        };
-        fetch("/api/agenda/addEventClass", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        });
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
