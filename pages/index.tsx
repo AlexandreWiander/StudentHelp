@@ -140,6 +140,7 @@ export default function Home() {
         var pos = one.indexOf("\\n");
         var oneEvent = one.substring(pos+2);
         let lines = oneEvent.split('\n');
+        console.log(lines);
         let obj = {} as any;
         for (let line of lines) {
           let parts = line.split(':');
