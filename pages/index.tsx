@@ -140,10 +140,10 @@ export default function Home() {
       });
       const resultJSON = ICalParser.toJSON(contenu);
       var eventsJson = resultJSON["events"];
-      console.log(eventsJson);
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
-        console.log(event);
+        var one = event.begin.toString();
+        console.log( ICalParser.toJSON(one));
         var descriptionClass = event.description ?? "/";
         if (
           event.description!.indexOf("\\n") != -1 &&
