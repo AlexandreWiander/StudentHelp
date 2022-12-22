@@ -244,7 +244,7 @@ export default function Home() {
       fetch("/api/agenda/updateLink", {
         method: "POST",
         headers: { "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "https://horairix.helmo.be/Services/SynchronisationAgenda",
           "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT"},
         body: JSON.stringify(body2),
       });
