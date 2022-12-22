@@ -245,7 +245,8 @@ export default function Home() {
         method: "POST",
         headers: { "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "https://horairix.helmo.be/Services/SynchronisationAgenda",
-          "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT"},
+          "Access-Control-Allow-Methods":"GET, OPTIONS, POST, PUT",
+        "Access-Control-Request-Headers":"Content-Type, Authorization"},
         body: JSON.stringify(body2),
       });
       importClassLink(link);
