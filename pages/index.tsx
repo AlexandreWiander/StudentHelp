@@ -30,8 +30,6 @@ export default function Home() {
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
-    const eventsEmpty: EventCalendar[] = [];
-    setEvent(eventsEmpty);
     let decodedToken: any;
     if (token != null) {
       try {
@@ -116,6 +114,8 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
+    const eventsEmpty: EventCalendar[] = [];
+    setEvent(eventsEmpty);
     const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link',{
       method: 'post',
       headers: {
