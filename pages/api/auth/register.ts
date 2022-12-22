@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         if(rawResponse.status == 200){
             const nodemailer = require("nodemailer");
             const transporter = nodemailer.createTransport({
-                service: 'hotmail',
+                service: 'gmail',
                 auth: {
                     user: 'admin@studenthelp.ovh',
                     pass: "Lnctxszoyazbeztt"
