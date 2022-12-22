@@ -125,7 +125,6 @@ export default function Home() {
       body: JSON.stringify({ link: mylink})
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer());
-    console.log(contenu);
     if (response.status == 200 && token != null && contenu!="/") {
       const body1 = { id: idUser, token: token };
       fetch("/api/agenda/deleteAllEventClass", {
@@ -133,7 +132,7 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body1),
       });
-      const resultJSON = ICalParser.toJSON(contenu);
+      const resultJSON = ICalParser.toJSON(contenu.substring(1, contenu.length-2));
       console.log(resultJSON);
       var eventsJson = resultJSON["events"];
       console.log(eventsJson);
@@ -141,7 +140,6 @@ export default function Home() {
         var event = eventsJson[i];
         var one = event.begin.toString();
         var pos = one.indexOf("\\n");
-        console.log(pos);
         var oneEvent = one.substring(pos+2);
         console.log(JSON.parse(oneEvent));
       }
