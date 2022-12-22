@@ -132,16 +132,14 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body1),
       });
-      const resultJSON = ICalParser.toJSON(contenu.substring(1, contenu.length-2));
-      console.log(resultJSON);
+      const resultJSON = ICalParser.toJSON(contenu);
       var eventsJson = resultJSON["events"];
-      console.log(eventsJson);
       for (let i = 0; i < eventsJson.length; i++) {
         var event = eventsJson[i];
         var one = event.begin.toString();
         var pos = one.indexOf("\\n");
         var oneEvent = one.substring(pos+2);
-        console.log(JSON.parse(oneEvent));
+        console.log(oneEvent);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
