@@ -115,12 +115,14 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
+    console.log(mylink);
     const body = { link: mylink, token: token };
     const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    console.log(response);
     const content = await response.json();
     console.log(content);
     if (response.status == 200 && token != null && content.contenu!="/") {
