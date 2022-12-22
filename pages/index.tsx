@@ -115,6 +115,7 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
+    console.log(JSON.stringify({ link: mylink}));
     var pos = mylink.indexOf("token=");
     var tokkenSchedule = mylink.substring(pos+6);
     const myBody = { link: mylink, token: token };
@@ -123,13 +124,14 @@ export default function Home() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(myBody),
     });*/
-    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+tokkenSchedule,{
-      method: 'get',
+    const response = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link',{
+      method: 'post',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': 'bearer '+token,
-      }
+      },
+      body: JSON.stringify({ link: mylink})
     });
     var contenu = new TextDecoder("utf-8").decode(await response.arrayBuffer()).toString();
     console.log(response.url);
