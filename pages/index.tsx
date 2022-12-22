@@ -148,7 +148,6 @@ export default function Home() {
             obj[parts[0]] = parts[1];
           }
         }
-        console.log(obj);
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
