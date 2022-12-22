@@ -207,8 +207,7 @@ export default function Home() {
   }
 
   async function importClass() {
-    const eventsArr: EventCalendar[] = [];
-    setEvent(eventsArr);
+    setEvent([]);
     var input = document.getElementById("link") as HTMLInputElement;
     var link = "/";
     if (input.value != undefined && input.value != "" && input.value != null) {
