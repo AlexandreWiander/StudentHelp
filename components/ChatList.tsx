@@ -18,15 +18,16 @@ function ChatList() {
 
   useEffect(() => {
     const token = localStorage.getItem("JWT");
-    try {
-      if (token != null) {
-        let decodedToken: any = jwt_decode(token);
-        let id =
-          decodedToken[
-            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-          ];
 
-        const body = { idCurrentUser: id, token: token };
+    if (token != null) {
+      let decodedToken: any = jwt_decode(token);
+      let id =
+        decodedToken[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ];
+
+      const body = { idCurrentUser: id, token: token };
+      try {
         fetch("/api/chat/getDiscutions", {
           method: "POST",
           body: JSON.stringify(body),
@@ -36,8 +37,9 @@ function ChatList() {
           .then((result) => {
             setChatList(result.discutionList);
           });
+      } catch (error) {
+        console.log("Pas de discutions");
       }
-    } catch (error) {
     }
   }, []);
 
