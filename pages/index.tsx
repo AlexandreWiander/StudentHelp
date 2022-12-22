@@ -151,29 +151,24 @@ export default function Home() {
         var lieu = obj["LOCATION"] as String;
         lieu.replaceAll("\\", "");
         var dstart = obj["DTSTART"] as String;
-        dstart.replaceAll("\\","").replaceAll("\r", "");
+        dstart.replaceAll("\\","").replaceAll("\\r", "");
         var dtend = obj["DTEND"] as String;
-        dtend.replaceAll("\\","").replaceAll("\r","");
-        console.log(dstart);
-        /*const body = {
+        dtend.replaceAll("\\","").replaceAll("\\r","");
+        const body = {
           id: idUser,
           token: token,
           name: description,
           lieu: lieu,
-          from: dstart.substring(0, 4) + "-" + dstart.substring(4, 6) + "-" + dstart.substring(6, 8) + "T" + hourF +
-              ":" +
-              event.dtstart.value.substring(11, 13) +
-              ":" +
-              event.dtstart.value.substring(13, 15) +
-              ".000Z";,
-          to: dtend,
+          from: dstart.substring(0, 4) + "-" + dstart.substring(4, 6) + "-" + dstart.substring(6, 11) + ":" + dstart.substring(11, 13) + ":" + dstart.substring(13, 15) + ".000Z",
+          to: dtend.substring(0, 4) + "-" + dtend.substring(4, 6) + "-" + dtend.substring(6, 11) + ":" + dtend.substring(11, 13) + ":" + dtend.substring(13, 15) + ".000Z",
           link: mylink,
         };
+        console.log(body);
         fetch("/api/agenda/addEventClass", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
-        });*/
+        });
       }
       const body = { token: token, id: idUser, checkEvent: true };
       fetch("/api/agenda/getEvents", {
