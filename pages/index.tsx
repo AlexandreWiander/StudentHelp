@@ -115,7 +115,6 @@ export default function Home() {
   };
 
   async function importClassLink(mylink: string) {
-    console.log(mylink);
     const body = { link: mylink, token: token };
     const response = await fetch("/api/agenda/getContenuByLink", {
       method: "post",

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-    contenu:string,
+    icalendar:string,
 }
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     const linkResponse = await fetch('https://rest-jans-wian.azurewebsites.net/EventClass/link?link='+req.body.link,{
@@ -13,10 +13,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }
     });
     if(linkResponse.status==200){
-        var contenu = new TextDecoder("utf-8").decode(await linkResponse.arrayBuffer());
-        res.status(200).json({contenu:contenu});
+        var contenu = new TextDecoder("utf-8").decode(await linkResponse.arrayBuffer()).toString();
+        res.status(200).json({icalendar:contenu});
     }else{
-        res.status(200).json({contenu:"/"});
+        res.status(200).json({icalendar:"/"});
     }
 
 }
