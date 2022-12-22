@@ -38,7 +38,7 @@ export default function Register() {
           progress: undefined,
           theme: "colored",
         });
-      } else if (!validPrenom.test(Firstname) && !validPrenom.test(Lastname)) {
+      } else if (!validPrenom.test(Firstname) || !validPrenom.test(Lastname)) {
         toast.error("Le nom ou le prénom est invalide", {
           position: "top-center",
           autoClose: 5000,
