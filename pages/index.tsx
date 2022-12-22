@@ -243,7 +243,8 @@ export default function Home() {
       const body2 = { id: idUser, token: token, link: link };
       fetch("/api/agenda/updateLink", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          'Access-Control-Allow-Origin': "*"},
         body: JSON.stringify(body2),
       });
       importClassLink(link);
