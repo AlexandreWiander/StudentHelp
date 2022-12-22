@@ -13,7 +13,7 @@ export default function Register() {
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
-  const validPrenom = new RegExp("[a-zA-Z]*");
+  const validPrenom = new RegExp("^\\D*$");
 
   async function registerGoogle() {
     signIn("GoogleProvider");
@@ -26,7 +26,7 @@ export default function Register() {
       firstname: Firstname,
       lastname: Lastname,
     };
-    console.log(!validPrenom.test(Firstname), !validPrenom.test(Lastname));
+    console.log(validPrenom.test(Firstname), validPrenom.test(Lastname));
 
     if (Mail && Pass && Firstname && Lastname && PassTwo) {
       if (validEmail.test(Mail) == false) {
