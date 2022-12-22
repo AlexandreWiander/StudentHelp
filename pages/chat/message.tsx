@@ -37,9 +37,13 @@ export default function Message() {
         .configureLogging(LogLevel.Information)
         .build();
 
-      connection.on("ReceiveMessage", (idSender, message) => {
+      connection.on("ReceiveMessage", async (idSender, message) => {
         console.log(Discution);
         if (idSender == idO || idSender == myId) {
+          const delay = (ms: number | undefined) =>
+            new Promise((res) => setTimeout(res, ms));
+          await delay(2000);
+
           let i = NewMsg;
           setNewMsg(i + 1);
         }
