@@ -83,7 +83,6 @@ export default function Home() {
 
   const deleteRequest = (event: { currentTarget: { id: any } }) => {
     eventsArr.length=0;
-    setEvent(eventsArr);
     const body = {
       id: event.currentTarget.id,
       token: token,
