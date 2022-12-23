@@ -348,9 +348,6 @@ export default function Home() {
                   </div>
                   <p className="col-start-5">En attente...</p>
                   <div className="col-start-6 flex items-center">
-                    <button id={request["id"]} onClick={deleteRequest}>
-                      <img src={"images/block.png"} className="w-20" />
-                    </button>
                     <Link
                       href={{
                         pathname: "/chat/message",
@@ -365,6 +362,9 @@ export default function Home() {
                         <p className="text-center">Contacter</p>
                       </button>
                     </Link>
+                    <button id={request["id"]} onClick={deleteRequest}>
+                      <img src={"images/block.png"} className="w-20" />
+                    </button>
                   </div>
                 </div>
               );
@@ -386,9 +386,6 @@ export default function Home() {
                   </div>
                   <p className="col-start-5">Acceptée !</p>
                   <div className="col-start-6 flex items-center">
-                    <button id={request["id"]} onClick={deleteRequest}>
-                      <img src={"images/block.png"} className="w-20" />
-                    </button>
                     <Link
                       href={{
                         pathname: "/chat/message",
@@ -403,6 +400,9 @@ export default function Home() {
                         <p className="text-center">Contacter</p>
                       </button>
                     </Link>
+                    <button id={request["id"]} onClick={deleteRequest}>
+                      <img src={"images/block.png"} className="w-20" />
+                    </button>
                   </div>
                 </div>
               );
