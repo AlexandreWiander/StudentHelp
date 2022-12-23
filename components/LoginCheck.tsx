@@ -54,7 +54,7 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
         .then((res) => res.json())
         .then((result) => {
           localStorage.setItem("JWT", result.token);
-          if (result.token == null) {
+          if (result.token == "") {
             localStorage.clear();
             signOut();
             router.push("/connection");
