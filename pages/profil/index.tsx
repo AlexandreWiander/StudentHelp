@@ -104,17 +104,19 @@ export default function UserModif() {
             .then((res) => res.json())
             .then((result) => {
               if (result.message == "Success") {
-                router.reload();
-                toast.success("Compte modifié", {
-                  position: "top-center",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "colored",
-                });
+                toast.success(
+                  "Compte modifié, veuillez vous déconnecter et vous reconnecter pour rafraichir l'affichage",
+                  {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  }
+                );
               }
             });
         }
