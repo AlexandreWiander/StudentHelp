@@ -16,7 +16,7 @@ export default function Contact() {
   function Send() {
     const body = { mail: Mail, text: Text };
 
-    if (Mail && Text && validEmail.test(Mail)) {
+    if (Mail && Text && validEmail.test(Mail) && Text.length<=200) {
       fetch("/api/contact/sendContact", {
         method: "POST",
         body: JSON.stringify(body),
@@ -65,7 +65,18 @@ export default function Contact() {
         progress: undefined,
         theme: "colored",
       });
-    } else {
+    } else if(Text.length>200) {
+      toast.error("Le message ne peut pas faire plus de 200 caractères !", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }else{
       toast.error("Veuillez remplir tous les champs", {
         position: "top-center",
         autoClose: 5000,
@@ -94,7 +105,7 @@ export default function Contact() {
             type="email"
           />
           <textarea
-            placeholder="Entrez votre mot de passe"
+            placeholder="Entrez votre message"
             className={`${styles.inputConnection} rounded-lg shadow-md p-2 font-face-pg h-48 focus:scale-105 transition duration-500 resize-none`}
             name="text"
             required
