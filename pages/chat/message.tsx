@@ -38,15 +38,12 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", async (idSender, message) => {
-        console.log(message);
         if (idSender == idO || idSender == myId) {
           const delay = (ms: number | undefined) =>
             new Promise((res) => setTimeout(res, ms));
           await delay(1500);
 
           var newString = makeid();
-
-          console.log(newString);
 
           setNewMsg(newString);
         }
@@ -75,6 +72,7 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
+      setMessage("");
       setNewMsg(makeid());
     } catch (error) {
       console.log("error");
@@ -129,7 +127,7 @@ export default function Message() {
           }
         });
     }
-  }, [idO, NewMsg]);
+  }, [idO, NewMsg, MessageText]);
 
   const handleKeypress = (e: { keyCode: number }) => {
     if (e.keyCode === 13) {
