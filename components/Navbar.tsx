@@ -10,7 +10,6 @@ import jwt_decode from "jwt-decode";
 import LogOutButton from "./LogOutButton";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Router from "next/router";
 
 export function Navbar() {
   const { data: session } = useSession();
