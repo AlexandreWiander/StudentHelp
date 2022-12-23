@@ -49,7 +49,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var placeInput = document.getElementById("place") as HTMLInputElement;
     const validNom = new RegExp("^\\D{1,100}$");
     const validPlace = new RegExp("^.{1,100}$");
-    const validDate = new RegExp("^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)\\d{4}$");
+    const validDate = new RegExp("^\\d{4}(-)(((0)[0-9])|((1)[0-2]))(-)([0-2][0-9]|(3)[0-1])$");
     const validHour = new RegExp("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
 
     if (
@@ -99,7 +99,6 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
         theme: "colored",
       });
     }else if(validDate.test(dateInput.value)==false){
-      console.log(dateInput.value);
       setShowModal(false);
       toast.error("La date n'est pas conforme", {
         position: "top-center",
