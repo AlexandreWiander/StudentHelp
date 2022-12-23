@@ -20,6 +20,7 @@ export default function UserModif() {
   const [Mail, setMail] = useState("");
   const [Firstname, setFirstname] = useState("");
   const [Lastname, setLastname] = useState("");
+  const [MyId, setId] = useState("");
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z].[a-zA-Z0-9.-]+$"
   );
@@ -34,11 +35,12 @@ export default function UserModif() {
     if (token != null) {
       let decodedToken: any = jwt_decode(token);
 
-      let myId =
+      setId(
         decodedToken[
           "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-        ];
-      const body = { idUser: myId, token: token };
+        ]
+      );
+      const body = { idUser: MyId, token: token };
       fetch("/api/admin/getUserInfoUser", {
         method: "POST",
         body: JSON.stringify(body),
@@ -52,7 +54,7 @@ export default function UserModif() {
           setLastname(result.user.lastName);
         });
     }
-  }, [idO]);
+  }, [MyId]);
 
   function modifyUser() {
     token = localStorage.getItem("JWT");
@@ -86,7 +88,7 @@ export default function UserModif() {
       } else {
         if (token != null) {
           const body = {
-            id: idO,
+            id: MyId,
             token: token,
             mail: Mail,
             firstname: Firstname,
