@@ -82,6 +82,7 @@ export default function Home() {
   }, []);
 
   const deleteRequest = (event: { currentTarget: { id: any } }) => {
+    eventsArr.length=0;
     const body = {
       id: event.currentTarget.id,
       token: token,
@@ -329,9 +330,6 @@ export default function Home() {
                       <p>{one["lieu"]}</p>
                     </div>
                     <div className="col-start-6 flex items-center">
-                      <button id={one["id"]} onClick={deleteRequest}>
-                        <img src={"images/block.png"} className="w-20" />
-                      </button>
                       <Link
                         href={{
                           pathname: "/chat/message",
@@ -346,6 +344,9 @@ export default function Home() {
                           <p className="text-center">Contacter</p>
                         </button>
                       </Link>
+                      <button id={one["id"]} onClick={deleteRequest}>
+                        <img src={"images/block.png"} className="w-20" />
+                      </button>
                     </div>
                   </div>
                 );

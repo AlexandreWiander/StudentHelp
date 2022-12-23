@@ -192,7 +192,7 @@ export default function Home() {
           {synthesis.map((synthese) => (
             <div
               key={synthese["id"]}
-              className="w-2/3 col-span-1 h-1/2 flex flex-col items-center m-4 p-4 border border-blueTheme bg-white rounded-lg shadow-md hover:bg-gray-100"
+              className="w-2/3 col-span-1 h-auto flex flex-col items-center m-4 p-4 border border-blueTheme bg-white rounded-lg shadow-md hover:bg-gray-100"
             >
               <img src={file.src} className="m-2 w-2/3"></img>
               <h5 className="text-md font-bold text-center overflow-scroll">

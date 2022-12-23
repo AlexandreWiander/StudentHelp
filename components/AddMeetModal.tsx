@@ -49,6 +49,9 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var placeInput = document.getElementById("place") as HTMLInputElement;
     const validNom = new RegExp("^\\D{1,100}$");
     const validPlace = new RegExp("^.{1,100}$");
+    const validDate = new RegExp("^\\d{4}(-)(((0)[0-9])|((1)[0-2]))(-)([0-2][0-9]|(3)[0-1])$");
+    const validHour = new RegExp("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+
     if (
       nameInput.value == "" ||
       dateInput.value == "" ||
@@ -86,6 +89,30 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     } else if (validPlace.test(placeInput.value) == false) {
       setShowModal(false);
       toast.error("Le lieu ne doit pas faire plus de 100 charactères", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }else if(validDate.test(dateInput.value)==false){
+      setShowModal(false);
+      toast.error("La date n'est pas conforme", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if ((validHour.test(hourStartInput.value)||validHour.test(hourEndInput.value))==false){
+      setShowModal(false);
+      toast.error("Une des heures n'est pas conforme", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -198,6 +225,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
                       </label>
                       <input
                         id="date"
+                        max="2024-12-31"
                         type="date"
                         className="form-control block w-full text-center px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Select a date"
