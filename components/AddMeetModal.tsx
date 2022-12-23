@@ -9,7 +9,7 @@ type ModalProps = {
 let token: string | null = "";
 let idUser = -1;
 let dateNow = new Date();
-let stringDate = dateNow.getFullYear()+"-"+dateNow.getMonth()+"-"+dateNow.getDate();
+let stringDate = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
 let hourDate = dateNow.getHours()+":"+dateNow.getMinutes();
 
 export default function DeleteUserModal({ id }: ModalProps, props: any) {
@@ -52,6 +52,9 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     var placeInput = document.getElementById("place") as HTMLInputElement;
     const validNom = new RegExp("^\\D{1,100}$");
     const validPlace = new RegExp("^.{1,100}$");
+    const validDate = new RegExp("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
+    const validHour = new RegExp("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$");
+
     if (
       nameInput.value == "" ||
       dateInput.value == "" ||
@@ -89,6 +92,30 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
     } else if (validPlace.test(placeInput.value) == false) {
       setShowModal(false);
       toast.error("Le lieu ne doit pas faire plus de 100 charactères", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }else if(validDate.test(dateInput.value)==false){
+      setShowModal(false);
+      toast.error("La date n'est pas conforme", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if ((validHour.test(hourStartInput.value)||validHour.test(hourEndInput.value))==false){
+      setShowModal(false);
+      toast.error("Une des heures n'est pas conforme", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
