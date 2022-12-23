@@ -23,6 +23,8 @@ export default async function handler(
     .then((result) => {
       let user = result;
 
+      console.log(result);
+
       res.status(200).json({ user: user });
     });
 }
