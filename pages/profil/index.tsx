@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 import styles from "../../styles/Home.module.css";
 
 interface User {
@@ -25,15 +26,19 @@ export default function UserModif() {
   const validPrenom = new RegExp("^\\D*$");
 
   const router = useRouter();
-  const query = router.query;
-  const idO = query.id;
   let token;
 
   useEffect(() => {
     token = localStorage.getItem("JWT");
 
     if (token != null) {
-      const body = { idUser: idO, token: token };
+      let decodedToken: any = jwt_decode(token);
+
+      let myId =
+        decodedToken[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ];
+      const body = { idUser: myId, token: token };
       fetch("/api/admin/getUserInfoUser", {
         method: "POST",
         body: JSON.stringify(body),
