@@ -97,7 +97,7 @@ export default function Home() {
     if (
       (classSelected1 != "0" || classSelected1.substring(0, pos) != "0") &&
       tutorSelected != "0" &&
-      comment.length <= 30
+      comment.length <= 50
     ) {
       var pos = classSelected1.indexOf(" ");
       const body = {
