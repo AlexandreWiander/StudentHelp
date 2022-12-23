@@ -8,6 +8,9 @@ type ModalProps = {
 
 let token: string | null = "";
 let idUser = -1;
+let dateNow = new Date();
+let stringDate = dateNow.getFullYear()+"-"+dateNow.getMonth()+"-"+dateNow.getDate();
+let hourDate = dateNow.getHours()+":"+dateNow.getMinutes();
 
 export default function DeleteUserModal({ id }: ModalProps, props: any) {
   const [showModal, setShowModal] = React.useState(false);
@@ -198,6 +201,8 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
                       </label>
                       <input
                         id="date"
+                        max="2024-12-31"
+                        value={stringDate}
                         type="date"
                         className="form-control block w-full text-center px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Select a date"
@@ -208,6 +213,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
                       <input
                         id="start"
                         type="time"
+                        value={hourDate}
                         className="form-control block w-full text-center px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Select a date"
                       />
@@ -217,6 +223,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
                       <input
                         id="end"
                         type="time"
+                        value={hourDate}
                         className="form-control block w-full text-center py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         placeholder="Select a date"
                       />
