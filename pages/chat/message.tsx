@@ -38,6 +38,7 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", async (idSender, message) => {
+        console.log(message);
         if (idSender == idO || idSender == myId) {
           const delay = (ms: number | undefined) =>
             new Promise((res) => setTimeout(res, ms));
@@ -72,7 +73,6 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      setMessage("");
       setNewMsg(makeid());
     } catch (error) {
       console.log("error");
@@ -127,7 +127,7 @@ export default function Message() {
           }
         });
     }
-  }, [idO, NewMsg, MessageText]);
+  }, [idO, NewMsg]);
 
   const handleKeypress = (e: { keyCode: number }) => {
     if (e.keyCode === 13) {
@@ -199,6 +199,7 @@ export default function Message() {
                   autoFocus
                   onChange={(e) => setMessage(e.target.value)}
                   type="text"
+                  value={MessageText}
                 />
                 <button
                   className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 w-32 ml-2 hover:scale-105 transition duration-500`}
