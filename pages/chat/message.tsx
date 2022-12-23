@@ -73,6 +73,7 @@ export default function Message() {
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
+      setMessage("");
       setNewMsg(makeid());
     } catch (error) {
       console.log("error");
