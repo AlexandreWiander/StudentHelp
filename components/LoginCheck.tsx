@@ -1,6 +1,7 @@
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export function LoginCheck({ children }: { children: JSX.Element }) {
   const router = useRouter();
@@ -54,6 +55,11 @@ export function LoginCheck({ children }: { children: JSX.Element }) {
         .then((res) => res.json())
         .then((result) => {
           localStorage.setItem("JWT", result.token);
+          if (result.token == "") {
+            localStorage.clear();
+            signOut();
+            router.push("/connection");
+          }
         });
 
       let fullNameGoogle = session.user?.name;

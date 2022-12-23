@@ -21,7 +21,7 @@ export default function Message() {
   const [Connection, setCon] = useState<HubConnection>();
   const [Discution, setDiscution] = useState<Array<Discution>>();
   const [MessageText, setMessage] = useState("");
-  const [NewMsg, setNewMsg] = useState(0);
+  const [NewMsg, setNewMsg] = useState("");
   const [ImageId, setImage] = useState(1);
   const [CorrName, setName] = useState("");
   let myId = -1;
@@ -37,11 +37,16 @@ export default function Message() {
         .configureLogging(LogLevel.Information)
         .build();
 
-      connection.on("ReceiveMessage", (idSender, message) => {
-        Discution?.push(message);
-        setDiscution(Discution);
-        let i = NewMsg;
-        setNewMsg(i + 1);
+      connection.on("ReceiveMessage", async (idSender, message) => {
+        if (idSender == idO || idSender == myId) {
+          const delay = (ms: number | undefined) =>
+            new Promise((res) => setTimeout(res, ms));
+          await delay(1500);
+
+          var newString = makeid();
+
+          setNewMsg(newString);
+        }
       });
 
       connection.serverTimeoutInMilliseconds = 240000;
@@ -51,18 +56,27 @@ export default function Message() {
     } catch (e) {}
   };
 
+  function makeid() {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   const sendMsg = async () => {
     const parsedInt = parseInt(typeof idO === "string" ? idO : "");
 
     try {
       await Connection?.invoke("SendMessage", myId, parsedInt, MessageText);
-      let i = NewMsg;
-      setNewMsg(i + 1);
+      setMessage("");
+      setNewMsg(makeid());
     } catch (error) {
       console.log("error");
     }
-    let i = NewMsg;
-    setNewMsg(i + 1);
   };
 
   let token: any = null;
@@ -74,9 +88,6 @@ export default function Message() {
     token = localStorage.getItem("JWT");
 
     if (Connection == undefined) {
-      joinRoom(token);
-    } else {
-      Connection.stop();
       joinRoom(token);
     }
 
@@ -188,6 +199,7 @@ export default function Message() {
                   autoFocus
                   onChange={(e) => setMessage(e.target.value)}
                   type="text"
+                  value={MessageText}
                 />
                 <button
                   className={`${styles["submitConnection"]} rounded-full shadow-md p-2 font-face-pg h-14 w-32 ml-2 hover:scale-105 transition duration-500`}
