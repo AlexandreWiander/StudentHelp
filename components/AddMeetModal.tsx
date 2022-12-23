@@ -99,6 +99,7 @@ export default function DeleteUserModal({ id }: ModalProps, props: any) {
         theme: "colored",
       });
     }else if(validDate.test(dateInput.value)==false){
+      console.log(dateInput.value);
       setShowModal(false);
       toast.error("La date n'est pas conforme", {
         position: "top-center",
