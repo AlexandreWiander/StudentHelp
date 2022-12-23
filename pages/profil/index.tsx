@@ -41,6 +41,8 @@ export default function UserModif() {
       })
         .then((res) => res.json())
         .then((result) => {
+          console.log(result);
+
           setUser(result.user);
           setMail(result.user.email);
           setFirstname(result.user.firstName);
