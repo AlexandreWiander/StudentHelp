@@ -104,6 +104,7 @@ export default function UserModif() {
             .then((res) => res.json())
             .then((result) => {
               if (result.message == "Success") {
+                router.reload();
                 toast.success("Compte modifié", {
                   position: "top-center",
                   autoClose: 5000,
