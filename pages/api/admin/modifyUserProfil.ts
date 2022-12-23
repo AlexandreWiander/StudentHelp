@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             'Content-Type': 'application/json',
             'Authorization': 'bearer ' + req.body.token, 
             },
-        body: JSON.stringify({ id: parseInt(req.body.id), email: req.body.mail, firstName: req.body.firstname, lastName: req.body.lastname, isAdmin: req.body.admin ,isActive: req.body.active,avatarNumber: parseInt(req.body.avatarnumber)})
+        body: JSON.stringify({ id: parseInt(req.body.id), email: req.body.mail, firstName: req.body.firstname, lastName: req.body.lastname})
         });
         
     
