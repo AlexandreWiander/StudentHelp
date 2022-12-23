@@ -38,7 +38,6 @@ export default function Message() {
         .build();
 
       connection.on("ReceiveMessage", async (idSender, message) => {
-        console.log(message);
         if (idSender == idO || idSender == myId) {
           const delay = (ms: number | undefined) =>
             new Promise((res) => setTimeout(res, ms));
