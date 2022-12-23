@@ -16,7 +16,7 @@ export default function Contact() {
   function Send() {
     const body = { mail: Mail, text: Text };
 
-    if (Mail && Text && validEmail.test(Mail) && Text.length<=200) {
+    if (Mail && Text && validEmail.test(Mail) && Text.length<=400) {
       fetch("/api/contact/sendContact", {
         method: "POST",
         body: JSON.stringify(body),
@@ -65,7 +65,7 @@ export default function Contact() {
         progress: undefined,
         theme: "colored",
       });
-    } else if(Text.length>200) {
+    } else if(Text.length>400) {
       toast.error("Le message ne peut pas faire plus de 200 caractères !", {
         position: "top-center",
         autoClose: 5000,
